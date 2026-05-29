@@ -1,0 +1,59 @@
+# axis-demo — Claude 上下文过滤（语法同 .gitignore）
+
+# 依赖
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# 构建产物
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+coverage/
+
+# figma 原型：体积大、且禁止在其上改业务；UI 迁移时按需 @ 单文件
+figma/node_modules/
+figma/dist/
+
+# 设计截图（结构化文档保留）
+figma/**/screenshots/**
+!docs/**/figma/design-tree.json
+!docs/**/figma/design-tokens.json
+
+# 测试报告
+test-results/
+playwright-report/
+
+# 日志与临时
+*.log
+.tmp/
+tmp/
+.DS_Store
+
+# 密钥
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*secret*
+*credentials*
+
+# Git
+.git/
+
+# 大型二进制
+*.zip
+*.mp4
+*.psd
+*.fig
+
+# 保留 Agent 必读
+!CLAUDE.md
+!onboard.md
+!docs/dev-plan.md
+!docs/axis.md
+!docs/api-protocol.md
