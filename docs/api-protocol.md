@@ -16,6 +16,8 @@ interface MarketItem {
   volume24h: number;
   changePercent: number; // (price - dayOpen) / dayOpen * 100
   ts: number;            // server-side last update time (ms)
+  bids?: [number, number][]; // [price, size] top 10 bids
+  asks?: [number, number][]; // [price, size] top 10 asks
 }
 
 // diff: only changed fields, symbol is always present

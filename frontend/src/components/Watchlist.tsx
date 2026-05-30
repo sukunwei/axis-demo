@@ -13,10 +13,17 @@ interface WatchlistProps {
 }
 
 const SymbolCountBadge = observer(function SymbolCountBadge() {
-  const { marketStore } = useStore();
+  const { marketStore, settingsStore } = useStore();
   return (
-    <span className="text-xs text-zinc-500 ml-3 font-mono tabular-nums">
-      {marketStore.symbolCount} symbols
+    <span className="inline-flex items-center gap-2 ml-3">
+      {settingsStore.serverFeedMode === 'mock' && (
+        <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">
+          MOCK
+        </span>
+      )}
+      <span className="text-xs text-zinc-500 font-mono tabular-nums">
+        {marketStore.symbolCount} symbols
+      </span>
     </span>
   );
 });
@@ -36,7 +43,7 @@ const ColumnHeaders = observer(function ColumnHeaders({
         Symbol {sortBy === 'symbol' && (sortDir === 'asc' ? '↑' : '↓')}
       </button>
       <button onClick={() => onToggle('price')} className="text-right hover:text-zinc-300 transition-colors">
-        Price {sortBy === 'price' && (sortDir === 'asc' ? '↑' : '↓')}
+        Last Price {sortBy === 'price' && (sortDir === 'asc' ? '↑' : '↓')}
       </button>
       <button onClick={() => onToggle('change')} className="text-right hover:text-zinc-300 transition-colors">
         24h Change {sortBy === 'change' && (sortDir === 'asc' ? '↑' : '↓')}
@@ -48,9 +55,11 @@ const ColumnHeaders = observer(function ColumnHeaders({
 /** Pure virtual scroll — no MobX subscriptions */
 function WatchlistBody({
   sortedSymbols,
+  searchTerm,
   onSelectSymbol,
 }: {
   sortedSymbols: string[];
+  searchTerm: string;
   onSelectSymbol: (symbol: string) => void;
 }) {
   const [scrollTop, setScrollTop] = useState(0);
@@ -79,6 +88,8 @@ function WatchlistBody({
     setScrollTop(e.currentTarget.scrollTop);
   }, []);
 
+  const q = searchTerm.toLowerCase();
+
   return (
     <div ref={containerRef} className="flex-1 overflow-y-auto" onScroll={handleScroll}>
       {sortedSymbols.length === 0 ? (
@@ -99,7 +110,9 @@ function WatchlistBody({
                   <div className="w-7 h-7 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
                     {symbol.charAt(0)}
                   </div>
-                  <span className="font-medium text-zinc-100 text-sm truncate">{symbol}</span>
+                  <span className="font-medium text-zinc-100 text-sm truncate">
+                    {q ? highlightMatch(symbol, q) : symbol}
+                  </span>
                 </div>
                 <div className="flex items-center justify-end">
                   <PriceCell symbol={symbol} />
@@ -111,6 +124,19 @@ function WatchlistBody({
         </div>
       )}
     </div>
+  );
+}
+
+/** Highlight matching characters in a string */
+function highlightMatch(text: string, query: string): React.ReactNode {
+  const idx = text.toLowerCase().indexOf(query);
+  if (idx === -1) return text;
+  return (
+    <>
+      <span className="text-zinc-100">{text.slice(0, idx)}</span>
+      <span className="text-yellow-400 font-medium">{text.slice(idx, idx + query.length)}</span>
+      <span className="text-zinc-100">{text.slice(idx + query.length)}</span>
+    </>
   );
 }
 
@@ -147,12 +173,12 @@ const WatchlistSorted = observer(function WatchlistSorted({
     return list;
   }, [marketStore.symbols, searchTerm, sortBy, sortDir]);
 
-  return <WatchlistBody sortedSymbols={sorted} onSelectSymbol={onSelectSymbol} />;
+  return <WatchlistBody sortedSymbols={sorted} searchTerm={searchTerm} onSelectSymbol={onSelectSymbol} />;
 });
 
 export function Watchlist({ onSelectSymbol }: WatchlistProps) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState<'symbol' | 'price' | 'change'>('symbol');
+  const [sortBy, setSortBy] = useState<'symbol' | 'price' | 'change'>('change');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
 
   const toggleSort = useCallback((field: typeof sortBy) => {

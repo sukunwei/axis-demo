@@ -16,5 +16,10 @@ export const PriceCell = observer(function PriceCell({ symbol, decimals = 2, pre
     return <span className="text-zinc-500 font-mono tabular-nums">—</span>;
   }
 
+  const price = asset.price;
+  if (!isFinite(price) || price === 0) {
+    return <span className="text-zinc-500 font-mono tabular-nums">—</span>;
+  }
+
   return <PriceTicker asset={asset} decimals={decimals} prefix={prefix} />;
 });

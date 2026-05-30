@@ -1,5 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Component, type ReactNode } from 'react';
+import { observer } from 'mobx-react-lite';
 import { ConnectionIndicator } from '../components/ConnectionIndicator';
+import { SettingsButton } from '../components/SettingsButton';
+import { SettingsModal } from '../components/SettingsModal';
+import { PerformanceMonitor } from '../components/PerformanceMonitor';
+import { NetworkStatus } from '../components/NetworkStatus';
 import { Watchlist } from '../components/Watchlist';
 import { Portfolio } from '../components/Portfolio';
 import { MarketOverview } from '../components/MarketOverview';
@@ -10,15 +15,58 @@ import { marketStore } from '../stores/store-instances';
 
 type Tab = 'watchlist' | 'portfolio';
 
-export default function App() {
+interface ErrorBoundaryProps {
+  children: ReactNode;
+}
+
+interface ErrorBoundaryState {
+  hasError: boolean;
+  error: Error | null;
+}
+
+class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    return { hasError: true, error };
+  }
+
+  render(): ReactNode {
+    if (this.state.hasError) {
+      return (
+        <div className="flex items-center justify-center h-64 text-red-400">
+          <div className="text-center">
+            <div className="text-lg font-semibold mb-2">Something went wrong</div>
+            <div className="text-sm text-zinc-500">{this.state.error?.message}</div>
+            <button
+              onClick={() => window.location.reload()}
+              className="mt-4 px-4 py-2 bg-zinc-800 text-zinc-100 rounded-lg text-sm hover:bg-zinc-700"
+            >
+              Reload
+            </button>
+          </div>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+const AppContent = observer(function AppContent() {
   const [activeTab, setActiveTab] = useState<Tab>('watchlist');
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
-  const { connectionStore } = useStore();
+  const { connectionStore, settingsStore } = useStore();
 
   useEffect(() => {
     wsClient.connect();
-    return () => wsClient.disconnect();
-  }, []);
+    return () => {
+      wsClient.disconnect();
+      connectionStore.dispose();
+    };
+  }, [connectionStore]);
 
   // Background resume: visibilitychange → reconnect + hello(lastSeq) if stale
   useEffect(() => {
@@ -41,18 +89,31 @@ export default function App() {
   }, [connectionStore.connectionState, connectionStore.lastMessageAt]);
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-white flex flex-col">
-      <header className="flex items-center justify-between px-6 py-4 border-b border-zinc-800">
-        <h1 className="text-lg font-semibold">axis-demo</h1>
-        <ConnectionIndicator />
-      </header>
+    <ErrorBoundary>
+      <div className="flex min-h-screen flex-col bg-zinc-950 text-white">
+        <header className="flex items-center justify-between border-b border-zinc-800 px-6 py-4">
+          <h1 className="text-lg font-semibold">axis-demo</h1>
+          <div className="flex items-center gap-2">
+            <ConnectionIndicator />
+            <SettingsButton />
+          </div>
+        </header>
 
-      <div className="flex flex-1 overflow-hidden">
-        <main className="flex-1 flex flex-col overflow-hidden">
+        <NetworkStatus />
+
+        <main
+          className={`flex flex-1 flex-col ${settingsStore.showPerformancePanel ? 'pb-14' : ''}`}
+        >
           {selectedSymbol ? (
-            <AssetDetail symbol={selectedSymbol} onBack={() => setSelectedSymbol(null)} />
+            <div className="min-h-0 flex-1 p-4">
+              <AssetDetail symbol={selectedSymbol} onBack={() => setSelectedSymbol(null)} />
+            </div>
           ) : (
             <>
+              <div className="px-4 pt-4">
+                <MarketOverview />
+              </div>
+
               <div className="flex items-center gap-1 px-4 pt-4">
                 <button
                   onClick={() => setActiveTab('watchlist')}
@@ -87,10 +148,13 @@ export default function App() {
           )}
         </main>
 
-        <aside className="w-64 p-4 overflow-y-auto border-l border-zinc-800">
-          <MarketOverview />
-        </aside>
+        <PerformanceMonitor />
+        <SettingsModal />
       </div>
-    </div>
+    </ErrorBoundary>
   );
+});
+
+export default function App() {
+  return <AppContent />;
 }

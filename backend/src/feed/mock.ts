@@ -5,6 +5,7 @@
  */
 
 export type TickHandler = (symbol: string, price: number) => void;
+export type OrderBookHandler = (symbol: string, bids: [number, number][], asks: [number, number][]) => void;
 
 interface MockSymbol {
   symbol: string;
@@ -95,10 +96,12 @@ export class MockFeed {
   private symbolsPerTick: number;
   private interval: ReturnType<typeof setInterval> | null = null;
   private onUpdate: TickHandler;
+  private onOrderBook: OrderBookHandler | null = null;
   private running = false;
 
-  constructor(onUpdate: TickHandler) {
+  constructor(onUpdate: TickHandler, onOrderBook?: OrderBookHandler) {
     this.onUpdate = onUpdate;
+    this.onOrderBook = onOrderBook ?? null;
     this.tickHz = Number(process.env.TICK_HZ ?? 5);
     this.symbolsPerTick = Number(process.env.SYMBOLS_PER_TICK ?? 30);
     this.symbols = ALL_SYMBOLS.map((s) => ({ ...s }));
@@ -134,7 +137,28 @@ export class MockFeed {
       const drift = (rand() - 0.5) * 2 * sym.volatility;
       sym.price = parseFloat((sym.price * (1 + drift)).toFixed(sym.price < 1 ? 6 : 2));
       this.onUpdate(sym.symbol, sym.price);
+      // Emit fake order book if handler is registered
+      if (this.onOrderBook) {
+        const book = this.generateFakeBook(sym.price);
+        const bids = book.filter((_, i) => i % 2 === 0);
+        const asks = book.filter((_, i) => i % 2 === 1);
+        this.onOrderBook(sym.symbol, bids, asks);
+      }
     }
+  }
+
+  /** Generate a deterministic fake order book around a mid price (8 levels each side) */
+  private generateFakeBook(midPrice: number): [number, number][] {
+    const levels: [number, number][] = [];
+    for (let i = 0; i < 8; i++) {
+      const offset = midPrice * (0.0001 * (i + 1));
+      const bidPx = parseFloat((midPrice - offset).toFixed(midPrice < 1 ? 6 : 2));
+      const askPx = parseFloat((midPrice + offset).toFixed(midPrice < 1 ? 6 : 2));
+      const bidSz = parseFloat((rand() * 10 + 0.1).toFixed(4));
+      const askSz = parseFloat((rand() * 10 + 0.1).toFixed(4));
+      levels.push([bidPx, bidSz], [askPx, askSz]);
+    }
+    return levels.sort((a, b) => a[0] - b[0]);
   }
 
   getSymbols(): string[] {

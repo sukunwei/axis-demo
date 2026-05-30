@@ -4,7 +4,7 @@
  */
 
 import type { WebSocket } from 'ws';
-import type { ServerMessage, MarketItem, MarketDiff } from './protocol.js';
+import type { ServerMessage, MarketItem, MarketDiff, FeedMode } from './protocol.js';
 import { RingBuffer } from './ringBuffer.js';
 
 interface ClientEntry {
@@ -98,6 +98,30 @@ export class Hub {
     for (const [ws] of this.clients) {
       if (ws.readyState === ws.OPEN) {
         try { ws.send(payload); } catch { /* drop */ }
+      }
+    }
+  }
+
+  broadcastFeedMode(mode: FeedMode): void {
+    const msg: ServerMessage = { type: 'feed_mode', mode };
+    const payload = JSON.stringify(msg);
+    for (const [ws] of this.clients) {
+      if (ws.readyState === ws.OPEN) {
+        try { ws.send(payload); } catch { /* drop */ }
+      }
+    }
+  }
+
+  broadcastSnapshot(seq: number, data: MarketItem[]): void {
+    const msg: ServerMessage = { type: 'snapshot', seq, data };
+    const payload = JSON.stringify(msg);
+    for (const [ws, entry] of this.clients) {
+      if (ws.readyState !== ws.OPEN) continue;
+      try {
+        ws.send(payload);
+        entry.lastSeq = seq;
+      } catch {
+        this.clients.delete(ws);
       }
     }
   }

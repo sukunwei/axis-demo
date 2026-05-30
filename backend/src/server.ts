@@ -37,9 +37,17 @@ const httpServer = http.createServer((req, res) => {
     res.end('ok');
     return;
   }
-  if (req.method === 'GET' && req.url === '/snapshot') {
+  if (req.method === 'GET' && req.url?.startsWith('/snapshot')) {
+    const url = new URL(req.url, 'http://localhost');
+    const mode = url.searchParams.get('mode') as 'mock' | 'hyperliquid' | null;
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ seq: aggregator.seq, data: aggregator.snapshot() }));
+    res.end(JSON.stringify({
+      seq: aggregator.seq,
+      feedMode: activeFeedMode,
+      modeRequested: mode,
+      symbolCount: aggregator.snapshot().length,
+      data: aggregator.snapshot(),
+    }));
     return;
   }
   res.writeHead(404);
@@ -51,6 +59,7 @@ const wss = new WebSocketServer({ server: httpServer });
 
 wss.on('connection', (ws: WebSocket) => {
   hub.addClient(ws);
+  ws.send(JSON.stringify({ type: 'feed_mode', mode: activeFeedMode } satisfies ServerMessage));
 
   ws.on('message', (data: Buffer) => {
     let msg: ClientMessage;
@@ -73,6 +82,19 @@ wss.on('connection', (ws: WebSocket) => {
       }
     } else if (msg.type === 'ping') {
       ws.send(JSON.stringify({ type: 'pong', ts: msg.ts } satisfies ServerMessage));
+    } else if (msg.type === 'set_feed_mode') {
+      const requested = msg.mode;
+      if (requested === activeFeedMode) return;
+
+      mockFallbackDone = requested === 'mock';
+      if (requested === 'mock') {
+        startMockFeed('client request');
+      } else {
+        startHyperliquidFeed();
+      }
+
+      hub.broadcastFeedMode(activeFeedMode);
+      hub.broadcastSnapshot(aggregator.seq, aggregator.snapshot());
     }
   });
 
@@ -81,40 +103,102 @@ wss.on('connection', (ws: WebSocket) => {
 });
 
 // ── Feed ─────────────────────────────────────────────────────────────────────
-let feed: MockFeed | HyperliquidFeed;
-
-if (FEED_MODE === 'hyperliquid') {
-  console.log('[feed] starting Hyperliquid feed');
-  feed = new HyperliquidFeed((symbol, price) => aggregator.onTick(symbol, price));
-  feed.start().catch((err) => {
-    console.error('[feed] HL feed failed to start, falling back to mock', err);
-    startMockFeed();
-  });
-} else {
-  startMockFeed();
+interface FeedWithOrderBook {
+  subscribeOrderBook(symbol: string): void;
+  unsubscribeOrderBook(symbol: string): void;
+  start(): Promise<void>;
 }
 
-function startMockFeed(): void {
-  console.log('[feed] starting Mock feed');
-  feed = new MockFeed((symbol, price) => aggregator.onTick(symbol, price));
-  const initial = feed.bootstrap(); // populate aggregator.state with all symbols
-  aggregator.flush(); // ensure ring buffer has initial seq 1
+type Feed = MockFeed | HyperliquidFeed;
+let feed: Feed;
+/** Effective feed after HL stall fallback (may differ from FEED_MODE env). */
+let activeFeedMode: 'mock' | 'hyperliquid' = FEED_MODE === 'hyperliquid' ? 'hyperliquid' : 'mock';
+let mockFallbackDone = false;
+
+const HL_STALL_FALLBACK_MS = 12_000;
+
+// Hyperliquid symbols for order book subscription
+const PERP_COINS = [
+  'BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE', 'ADA', 'AVAX',
+  'LINK', 'MATIC', 'DOT', 'SHIB', 'LTC', 'UNI', 'ATOM', 'APT',
+];
+
+function stopCurrentFeed(): void {
+  if (feed instanceof MockFeed) feed.stop();
+  else if (feed instanceof HyperliquidFeed) feed.stop();
+}
+
+function startMockFeed(reason?: string): void {
+  stopCurrentFeed();
+  activeFeedMode = 'mock';
+  console.log(`[feed] starting Mock feed${reason ? ` (${reason})` : ''}`);
+  aggregator.reset();
+  feed = new MockFeed(
+    (symbol, price) => aggregator.onTick(symbol, price),
+    (symbol, bids, asks) => aggregator.onOrderBook(symbol, bids, asks),
+  );
+  const initial = feed.bootstrap();
+  aggregator.flush();
   console.log(`[feed] bootstrapped ${initial.length} symbols`);
   feed.start();
 }
 
-// ── Status broadcast (with tick-based stale detection) ─────────────────────────
+function startHyperliquidFeed(): void {
+  activeFeedMode = 'hyperliquid';
+  console.log('[feed] starting Hyperliquid feed');
+  aggregator.reset();
+  feed = new HyperliquidFeed(
+    (symbol, price) => aggregator.onTick(symbol, price),
+    (symbol, bids, asks) => aggregator.onOrderBook(symbol, bids, asks),
+  );
+
+  feed.start().then(async () => {
+    await (feed as HyperliquidFeed).waitForOpen();
+    const hlFeed = feed as FeedWithOrderBook;
+    for (const coin of PERP_COINS) {
+      hlFeed.subscribeOrderBook(coin);
+    }
+    console.log(`[hl] subscribed to ${PERP_COINS.length} order books`);
+  }).catch((err: unknown) => {
+    console.error('[feed] HL feed failed to start, falling back to mock', err);
+    startMockFeed('HL start failed');
+  });
+}
+
+if (FEED_MODE === 'hyperliquid') {
+  startHyperliquidFeed();
+} else {
+  startMockFeed();
+}
+
+// ── Status broadcast + HL stall → mock fallback ───────────────────────────────
 const STATUS_INTERVAL = 5_000;
 setInterval(() => {
   const now = Date.now();
-  const noTickRecently = now - aggregator.lastTickAt > STALE_THRESHOLD_MS;
-  const hlConnected = feed instanceof HyperliquidFeed && (feed as HyperliquidFeed).isConnected;
+  const msSinceTick = now - aggregator.lastTickAt;
+
+  if (
+    FEED_MODE === 'hyperliquid' &&
+    !mockFallbackDone &&
+    activeFeedMode === 'hyperliquid' &&
+    feed instanceof HyperliquidFeed &&
+    msSinceTick > HL_STALL_FALLBACK_MS
+  ) {
+    mockFallbackDone = true;
+    console.warn(
+      `[feed] Hyperliquid stalled (no tick for ${msSinceTick}ms) — switching to mock for stable demo`,
+    );
+    startMockFeed('HL upstream stalled');
+  }
+
+  const noTickRecently = msSinceTick > STALE_THRESHOLD_MS;
+  const hlConnected = feed instanceof HyperliquidFeed && feed.isConnected;
   const state: 'connected' | 'stale' =
-    noTickRecently || (FEED_MODE === 'hyperliquid' && !hlConnected) ? 'stale' : 'connected';
+    noTickRecently || (activeFeedMode === 'hyperliquid' && !hlConnected) ? 'stale' : 'connected';
   hub.broadcastStatus(state, now);
 }, STATUS_INTERVAL);
 
 // ── Start ───────────────────────────────────────────────────────────────────
 httpServer.listen(PORT, () => {
-  console.log(`backend listening on ${PORT} (FEED_MODE=${FEED_MODE})`);
+  console.log(`backend listening on ${PORT} (FEED_MODE=${FEED_MODE}, active=${activeFeedMode})`);
 });

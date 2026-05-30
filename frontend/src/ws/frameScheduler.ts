@@ -17,6 +17,7 @@ type PendingEntry = {
 export class FrameScheduler {
   private pending: PendingEntry[] = [];
   private rafId: number | null = null;
+  private resyncInFlight = false;
 
   enqueue(msg: ServerMessage): void {
     this.pending.push({ msg, resolve: () => {} });
@@ -40,19 +41,21 @@ export class FrameScheduler {
 
     for (const { msg } of batch) {
       if (msg.type === 'snapshot') {
-        // snapshot: reset seq to 0 first, then apply
+        this.resyncInFlight = false;
         marketStore.applySnapshot(msg.data);
         snapshotSeq = msg.seq;
       } else if (msg.type === 'diff') {
-        // Validate fromSeq continuity; on mismatch force resync via hello
-        if (msg.fromSeq !== marketStore.seq && msg.fromSeq !== 0) {
-          // Seq gap — trigger resync; skip this batch
+        if (msg.fromSeq > marketStore.seq + 1 && msg.fromSeq > 0 && !this.resyncInFlight) {
+          // Gap of more than 1 seq — request resync (only once)
           console.warn(`[frameScheduler] seq gap: expected ${marketStore.seq}, got ${msg.fromSeq}. Requesting resync.`);
+          this.resyncInFlight = true;
           void marketStore.requestResync();
           continue;
         }
+        if (msg.fromSeq < marketStore.seq) {
+          continue;
+        }
         allChanges.push(...msg.changes);
-        // Update seq to toSeq
         marketStore.setSeq(msg.toSeq);
       }
     }
@@ -60,9 +63,11 @@ export class FrameScheduler {
     if (allChanges.length > 0) {
       marketStore.applyDiffBatch(allChanges);
     }
+
     if (snapshotSeq > 0) {
       marketStore.setSeq(snapshotSeq);
     }
+
     connectionStore.touch();
   }
 

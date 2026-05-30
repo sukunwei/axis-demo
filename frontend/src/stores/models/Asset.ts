@@ -17,6 +17,8 @@ export class Asset {
   volume24h = 0;
   changePercent = 0;
   ts = 0;
+  bids: [number, number][] = [];
+  asks: [number, number][] = [];
 
   constructor(symbol: string) {
     makeAutoObservable(this);
@@ -35,6 +37,8 @@ export class Asset {
     if (diff.volume24h !== undefined) this.volume24h = diff.volume24h;
     if (diff.changePercent !== undefined) this.changePercent = diff.changePercent;
     if (diff.ts !== undefined) this.ts = diff.ts;
+    if (diff.bids !== undefined) this.bids = diff.bids;
+    if (diff.asks !== undefined) this.asks = diff.asks;
   }
 
   /** Bootstrap from a full MarketItem snapshot */
@@ -47,6 +51,8 @@ export class Asset {
     this.volume24h = item.volume24h;
     this.changePercent = item.changePercent;
     this.ts = item.ts;
+    this.bids = item.bids ?? [];
+    this.asks = item.asks ?? [];
   }
 
   get direction(): 'up' | 'down' | 'flat' {

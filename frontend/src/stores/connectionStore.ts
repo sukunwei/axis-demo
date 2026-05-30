@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 
-export type ConnectionState = 'connected' | 'reconnecting' | 'stale' | 'disconnected';
+export type ConnectionState = 'connected' | 'reconnecting' | 'stale' | 'disconnected' | 'failed';
 
 const STALE_THRESHOLD_MS = 5_000;
 
@@ -8,6 +8,7 @@ export class ConnectionStore {
   connectionState: ConnectionState = 'disconnected';
   lastMessageAt = 0;
   paused = false;
+  retryCount = 0;
   private staleTimer: ReturnType<typeof setInterval> | null = null;
   private visibilityHandler: (() => void) | null = null;
 
@@ -21,6 +22,7 @@ export class ConnectionStore {
     runInAction(() => {
       this.connectionState = 'connected';
       this.lastMessageAt = Date.now();
+      this.retryCount = 0;
     });
   }
 
@@ -42,11 +44,33 @@ export class ConnectionStore {
     });
   }
 
+  setFailed(): void {
+    runInAction(() => {
+      this.connectionState = 'failed';
+    });
+  }
+
+  incrementRetry(): void {
+    runInAction(() => {
+      this.retryCount++;
+      if (this.retryCount >= 6) {
+        this.connectionState = 'failed';
+      }
+    });
+  }
+
+  resetRetry(): void {
+    runInAction(() => {
+      this.retryCount = 0;
+    });
+  }
+
   touch(): void {
     runInAction(() => {
       this.lastMessageAt = Date.now();
       if (this.connectionState !== 'connected') {
         this.connectionState = 'connected';
+        this.retryCount = 0;
       }
     });
   }

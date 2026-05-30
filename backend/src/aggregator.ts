@@ -89,9 +89,27 @@ export class Aggregator {
     if (diff) this.addDiff(diff);
   }
 
+  /** Update order book depth for a symbol */
+  onOrderBook(symbol: string, bids: [number, number][], asks: [number, number][]): void {
+    const prev = this.state.get(symbol);
+    if (!prev) return; // no price data yet, skip
+
+    const updated: MarketItem = {
+      ...prev,
+      bids,
+      asks,
+      ts: Date.now(),
+    };
+
+    this.state.set(symbol, updated);
+
+    const diff = this.computeOrderBookDiff(symbol, updated);
+    if (diff) this.addDiff(diff);
+  }
+
   private computeDiff(symbol: string, updated: MarketItem): MarketDiff | null {
     const last = this.lastSent.get(symbol);
-    if (!last) return { symbol, price: updated.price };
+    if (!last) return { symbol, price: updated.price, dayOpen: updated.dayOpen, dayHigh: updated.dayHigh, dayLow: updated.dayLow };
 
     const diff: MarketDiff = { symbol };
     let hasChanges = false;
@@ -102,12 +120,33 @@ export class Aggregator {
     if (updated.changePercent !== last.changePercent) { diff.changePercent = updated.changePercent; hasChanges = true; }
     if (updated.volume24h !== last.volume24h) { diff.volume24h = updated.volume24h; hasChanges = true; }
     if (updated.ts !== last.ts) { diff.ts = updated.ts; hasChanges = true; }
+    if (updated.bids !== last.bids) { diff.bids = updated.bids; hasChanges = true; }
+    if (updated.asks !== last.asks) { diff.asks = updated.asks; hasChanges = true; }
+
+    return hasChanges ? diff : null;
+  }
+
+  private computeOrderBookDiff(symbol: string, updated: MarketItem): MarketDiff | null {
+    const last = this.lastSent.get(symbol);
+    if (!last) return null;
+
+    const diff: MarketDiff = { symbol };
+    let hasChanges = false;
+
+    if (JSON.stringify(updated.bids) !== JSON.stringify(last.bids)) { diff.bids = updated.bids; hasChanges = true; }
+    if (JSON.stringify(updated.asks) !== JSON.stringify(last.asks)) { diff.asks = updated.asks; hasChanges = true; }
+    if (updated.ts !== last.ts) { diff.ts = updated.ts; hasChanges = true; }
 
     return hasChanges ? diff : null;
   }
 
   private addDiff(diff: MarketDiff): void {
-    this.pendingBatch.set(diff.symbol, diff); // last-write-wins
+    const existing = this.pendingBatch.get(diff.symbol);
+    // Merge per symbol within flush window — onTick then onOrderBook must not drop price
+    this.pendingBatch.set(
+      diff.symbol,
+      existing ? { ...existing, ...diff, symbol: diff.symbol } : diff,
+    );
     this.scheduleFlush();
   }
 
@@ -145,6 +184,18 @@ export class Aggregator {
       this.onTick(symbol, price);
     }
     this.flush();
+  }
+
+  /** Reset state — called when switching feed to prevent stale symbols persisting */
+  reset(): void {
+    this.state.clear();
+    this.lastSent.clear();
+    this.pendingBatch.clear();
+    this._seq = 0;
+    if (this.flushTimer) {
+      clearTimeout(this.flushTimer);
+      this.flushTimer = null;
+    }
   }
 
   snapshot(): MarketItem[] {

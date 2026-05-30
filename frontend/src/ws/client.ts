@@ -1,5 +1,6 @@
-import type { ClientMessage, ServerMessage } from '../lib/protocol';
-import { connectionStore, marketStore } from '../stores/store-instances';
+import { runInAction } from 'mobx';
+import type { ClientMessage, FeedMode, ServerMessage } from '../lib/protocol';
+import { connectionStore, marketStore, settingsStore } from '../stores/store-instances';
 import { frameScheduler } from './frameScheduler';
 
 const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:8080';
@@ -40,6 +41,13 @@ class WsClient {
     }
   }
 
+  sendFeedMode(mode: FeedMode): void {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      this.send({ type: 'set_feed_mode', mode });
+      this.requestResync();
+    }
+  }
+
   private open(): void {
     this.ws = new WebSocket(WS_URL);
 
@@ -69,12 +77,23 @@ class WsClient {
         return;
       }
 
+      if (msg.type === 'feed_mode') {
+        settingsStore.syncFeedMode(msg.mode);
+        // Sync mockDataEnabled to server's active feed mode so we don't fight it
+        runInAction(() => {
+          settingsStore.mockDataEnabled = msg.mode === 'mock';
+        });
+        return;
+      }
+
       frameScheduler.enqueue(msg);
 
       for (const h of this.messageHandlers) h(msg);
     };
 
-    this.ws.onerror = () => {};
+    this.ws.onerror = () => {
+      console.warn('[ws] connection error, reconnecting...');
+    };
 
     this.ws.onclose = () => {
       this.clearPing();
@@ -88,6 +107,7 @@ class WsClient {
   }
 
   private scheduleReconnect(): void {
+    connectionStore.incrementRetry();
     setTimeout(() => {
       if (this.shouldReconnect) this.open();
     }, this.retryDelay);
