@@ -1,6 +1,7 @@
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../stores/useStore';
 import { PriceCell } from './cells/PriceCell';
+import { AnimatedNumber } from './AnimatedNumber';
 import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
 
 export const PortfolioSummary = observer(function PortfolioSummary() {
@@ -18,13 +19,33 @@ export const PortfolioSummary = observer(function PortfolioSummary() {
     <div className="grid grid-cols-4 gap-4 p-4 bg-zinc-900 border border-zinc-800 rounded-xl">
       <div>
         <div className="text-xs text-zinc-500 mb-1">Portfolio Value</div>
-        <div className="text-xl font-semibold text-zinc-100">${totalValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+        <AnimatedNumber
+          value={totalValue}
+          decimals={2}
+          prefix="$"
+          className="text-xl font-semibold text-zinc-100"
+        />
       </div>
       <div>
         <div className="text-xs text-zinc-500 mb-1">Total P&L</div>
-        <div className={`text-xl font-semibold font-mono tabular-nums ${pnlColor}`}>
-          {pnlSign}${Math.abs(totalPnL).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-          <span className="text-sm ml-1">({totalPnLPercent >= 0 ? '+' : ''}{totalPnLPercent.toFixed(2)}%)</span>
+        <div className={`text-xl font-semibold ${pnlColor}`}>
+          <AnimatedNumber
+            value={Math.abs(totalPnL)}
+            decimals={2}
+            prefix={`${pnlSign}$`}
+            className={pnlColor}
+          />
+          <span className="text-sm ml-1">
+            (
+            <AnimatedNumber
+              value={totalPnLPercent}
+              decimals={2}
+              prefix={totalPnLPercent >= 0 ? '+' : ''}
+              suffix="%"
+              className={`text-sm ${pnlColor}`}
+            />
+            )
+          </span>
         </div>
       </div>
       <div>
@@ -63,7 +84,6 @@ const PortfolioRow = observer(function PortfolioRow({
   unrealizedPnLPercent,
 }: PortfolioRowProps) {
   const pnlColor = unrealizedPnL >= 0 ? 'text-green-400' : 'text-red-400';
-  const pnlSign = unrealizedPnL >= 0 ? '+' : '';
 
   return (
     <div className="grid grid-cols-5 gap-3 px-4 py-3 border-b border-zinc-800/50 hover:bg-zinc-800/40 transition-colors">
@@ -83,10 +103,16 @@ const PortfolioRow = observer(function PortfolioRow({
         ${avgCost.toFixed(2)}
       </div>
       <div className="flex items-center justify-end font-mono tabular-nums text-sm text-zinc-100">
-        ${marketValue.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        <AnimatedNumber value={marketValue} decimals={2} prefix="$" />
       </div>
       <div className={`flex items-center justify-end font-mono tabular-nums text-sm ${pnlColor}`}>
-        {pnlSign}{unrealizedPnLPercent.toFixed(2)}%
+        <AnimatedNumber
+          value={unrealizedPnLPercent}
+          decimals={2}
+          prefix={unrealizedPnL >= 0 ? '+' : ''}
+          suffix="%"
+          className={pnlColor}
+        />
       </div>
     </div>
   );
@@ -113,7 +139,12 @@ export const Portfolio = observer(function Portfolio({ onSelectSymbol }: Portfol
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        {positions.map((pos) => (
+        {positions.length === 0 ? (
+          <div className="flex items-center justify-center h-full text-zinc-500 text-sm">
+            No positions in portfolio
+          </div>
+        ) : (
+          positions.map((pos) => (
           <div
             key={pos.symbol}
             onClick={() => onSelectSymbol?.(pos.symbol)}
@@ -128,7 +159,8 @@ export const Portfolio = observer(function Portfolio({ onSelectSymbol }: Portfol
               unrealizedPnLPercent={pos.unrealizedPnLPercent}
             />
           </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ const STATE_LABELS: Record<ConnectionState, string> = {
   reconnecting: 'Reconnecting…',
   stale: 'Stale',
   disconnected: 'Disconnected',
+  failed: 'Failed',
 };
 
 const STATE_COLORS: Record<ConnectionState, string> = {
@@ -14,6 +15,7 @@ const STATE_COLORS: Record<ConnectionState, string> = {
   reconnecting: 'bg-yellow-500',
   stale: 'bg-orange-500',
   disconnected: 'bg-red-500',
+  failed: 'bg-red-600',
 };
 
 export const ConnectionIndicator = observer(function ConnectionIndicator() {

@@ -373,6 +373,8 @@ type MarketDiff = { symbol: string } & Partial<Omit<MarketItem, 'symbol'>>;
 | 代码结构 | monorepo；后端 feed/hub；前端 `stores/` + ws + cells | 目录 §2.2 |
 | 后台恢复 | visibilitychange + 重连回放/快照 reconcile | P3 手测 |
 | 连接状态 | connectionStore 四态 + 本地 stale | P1/P3 |
+| FPS 监控 | PerfOverlay RAF 写 DOM ref，无 setState | P7 右上角实时 FPS |
+| 涨跌色切换 | ThemeStore + ThemeToggle + PriceTicker/ChangeCell 主题感知 | P8 导航栏按钮 |
 
 ---
 
@@ -404,4 +406,40 @@ type MarketDiff = { symbol: string } & Partial<Omit<MarketItem, 'symbol'>>;
 - `执行 Phase 2，vitest 全绿后用 wscat 演示 hello→snapshot→diff`
 - `执行 Phase 3：stores/store-instances + Market/Portfolio/ConnectionStore + frameScheduler + 行级 observer cells`
 - `执行 Phase 4：PriceTicker（observer+RAF），Profiler 证明 Watchlist 根无高频 render`
-- `执行 Phase 5 与 Phase 6`
+= `执行 Phase 5 与 Phase 6`
+- `执行 Phase 7：PerfOverlay FPS 面板`
+- `执行 Phase 8：涨跌色切换 ThemeToggle`
+
+---
+
+### Phase 7 — 性能监控面板（FPS Overlay）
+
+**任务**
+- 开发 `frontend/src/components/PerfOverlay.tsx`：固定在右上角（`Connected` badge 旁），显示：
+  - **FPS**：最近 1 秒内 `requestAnimationFrame` 触发次数（rolling counter，每秒重置）
+  - **Memory**（可选）：`performance.memory.usedJSHeapSize` / `totalJSHeapSize`
+  - **WS Msg/s**（可选）：后端每秒推送消息计数
+- 实现：纯 RAF 循环计数，**无 `setState`**，只写 DOM ref（`fpsRef.textContent = fps`），避免触发 React 重渲染
+- 样式：半透明背景、小字号、monospace，与页面主题色一致
+- 连接状态检测：WS 断开时显示 `WS DISCONNECTED` 红色警告
+
+**DoD**：FPS 面板实时更新；WS 断连时警告显示；不影响页面性能（RAF 写 DOM ref 无 setState）
+
+**验证**：`npm run start` 后右上角可见实时 FPS；断开后端 WS 后面板显示红色断连警告
+
+---
+
+### Phase 8 — 涨跌色切换（绿涨红跌 ↔ 红涨绿跌）
+
+**任务**
+- 新增 `stores/themeStore.ts`：`ThemeStore` 管理 `colorTheme: 'green-red' | 'red-green'`，localStorage 持久化
+- 新增 `components/ThemeToggle.tsx`：observer 按钮，开关切换 colorTheme
+- 修改 `PriceTicker.tsx`：涨跌闪烁、方向颜色读取 `themeStore.colorTheme`，切换时跟随变化
+- 修改 `ChangeCell.tsx`：涨跌幅颜色随主题切换
+- 入口 `App.tsx` header 区域添加 `<ThemeToggle />`
+
+**DoD**：点击按钮可切换绿涨红跌 ↔ 红涨绿跌；刷新页面保持主题
+
+**验证**：点击按钮后价格闪烁颜色翻转；刷新后主题一致
+
+---
