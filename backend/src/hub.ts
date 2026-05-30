@@ -50,12 +50,28 @@ export class Hub {
       return { action: 'uptodate', seq: latestSeq };
     }
 
-    // Within window — replay merged diff
+    // Within window — replay merged diff (field-level merge per symbol)
     const entries = this.ringBuffer.readRange(lastSeq);
     const merged = new Map<string, MarketDiff>();
     for (const e of entries) {
       for (const change of e.changes) {
-        merged.set(change.symbol, change);
+        const prev = merged.get(change.symbol);
+        if (prev) {
+          // Field-level merge: for each key in change, only override if value is defined
+          const mergedEntry: MarketDiff = { symbol: change.symbol };
+          for (const key of Object.keys(change) as (keyof MarketDiff)[]) {
+            const v = change[key] as unknown;
+            if (v !== undefined) (mergedEntry as Record<string, unknown>)[key] = v;
+          }
+          for (const key of Object.keys(prev) as (keyof MarketDiff)[]) {
+            if ((mergedEntry as Record<string, unknown>)[key] === undefined) {
+              (mergedEntry as Record<string, unknown>)[key] = prev[key];
+            }
+          }
+          merged.set(change.symbol, mergedEntry as MarketDiff);
+        } else {
+          merged.set(change.symbol, change);
+        }
       }
     }
     const changes = Array.from(merged.values());

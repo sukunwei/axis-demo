@@ -1,6 +1,7 @@
 import { runInAction } from 'mobx';
 import type { ClientMessage, FeedMode, ServerMessage } from '../lib/protocol';
 import { connectionStore, marketStore, settingsStore } from '../stores/store-instances';
+import { setWsClient } from '../stores/marketStore';
 import { frameScheduler } from './frameScheduler';
 
 const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:5174';
@@ -158,3 +159,6 @@ class WsClient {
 }
 
 export const wsClient = new WsClient();
+
+// Inject real client into marketStore (after both modules are initialized)
+setWsClient(wsClient);

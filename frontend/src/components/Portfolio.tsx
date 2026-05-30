@@ -1,9 +1,25 @@
 import { useState, useMemo, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../stores/useStore';
+import type { MarketStore } from '../stores/marketStore';
 import { PriceCell } from './cells/PriceCell';
 import { AnimatedNumber } from './AnimatedNumber';
 import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
+
+/** Live metrics for one row — used in sort comparator and row observer */
+function positionMetrics(
+  symbol: string,
+  quantity: number,
+  avgCost: number,
+  marketStore: MarketStore,
+) {
+  const price = marketStore.getAsset(symbol)?.price ?? avgCost;
+  const marketValue = quantity * price;
+  const costBasis = quantity * avgCost;
+  const unrealizedPnL = marketValue - costBasis;
+  const unrealizedPnLPercent = costBasis > 0 ? (unrealizedPnL / costBasis) * 100 : 0;
+  return { marketValue, unrealizedPnL, unrealizedPnLPercent };
+}
 
 export const PortfolioSummary = observer(function PortfolioSummary({ paused = false }: { paused?: boolean }) {
   const { portfolioStore } = useStore();
@@ -77,20 +93,23 @@ interface PortfolioRowProps {
   symbol: string;
   quantity: number;
   avgCost: number;
-  marketValue: number;
-  unrealizedPnL: number;
-  unrealizedPnLPercent: number;
+  paused: boolean;
 }
 
+/** Row-level observer — subscribes only to this symbol's price (like Watchlist cells) */
 const PortfolioRow = observer(function PortfolioRow({
   symbol,
   quantity,
   avgCost,
-  marketValue,
-  unrealizedPnL,
-  unrealizedPnLPercent,
   paused,
-}: PortfolioRowProps & { paused: boolean }) {
+}: PortfolioRowProps) {
+  const { marketStore } = useStore();
+  const { marketValue, unrealizedPnL, unrealizedPnLPercent } = positionMetrics(
+    symbol,
+    quantity,
+    avgCost,
+    marketStore,
+  );
   const pnlColor = unrealizedPnL >= 0 ? 'text-green-400' : 'text-red-400';
 
   return (
@@ -111,7 +130,13 @@ const PortfolioRow = observer(function PortfolioRow({
         ${avgCost.toFixed(2)}
       </div>
       <div className="flex items-center justify-end font-mono tabular-nums text-sm text-zinc-100">
-        <AnimatedNumber value={marketValue} decimals={2} prefix="$" enableFlash={false} />
+        <AnimatedNumber
+          value={marketValue}
+          decimals={2}
+          prefix="$"
+          enableFlash={false}
+          paused={paused}
+        />
       </div>
       <div className={`flex items-center justify-end font-mono tabular-nums text-sm ${pnlColor}`}>
         <AnimatedNumber
@@ -121,6 +146,7 @@ const PortfolioRow = observer(function PortfolioRow({
           suffix="%"
           className={pnlColor}
           enableFlash={false}
+          paused={paused}
         />
       </div>
     </div>
@@ -177,16 +203,26 @@ const PortfolioSorted = observer(function PortfolioSorted({
 }) {
   const { marketStore, portfolioStore } = useStore();
   const needsLiveSort = sortBy === 'price' || sortBy === 'value' || sortBy === 'pnl';
+  // Sort static basis only — row cells update via per-row observers (no full-table props refresh)
   const sorted = useMemo(() => {
-    const list = [...portfolioStore.positions];
+    const list = [...portfolioStore.positionBasis];
     list.sort((a, b) => {
       let cmp = 0;
       if (sortBy === 'symbol') cmp = a.symbol.localeCompare(b.symbol);
       else if (sortBy === 'price') {
-        cmp = (marketStore.getAsset(a.symbol)?.price ?? 0) - (marketStore.getAsset(b.symbol)?.price ?? 0);
+        cmp =
+          (marketStore.getAsset(a.symbol)?.price ?? a.avgCost) -
+          (marketStore.getAsset(b.symbol)?.price ?? b.avgCost);
       } else if (sortBy === 'cost') cmp = a.avgCost - b.avgCost;
-      else if (sortBy === 'value') cmp = a.marketValue - b.marketValue;
-      else cmp = a.unrealizedPnLPercent - b.unrealizedPnLPercent;
+      else if (sortBy === 'value') {
+        cmp =
+          positionMetrics(a.symbol, a.quantity, a.avgCost, marketStore).marketValue -
+          positionMetrics(b.symbol, b.quantity, b.avgCost, marketStore).marketValue;
+      } else {
+        cmp =
+          positionMetrics(a.symbol, a.quantity, a.avgCost, marketStore).unrealizedPnLPercent -
+          positionMetrics(b.symbol, b.quantity, b.avgCost, marketStore).unrealizedPnLPercent;
+      }
       return sortDir === 'asc' ? cmp : -cmp;
     });
     return list;
@@ -209,9 +245,6 @@ const PortfolioSorted = observer(function PortfolioSorted({
               symbol={pos.symbol}
               quantity={pos.quantity}
               avgCost={pos.avgCost}
-              marketValue={pos.marketValue}
-              unrealizedPnL={pos.unrealizedPnL}
-              unrealizedPnLPercent={pos.unrealizedPnLPercent}
               paused={!isActive}
             />
           </div>

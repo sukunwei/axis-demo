@@ -12,6 +12,7 @@ import { marketStore, connectionStore } from '../stores/store-instances';
 type PendingEntry = {
   msg: ServerMessage;
   resolve: () => void;
+  gapped?: boolean;
 };
 
 export class FrameScheduler {
@@ -20,6 +21,9 @@ export class FrameScheduler {
   private resyncInFlight = false;
 
   enqueue(msg: ServerMessage): void {
+    if (msg.type === 'snapshot') {
+      this.resyncInFlight = false;
+    }
     this.pending.push({ msg, resolve: () => {} });
     this.scheduleFlush();
   }
@@ -37,17 +41,16 @@ export class FrameScheduler {
     this.pending = [];
 
     let snapshotSeq = 0;
+    let hasSnapshot = false;
     const allChanges: MarketDiff[] = [];
 
     for (const { msg } of batch) {
       if (msg.type === 'snapshot') {
-        this.resyncInFlight = false;
+        hasSnapshot = true;
         marketStore.applySnapshot(msg.data);
         snapshotSeq = msg.seq;
       } else if (msg.type === 'diff') {
-        if (msg.fromSeq > marketStore.seq + 1 && msg.fromSeq > 0 && !this.resyncInFlight) {
-          // Gap of more than 1 seq — request resync (only once)
-          console.warn(`[frameScheduler] seq gap: expected ${marketStore.seq}, got ${msg.fromSeq}. Requesting resync.`);
+        if (msg.fromSeq > marketStore.seq && msg.fromSeq > 0 && !this.resyncInFlight) {
           this.resyncInFlight = true;
           void marketStore.requestResync();
           continue;
@@ -66,6 +69,10 @@ export class FrameScheduler {
 
     if (snapshotSeq > 0) {
       marketStore.setSeq(snapshotSeq);
+    }
+
+    if (hasSnapshot) {
+      this.resyncInFlight = false;
     }
 
     connectionStore.touch();

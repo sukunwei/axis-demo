@@ -38,6 +38,11 @@ export class PortfolioStore {
     makeAutoObservable(this);
   }
 
+  /** Static holdings (symbol/qty/cost) — stable reference for list sort keys */
+  get positionBasis(): readonly MockPosition[] {
+    return MOCK_POSITIONS;
+  }
+
   get positions(): PositionRow[] {
     return MOCK_POSITIONS.map((pos) => {
       const asset = this.marketStore.getAsset(pos.symbol);

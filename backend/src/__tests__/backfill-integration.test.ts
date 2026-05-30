@@ -207,3 +207,4 @@ describe('Backfill integration — empty ring buffer', () => {
     expect(result.action).toBe('snapshot');
   });
 });
+

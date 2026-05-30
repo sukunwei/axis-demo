@@ -1,5 +1,5 @@
 import { ConnectionStore } from './connectionStore';
-import { MarketStore, setWsClient } from './marketStore';
+import { MarketStore } from './marketStore';
 import { PortfolioStore } from './portfolioStore';
 import { ThemeStore } from './themeStore';
 import { SettingsStore } from './settingsStore';
@@ -14,8 +14,8 @@ export const settingsStore = new SettingsStore();
 export const perfStore = new PerfStore();
 export const newsStore = new NewsStore();
 
-// Wire marketStore → wsClient (after both are created to avoid circular import)
-setWsClient({ requestResync: () => {} }); // placeholder until ws client is ready
+// wsClient self-injects via setWsClient(wsClient) at bottom of client.ts
+// after both modules are initialized — no placeholder needed here
 
 export const stores = {
   connectionStore,
