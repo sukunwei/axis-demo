@@ -34,14 +34,14 @@ export const NewsTab = observer(function NewsTab() {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-3 overflow-y-auto pr-1">
       {newsStore.items.map((item) => (
         <a
           key={item.id}
           href={item.url ?? '#'}
           target="_blank"
           rel="noopener noreferrer"
-          className="block p-4 bg-zinc-900 rounded-lg border border-zinc-800 hover:border-amber-600/50 hover:shadow-lg hover:shadow-amber-900/10 transition-all"
+          className="block p-5 bg-zinc-900 rounded-lg border border-zinc-800 hover:border-amber-600/50 hover:shadow-lg hover:shadow-amber-900/10 transition-all"
         >
           <div className="text-sm font-medium text-zinc-200 mb-1 leading-snug">{item.title}</div>
           {item.summary && item.summary !== item.title && (

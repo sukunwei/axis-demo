@@ -10,6 +10,10 @@ export const setWsClient = (c: WsClient) => { _wsClient = c; };
 export class MarketStore {
   assets = new Map<string, Asset>();
   seq = 0;
+  /** Bumped on every price update — sort useMemos depend on this to re-sort */
+  priceUpdateAt = 0;
+  /** Cached symbols array — only recomputed when assets change */
+  private _symbols: string[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -20,7 +24,7 @@ export class MarketStore {
   }
 
   get symbols(): string[] {
-    return Array.from(this.assets.keys());
+    return this._symbols;
   }
 
   get symbolCount(): number {
@@ -35,20 +39,28 @@ export class MarketStore {
         asset.fromSnapshot(item);
         this.assets.set(item.symbol, asset);
       }
+      this._symbols = Array.from(this.assets.keys());
       this.seq = 0;
+      this.priceUpdateAt = Date.now();
     });
   }
 
   applyDiffBatch(changes: MarketDiff[]): void {
+    let newSymbolAdded = false;
     runInAction(() => {
       for (const diff of changes) {
         let asset = this.assets.get(diff.symbol);
         if (!asset) {
           asset = new Asset(diff.symbol);
           this.assets.set(diff.symbol, asset);
+          newSymbolAdded = true;
         }
         asset.patch(diff);
       }
+      if (newSymbolAdded) {
+        this._symbols = Array.from(this.assets.keys());
+      }
+      this.priceUpdateAt = Date.now();
     });
   }
 

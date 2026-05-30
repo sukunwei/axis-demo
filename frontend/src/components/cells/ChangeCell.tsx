@@ -6,9 +6,10 @@ import { upColor, downColor } from '../../lib/themeColors';
 
 interface ChangeCellProps {
   symbol: string;
+  paused?: boolean;
 }
 
-export const ChangeCell = observer(function ChangeCell({ symbol }: ChangeCellProps) {
+export const ChangeCell = observer(function ChangeCell({ symbol, paused = false }: ChangeCellProps) {
   const { marketStore, themeStore, connectionStore } = useStore();
   const asset = marketStore.getAsset(symbol);
 
@@ -18,7 +19,7 @@ export const ChangeCell = observer(function ChangeCell({ symbol }: ChangeCellPro
     decimals: 2,
     prefix: pct >= 0 ? '+' : '',
     suffix: '%',
-    paused: connectionStore.paused,
+    paused: paused || connectionStore.paused,
     theme: themeStore.colorTheme,
     animateNumber: false,
     resetKey: symbol,

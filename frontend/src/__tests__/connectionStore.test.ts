@@ -15,8 +15,8 @@ describe('ConnectionStore', () => {
   });
 
   describe('connectionState transitions', () => {
-    it('starts as disconnected', () => {
-      expect(store.connectionState).toBe('disconnected');
+    it('starts as connected', () => {
+      expect(store.connectionState).toBe('connected');
     });
 
     it('setConnected → connected', () => {

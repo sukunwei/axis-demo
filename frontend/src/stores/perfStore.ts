@@ -4,6 +4,8 @@ export class PerfStore {
   fps = 0;
   memoryUsedMb = 0;
   memoryTotalMb = 0;
+  renders = 0;
+  private rendersResetTimer: ReturnType<typeof setInterval> | null = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -22,4 +24,25 @@ export class PerfStore {
     });
   }
 
+  incrementRenderCount(): void {
+    this.renders++;
   }
+
+  startRenderCounter(): void {
+    if (this.rendersResetTimer) return;
+    this.rendersResetTimer = setInterval(() => {
+      runInAction(() => {
+        this.renders = 0;
+      });
+    }, 1_000);
+  }
+
+  stopRenderCounter(): void {
+    if (this.rendersResetTimer) {
+      clearInterval(this.rendersResetTimer);
+      this.rendersResetTimer = null;
+    }
+  }
+}
+
+export const perfStore = new PerfStore();

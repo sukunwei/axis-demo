@@ -11,6 +11,7 @@ import { AssetDetail } from '../components/AssetDetail';
 import { wsClient } from '../ws/client';
 import { useStore } from '../stores/useStore';
 import { marketStore } from '../stores/store-instances';
+import { useRenderCounter } from '../hooks/useRenderCounter';
 
 const NewsTab = lazy(() => import('../components/NewsTab').then((m) => ({ default: m.NewsTab })));
 
@@ -61,6 +62,8 @@ const AppContent = observer(function AppContent() {
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
   const { connectionStore, settingsStore } = useStore();
 
+  useRenderCounter();
+
   useEffect(() => {
     wsClient.connect();
     return () => {
@@ -69,17 +72,15 @@ const AppContent = observer(function AppContent() {
     };
   }, [connectionStore]);
 
-  // Background resume: visibilitychange → reconnect + hello(lastSeq) if stale
+  // Background resume: read latest store state inside handler — avoid rebinding on every WS tick
   useEffect(() => {
     const handleVisibility = () => {
       if (document.visibilityState !== 'visible') return;
-      // Always fire on visible; decide whether to reconnect based on state + staleness
       const state = connectionStore.connectionState;
       const msSinceMessage = Date.now() - connectionStore.lastMessageAt;
       if (state === 'reconnecting' || state === 'disconnected') {
         wsClient.connect();
       } else if (state === 'connected' && msSinceMessage > 10_000) {
-        // Connected but stale (>10s since last message) — reconnect + send hello with lastSeq
         wsClient.connect();
         const lastSeq = marketStore.seq;
         wsClient.sendHello(lastSeq > 0 ? lastSeq : undefined);
@@ -87,7 +88,7 @@ const AppContent = observer(function AppContent() {
     };
     document.addEventListener('visibilitychange', handleVisibility);
     return () => document.removeEventListener('visibilitychange', handleVisibility);
-  }, [connectionStore.connectionState, connectionStore.lastMessageAt]);
+  }, [connectionStore]);
 
   return (
     <ErrorBoundary>
@@ -146,16 +147,40 @@ const AppContent = observer(function AppContent() {
                 </button>
               </div>
 
-              <div className="flex-1 p-4 overflow-hidden">
-                {activeTab === 'watchlist' ? (
-                  <Watchlist onSelectSymbol={setSelectedSymbol} />
-                ) : activeTab === 'portfolio' ? (
-                  <Portfolio onSelectSymbol={setSelectedSymbol} />
-                ) : (
-                  <Suspense fallback={<div className="flex items-center justify-center h-32 text-zinc-500 text-sm">Loading...</div>}>
+              <div className="relative flex-1 overflow-hidden p-4">
+                {/* Keep panels mounted — conditional unmount was remounting ~50 live cells per switch */}
+                <div
+                  className={`h-full ${activeTab === 'watchlist' ? '' : 'hidden'}`}
+                  aria-hidden={activeTab !== 'watchlist'}
+                >
+                  <Watchlist
+                    isActive={activeTab === 'watchlist'}
+                    onSelectSymbol={setSelectedSymbol}
+                  />
+                </div>
+                <div
+                  className={`h-full ${activeTab === 'portfolio' ? '' : 'hidden'}`}
+                  aria-hidden={activeTab !== 'portfolio'}
+                >
+                  <Portfolio
+                    isActive={activeTab === 'portfolio'}
+                    onSelectSymbol={setSelectedSymbol}
+                  />
+                </div>
+                <div
+                  className={`h-full ${activeTab === 'news' ? '' : 'hidden'}`}
+                  aria-hidden={activeTab !== 'news'}
+                >
+                  <Suspense
+                    fallback={
+                      <div className="flex h-32 items-center justify-center text-sm text-zinc-500">
+                        Loading...
+                      </div>
+                    }
+                  >
                     <NewsTab />
                   </Suspense>
-                )}
+                </div>
               </div>
             </>
           )}

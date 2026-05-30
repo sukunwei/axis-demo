@@ -17,7 +17,12 @@ export const PerformanceMonitor = observer(function PerformanceMonitor() {
   const rafIdRef = useRef(0);
 
   useEffect(() => {
-    if (!settingsStore.showPerformancePanel) return;
+    if (!settingsStore.showPerformancePanel) {
+      perfStore.stopRenderCounter();
+      return;
+    }
+
+    perfStore.startRenderCounter();
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const perf = performance as any;
@@ -45,7 +50,10 @@ export const PerformanceMonitor = observer(function PerformanceMonitor() {
     lastTimeRef.current = performance.now();
     rafIdRef.current = requestAnimationFrame(tick);
 
-    return () => cancelAnimationFrame(rafIdRef.current);
+    return () => {
+      cancelAnimationFrame(rafIdRef.current);
+      perfStore.stopRenderCounter();
+    };
   }, [settingsStore.showPerformancePanel]);
 
   if (!settingsStore.showPerformancePanel) return null;
@@ -85,7 +93,15 @@ export const PerformanceMonitor = observer(function PerformanceMonitor() {
           </div>
         </div>
 
-        
+        <div className="flex shrink-0 items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5">
+          <ActivityIcon className="h-3.5 w-3.5 text-cyan-400" />
+          <span className="font-mono text-sm tabular-nums text-cyan-400">
+            {perfStore.renders}
+          </span>
+          <span className="text-xs text-zinc-500">renders/s</span>
+        </div>
+
+
         <button
           type="button"
           className="ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-zinc-700 bg-zinc-800 text-zinc-300 transition-colors hover:bg-zinc-700"

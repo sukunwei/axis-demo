@@ -6,10 +6,17 @@ interface PriceCellProps {
   symbol: string;
   decimals?: number;
   prefix?: string;
+  /** Extra pause when parent tab is hidden (keep-alive). */
+  paused?: boolean;
 }
 
-export const PriceCell = observer(function PriceCell({ symbol, decimals = 2, prefix = '$' }: PriceCellProps) {
-  const { marketStore } = useStore();
+export const PriceCell = observer(function PriceCell({
+  symbol,
+  decimals = 2,
+  prefix = '$',
+  paused = false,
+}: PriceCellProps) {
+  const { marketStore, connectionStore } = useStore();
   const asset = marketStore.getAsset(symbol);
 
   if (!asset) {
@@ -21,5 +28,12 @@ export const PriceCell = observer(function PriceCell({ symbol, decimals = 2, pre
     return <span className="text-zinc-500 font-mono tabular-nums">—</span>;
   }
 
-  return <PriceTicker asset={asset} decimals={decimals} prefix={prefix} />;
+  return (
+    <PriceTicker
+      asset={asset}
+      decimals={decimals}
+      prefix={prefix}
+      paused={paused || connectionStore.paused}
+    />
+  );
 });

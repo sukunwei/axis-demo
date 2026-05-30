@@ -156,7 +156,7 @@ export const OrderBook = memo(
               <div className="flex flex-col-reverse">
                 {asksWithTotal.map(({ price, size, total }) => (
                   <OrderBookRow
-                    key={price}
+                    key={`${price}-${size}`}
                     price={price}
                     size={size}
                     total={total}
@@ -188,7 +188,7 @@ export const OrderBook = memo(
             <div className="shrink-0 max-h-48 overflow-y-auto">
               {bidsWithTotal.map(({ price, size, total }) => (
                 <OrderBookRow
-                  key={price}
+                  key={`${price}-${size}`}
                   price={price}
                   size={size}
                   total={total}

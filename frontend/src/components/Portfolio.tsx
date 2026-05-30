@@ -5,7 +5,7 @@ import { PriceCell } from './cells/PriceCell';
 import { AnimatedNumber } from './AnimatedNumber';
 import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
 
-export const PortfolioSummary = observer(function PortfolioSummary() {
+export const PortfolioSummary = observer(function PortfolioSummary({ paused = false }: { paused?: boolean }) {
   const { portfolioStore } = useStore();
   const totalValue = portfolioStore.totalValue;
   const totalPnL = portfolioStore.totalPnL;
@@ -17,7 +17,7 @@ export const PortfolioSummary = observer(function PortfolioSummary() {
   const pnlSign = totalPnL >= 0 ? '+' : '';
 
   return (
-    <div className="grid grid-cols-4 gap-4 p-4 bg-zinc-900 border border-zinc-800 rounded-xl">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-zinc-900 border border-zinc-800 rounded-xl">
       <div>
         <div className="text-xs text-zinc-500 mb-1">Portfolio Value</div>
         <AnimatedNumber
@@ -26,9 +26,10 @@ export const PortfolioSummary = observer(function PortfolioSummary() {
           prefix="$"
           className="text-xl font-semibold text-zinc-100"
           enableFlash={false}
+          paused={paused}
         />
       </div>
-      <div>
+      <div className="lg:col-span-1 col-span-2">
         <div className="text-xs text-zinc-500 mb-1">Total P&L</div>
         <div className={`text-xl font-semibold ${pnlColor}`}>
           <AnimatedNumber
@@ -37,6 +38,7 @@ export const PortfolioSummary = observer(function PortfolioSummary() {
             prefix={`${pnlSign}$`}
             className={pnlColor}
             enableFlash={false}
+            paused={paused}
           />
           <span className="text-sm ml-1">
             (
@@ -47,6 +49,7 @@ export const PortfolioSummary = observer(function PortfolioSummary() {
               suffix="%"
               className={`text-sm ${pnlColor}`}
               enableFlash={false}
+              paused={paused}
             />
             )
           </span>
@@ -86,7 +89,8 @@ const PortfolioRow = observer(function PortfolioRow({
   marketValue,
   unrealizedPnL,
   unrealizedPnLPercent,
-}: PortfolioRowProps) {
+  paused,
+}: PortfolioRowProps & { paused: boolean }) {
   const pnlColor = unrealizedPnL >= 0 ? 'text-green-400' : 'text-red-400';
 
   return (
@@ -101,7 +105,7 @@ const PortfolioRow = observer(function PortfolioRow({
         </div>
       </div>
       <div className="flex items-center justify-end">
-        <PriceCell symbol={symbol} />
+        <PriceCell symbol={symbol} paused={paused} />
       </div>
       <div className="flex items-center justify-end font-mono tabular-nums text-sm text-zinc-400">
         ${avgCost.toFixed(2)}
@@ -125,6 +129,7 @@ const PortfolioRow = observer(function PortfolioRow({
 
 interface PortfolioProps {
   onSelectSymbol?: (symbol: string) => void;
+  isActive?: boolean;
 }
 
 type SortField = 'symbol' | 'price' | 'cost' | 'value' | 'pnl';
@@ -160,19 +165,20 @@ const PortfolioColumnHeaders = observer(function PortfolioColumnHeaders({
 });
 
 const PortfolioSorted = observer(function PortfolioSorted({
-  positions,
   sortBy,
   sortDir,
   onSelectSymbol,
+  isActive,
 }: {
-  positions: ReturnType<typeof useStore>['portfolioStore']['positions'];
   sortBy: SortField;
   sortDir: 'asc' | 'desc';
   onSelectSymbol?: (symbol: string) => void;
+  isActive: boolean;
 }) {
-  const { marketStore } = useStore();
+  const { marketStore, portfolioStore } = useStore();
+  const needsLiveSort = sortBy === 'price' || sortBy === 'value' || sortBy === 'pnl';
   const sorted = useMemo(() => {
-    const list = [...positions];
+    const list = [...portfolioStore.positions];
     list.sort((a, b) => {
       let cmp = 0;
       if (sortBy === 'symbol') cmp = a.symbol.localeCompare(b.symbol);
@@ -184,7 +190,7 @@ const PortfolioSorted = observer(function PortfolioSorted({
       return sortDir === 'asc' ? cmp : -cmp;
     });
     return list;
-  }, [positions, sortBy, sortDir, marketStore]);
+  }, [portfolioStore, marketStore, sortBy, sortDir, needsLiveSort ? marketStore.priceUpdateAt : 0]);
 
   return (
     <div className="flex-1 overflow-y-auto">
@@ -206,6 +212,7 @@ const PortfolioSorted = observer(function PortfolioSorted({
               marketValue={pos.marketValue}
               unrealizedPnL={pos.unrealizedPnL}
               unrealizedPnLPercent={pos.unrealizedPnLPercent}
+              paused={!isActive}
             />
           </div>
         ))
@@ -214,8 +221,7 @@ const PortfolioSorted = observer(function PortfolioSorted({
   );
 });
 
-export const Portfolio = observer(function Portfolio({ onSelectSymbol }: PortfolioProps) {
-  const { portfolioStore } = useStore();
+export const Portfolio = observer(function Portfolio({ onSelectSymbol, isActive = true }: PortfolioProps) {
   const [sortBy, setSortBy] = useState<SortField>('value');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
 
@@ -232,13 +238,13 @@ export const Portfolio = observer(function Portfolio({ onSelectSymbol }: Portfol
 
   return (
     <div className="flex flex-col h-full bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
-      <PortfolioSummary />
+      <PortfolioSummary paused={!isActive} />
       <PortfolioColumnHeaders sortBy={sortBy} sortDir={sortDir} onToggle={toggleSort} />
       <PortfolioSorted
-        positions={portfolioStore.positions}
         sortBy={sortBy}
         sortDir={sortDir}
         onSelectSymbol={onSelectSymbol}
+        isActive={isActive}
       />
     </div>
   );

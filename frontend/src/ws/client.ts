@@ -12,6 +12,18 @@ class WsClient {
   private shouldReconnect = true;
   private pingInterval: ReturnType<typeof setInterval> | null = null;
   private messageHandlers = new Set<(msg: ServerMessage) => void>();
+  private offlineHandler = () => {
+    if (!navigator.onLine) {
+      connectionStore.setReconnecting();
+      this.disconnect();
+      this.shouldReconnect = true;
+      this.scheduleReconnect();
+    }
+  };
+
+  constructor() {
+    window.addEventListener('offline', this.offlineHandler);
+  }
 
   connect(): void {
     if (this.ws?.readyState === WebSocket.OPEN) return;

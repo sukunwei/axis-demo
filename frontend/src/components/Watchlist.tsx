@@ -1,32 +1,17 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../stores/useStore';
 import { PriceCell } from './cells/PriceCell';
 import { ChangeCell } from './cells/ChangeCell';
 import { SearchIcon } from 'lucide-react';
-
-const ITEM_HEIGHT = 56;
-const OVERSCAN = 5;
+const ITEM_HEIGHT = 64;
+const OVERSCAN = 10;
 
 interface WatchlistProps {
   onSelectSymbol: (symbol: string) => void;
+  /** When false, pause RAF/flash in price cells (tab hidden but kept mounted). */
+  isActive?: boolean;
 }
-
-const SymbolCountBadge = observer(function SymbolCountBadge() {
-  const { marketStore, settingsStore } = useStore();
-  return (
-    <span className="inline-flex items-center gap-2 ml-3">
-      {settingsStore.serverFeedMode === 'mock' && (
-        <span className="text-[10px] font-mono font-medium px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">
-          MOCK
-        </span>
-      )}
-      <span className="text-xs text-zinc-500 font-mono tabular-nums">
-        {marketStore.symbolCount} symbols
-      </span>
-    </span>
-  );
-});
 
 const ColumnHeaders = observer(function ColumnHeaders({
   sortBy,
@@ -57,10 +42,12 @@ function WatchlistBody({
   sortedSymbols,
   searchTerm,
   onSelectSymbol,
+  isActive,
 }: {
   sortedSymbols: string[];
   searchTerm: string;
   onSelectSymbol: (symbol: string) => void;
+  isActive: boolean;
 }) {
   const [scrollTop, setScrollTop] = useState(0);
   const [containerHeight, setContainerHeight] = useState(600);
@@ -115,9 +102,9 @@ function WatchlistBody({
                   </span>
                 </div>
                 <div className="flex items-center justify-end">
-                  <PriceCell symbol={symbol} />
+                  <PriceCell symbol={symbol} paused={!isActive} />
                 </div>
-                <ChangeCell symbol={symbol} />
+                <ChangeCell symbol={symbol} paused={!isActive} />
               </div>
             ))}
           </div>
@@ -146,13 +133,18 @@ const WatchlistSorted = observer(function WatchlistSorted({
   sortBy,
   sortDir,
   onSelectSymbol,
+  isActive,
 }: {
   searchTerm: string;
   sortBy: 'symbol' | 'price' | 'change';
   sortDir: 'asc' | 'desc';
   onSelectSymbol: (symbol: string) => void;
+  isActive: boolean;
 }) {
   const { marketStore } = useStore();
+
+  // sort only when sort params or symbols change — NOT on every price tick.
+  // individual price updates are handled by MobX reactivity in PriceCell/ChangeCell.
   const sorted = useMemo(() => {
     const symbols = marketStore.symbols;
     let list = [...symbols];
@@ -171,12 +163,19 @@ const WatchlistSorted = observer(function WatchlistSorted({
       return sortDir === 'asc' ? cmp : -cmp;
     });
     return list;
-  }, [marketStore.symbols, searchTerm, sortBy, sortDir]);
+  }, [marketStore.symbols, sortBy, sortDir, searchTerm]);
 
-  return <WatchlistBody sortedSymbols={sorted} searchTerm={searchTerm} onSelectSymbol={onSelectSymbol} />;
+  return (
+    <WatchlistBody
+      sortedSymbols={sorted}
+      searchTerm={searchTerm}
+      onSelectSymbol={onSelectSymbol}
+      isActive={isActive}
+    />
+  );
 });
 
-export function Watchlist({ onSelectSymbol }: WatchlistProps) {
+export function Watchlist({ onSelectSymbol, isActive = true }: WatchlistProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<'symbol' | 'price' | 'change'>('change');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
@@ -207,7 +206,6 @@ export function Watchlist({ onSelectSymbol }: WatchlistProps) {
               className="w-full pl-10 pr-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-zinc-500"
             />
           </div>
-          <SymbolCountBadge />
         </div>
       </div>
 
@@ -218,6 +216,7 @@ export function Watchlist({ onSelectSymbol }: WatchlistProps) {
         sortBy={sortBy}
         sortDir={sortDir}
         onSelectSymbol={onSelectSymbol}
+        isActive={isActive}
       />
     </div>
   );
