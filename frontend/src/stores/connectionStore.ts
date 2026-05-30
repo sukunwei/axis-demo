@@ -5,7 +5,7 @@ export type ConnectionState = 'connected' | 'reconnecting' | 'stale' | 'disconne
 const STALE_THRESHOLD_MS = 5_000;
 
 export class ConnectionStore {
-  connectionState: ConnectionState = 'disconnected';
+  connectionState: ConnectionState = 'connected';
   lastMessageAt = 0;
   paused = false;
   retryCount = 0;

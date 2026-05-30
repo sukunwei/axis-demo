@@ -13,9 +13,11 @@ import { Hub } from './hub.js';
 import { RingBuffer } from './ringBuffer.js';
 import { MockFeed } from './feed/mock.js';
 import { HyperliquidFeed } from './feed/hyperliquid.js';
+import { startContextScheduler } from './context/scheduler.js';
+import { handleContext } from './routes/context.js';
 import type { ClientMessage, ServerMessage } from './protocol.js';
 
-const PORT = Number(process.env.PORT ?? 8080);
+const PORT = Number(process.env.PORT ?? 5174);
 const FEED_MODE = process.env.FEED_MODE ?? 'mock';
 const STALE_THRESHOLD_MS = 10_000;
 
@@ -48,6 +50,10 @@ const httpServer = http.createServer((req, res) => {
       symbolCount: aggregator.snapshot().length,
       data: aggregator.snapshot(),
     }));
+    return;
+  }
+  if (req.method === 'GET' && req.url === '/context') {
+    handleContext(req, res);
     return;
   }
   res.writeHead(404);
@@ -131,7 +137,7 @@ function stopCurrentFeed(): void {
 function startMockFeed(reason?: string): void {
   stopCurrentFeed();
   activeFeedMode = 'mock';
-  console.log(`[feed] starting Mock feed${reason ? ` (${reason})` : ''}`);
+  // console.log(`[feed] starting Mock feed${reason ? ` (${reason})` : ''}`);
   aggregator.reset();
   feed = new MockFeed(
     (symbol, price) => aggregator.onTick(symbol, price),
@@ -139,13 +145,13 @@ function startMockFeed(reason?: string): void {
   );
   const initial = feed.bootstrap();
   aggregator.flush();
-  console.log(`[feed] bootstrapped ${initial.length} symbols`);
+  // console.log(`[feed] bootstrapped ${initial.length} symbols`);
   feed.start();
 }
 
 function startHyperliquidFeed(): void {
   activeFeedMode = 'hyperliquid';
-  console.log('[feed] starting Hyperliquid feed');
+  // console.log('[feed] starting Hyperliquid feed');
   aggregator.reset();
   feed = new HyperliquidFeed(
     (symbol, price) => aggregator.onTick(symbol, price),
@@ -158,7 +164,7 @@ function startHyperliquidFeed(): void {
     for (const coin of PERP_COINS) {
       hlFeed.subscribeOrderBook(coin);
     }
-    console.log(`[hl] subscribed to ${PERP_COINS.length} order books`);
+    // console.log(`[hl] subscribed to ${PERP_COINS.length} order books`);
   }).catch((err: unknown) => {
     console.error('[feed] HL feed failed to start, falling back to mock', err);
     startMockFeed('HL start failed');
@@ -170,6 +176,9 @@ if (FEED_MODE === 'hyperliquid') {
 } else {
   startMockFeed();
 }
+
+// ── Context scheduler ───────────────────────────────────────────────────────
+startContextScheduler();
 
 // ── Status broadcast + HL stall → mock fallback ───────────────────────────────
 const STATUS_INTERVAL = 5_000;
@@ -200,5 +209,5 @@ setInterval(() => {
 
 // ── Start ───────────────────────────────────────────────────────────────────
 httpServer.listen(PORT, () => {
-  console.log(`backend listening on ${PORT} (FEED_MODE=${FEED_MODE}, active=${activeFeedMode})`);
+  console.log(`➜ Local: ws://localhost:${PORT}`);
 });

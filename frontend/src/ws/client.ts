@@ -3,7 +3,7 @@ import type { ClientMessage, FeedMode, ServerMessage } from '../lib/protocol';
 import { connectionStore, marketStore, settingsStore } from '../stores/store-instances';
 import { frameScheduler } from './frameScheduler';
 
-const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:8080';
+const WS_URL = import.meta.env.VITE_WS_URL ?? 'ws://localhost:5174';
 
 class WsClient {
   private ws: WebSocket | null = null;

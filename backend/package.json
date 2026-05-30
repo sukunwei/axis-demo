@@ -4,12 +4,13 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "exec tsx src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "vitest run"
   },
   "dependencies": {
+    "fast-xml-parser": "^5.8.0",
     "ws": "^8.21.0"
   },
   "devDependencies": {

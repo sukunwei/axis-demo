@@ -203,6 +203,7 @@ export function Watchlist({ onSelectSymbol }: WatchlistProps) {
               placeholder="Search symbols…"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') {}; }}
               className="w-full pl-10 pr-4 py-2 bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-100 placeholder-zinc-500 text-sm focus:outline-none focus:border-zinc-500"
             />
           </div>

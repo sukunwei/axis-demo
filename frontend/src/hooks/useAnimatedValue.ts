@@ -12,7 +12,9 @@ interface UseAnimatedValueOptions {
   suffix: string;
   paused?: boolean;
   theme: ColorTheme;
-  /** When false, skip number tween (flash only). */
+  /** When false, skip number tween and flash effect. */
+  enableFlash?: boolean;
+  /** When false, skip number tween (flash still runs). */
   animateNumber?: boolean;
   resetKey?: string | number;
 }
@@ -24,7 +26,8 @@ export function useAnimatedValue({
   suffix,
   paused = false,
   theme,
-  animateNumber = true,
+  enableFlash = false,
+  animateNumber = false,
   resetKey,
 }: UseAnimatedValueOptions) {
   const containerRef = useRef<HTMLSpanElement>(null);
@@ -69,9 +72,11 @@ export function useAnimatedValue({
       return;
     }
 
-    const direction: 'up' | 'down' = from < to ? 'up' : 'down';
-    cleanupFlashRef.current?.();
-    cleanupFlashRef.current = applyBackgroundFlash(container, flashColor(theme, direction));
+    if (enableFlash) {
+      const direction: 'up' | 'down' = from < to ? 'up' : 'down';
+      cleanupFlashRef.current?.();
+      cleanupFlashRef.current = applyBackgroundFlash(container, flashColor(theme, direction));
+    }
 
     if (!animateNumber || Math.abs(from - to) < 0.0001) {
       span.textContent = format(to);
@@ -106,7 +111,7 @@ export function useAnimatedValue({
       cleanupFlashRef.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, paused, theme, decimals, prefix, suffix, animateNumber]);
+  }, [value, paused, theme, enableFlash, decimals, prefix, suffix, animateNumber]);
 
   return { containerRef, valueRef, format, displayValue: value };
 }

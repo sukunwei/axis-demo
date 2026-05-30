@@ -1,10 +1,9 @@
-import { useState, useEffect, Component, type ReactNode } from 'react';
+import { useState, useEffect, Component, type ReactNode, lazy, Suspense } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ConnectionIndicator } from '../components/ConnectionIndicator';
 import { SettingsButton } from '../components/SettingsButton';
 import { SettingsModal } from '../components/SettingsModal';
 import { PerformanceMonitor } from '../components/PerformanceMonitor';
-import { NetworkStatus } from '../components/NetworkStatus';
 import { Watchlist } from '../components/Watchlist';
 import { Portfolio } from '../components/Portfolio';
 import { MarketOverview } from '../components/MarketOverview';
@@ -13,7 +12,9 @@ import { wsClient } from '../ws/client';
 import { useStore } from '../stores/useStore';
 import { marketStore } from '../stores/store-instances';
 
-type Tab = 'watchlist' | 'portfolio';
+const NewsTab = lazy(() => import('../components/NewsTab').then((m) => ({ default: m.NewsTab })));
+
+type Tab = 'watchlist' | 'portfolio' | 'news';
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -99,8 +100,6 @@ const AppContent = observer(function AppContent() {
           </div>
         </header>
 
-        <NetworkStatus />
-
         <main
           className={`flex flex-1 flex-col ${settingsStore.showPerformancePanel ? 'pb-14' : ''}`}
         >
@@ -135,13 +134,27 @@ const AppContent = observer(function AppContent() {
                 >
                   Portfolio
                 </button>
+                <button
+                  onClick={() => setActiveTab('news')}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    activeTab === 'news'
+                      ? 'bg-zinc-800 text-zinc-100'
+                      : 'text-zinc-500 hover:text-zinc-300'
+                  }`}
+                >
+                  News
+                </button>
               </div>
 
               <div className="flex-1 p-4 overflow-hidden">
                 {activeTab === 'watchlist' ? (
                   <Watchlist onSelectSymbol={setSelectedSymbol} />
-                ) : (
+                ) : activeTab === 'portfolio' ? (
                   <Portfolio onSelectSymbol={setSelectedSymbol} />
+                ) : (
+                  <Suspense fallback={<div className="flex items-center justify-center h-32 text-zinc-500 text-sm">Loading...</div>}>
+                    <NewsTab />
+                  </Suspense>
                 )}
               </div>
             </>

@@ -26,6 +26,7 @@ export const PriceTicker = observer(function PriceTicker({
     suffix,
     paused: connectionStore.paused,
     theme: themeStore.colorTheme,
+    enableFlash: false,
     resetKey: asset.symbol,
   });
 

@@ -9,6 +9,7 @@ interface AnimatedNumberProps {
   suffix?: string;
   className?: string;
   paused?: boolean;
+  enableFlash?: boolean;
 }
 
 export const AnimatedNumber = observer(function AnimatedNumber({
@@ -18,6 +19,7 @@ export const AnimatedNumber = observer(function AnimatedNumber({
   suffix = '',
   className = '',
   paused,
+  enableFlash = false,
 }: AnimatedNumberProps) {
   const { connectionStore, themeStore } = useStore();
   const { containerRef, valueRef, format, displayValue } = useAnimatedValue({
@@ -27,6 +29,7 @@ export const AnimatedNumber = observer(function AnimatedNumber({
     suffix,
     paused: paused ?? connectionStore.paused,
     theme: themeStore.colorTheme,
+    enableFlash,
   });
 
   return (
