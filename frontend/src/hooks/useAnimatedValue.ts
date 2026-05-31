@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { ColorTheme } from '../stores/themeStore';
 import { applyBackgroundFlash, flashColor } from '../lib/flashColors';
+import { formatTrimmed } from '../lib/format';
 
 const CUBIC_EASE_OUT = (t: number) => 1 - Math.pow(1 - t, 3);
 const DURATION_MS = 150;
@@ -36,7 +37,7 @@ export function useAnimatedValue({
   const fromRef = useRef(value);
   const cleanupFlashRef = useRef<(() => void) | null>(null);
 
-  const format = (n: number) => `${prefix}${n.toFixed(decimals)}${suffix}`;
+  const format = (n: number) => `${prefix}${formatTrimmed(n, decimals)}${suffix}`;
 
   useEffect(() => {
     fromRef.current = value;

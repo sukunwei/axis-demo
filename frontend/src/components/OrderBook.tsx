@@ -3,6 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../stores/useStore';
 import { applyBackgroundFlash } from '../lib/flashColors';
 import { upColor, downColor, upBgColor, downBgColor, flashColor } from '../lib/themeColors';
+import { formatTrimmed } from '../lib/format';
 import type { OrderBookSnapshot } from '../hooks/useThrottledOrderBook';
 import { useThrottledOrderBook } from '../hooks/useThrottledOrderBook';
 
@@ -57,7 +58,7 @@ const OrderBookRow = memo(function OrderBookRow({
         }}
       />
       <span className={`relative z-10 tabular-nums ${textColor}`}>
-        {price.toFixed(priceDecimals)}
+        {formatTrimmed(price, priceDecimals)}
       </span>
       <span className="relative z-10 text-right tabular-nums text-zinc-300">
         {size.toFixed(4)}
@@ -135,7 +136,7 @@ const OrderBookContent = memo(function OrderBookContent({
   const maxAskTotal = asksWithTotal.length > 0 ? asksWithTotal[asksWithTotal.length - 1].total : 0;
   const maxTotal = Math.max(maxBidTotal, maxAskTotal);
 
-  const priceDecimals = book.price > 100 ? 2 : book.price > 1 ? 4 : 6;
+  const priceDecimals = book.price > 100 ? 2 : book.price > 1 ? 4 : 8;
 
   const spread =
     rawBids.length > 0 && rawAsks.length > 0 ? rawAsks[0][0] - rawBids[0][0] : 0;
@@ -159,10 +160,10 @@ const OrderBookContent = memo(function OrderBookContent({
           No order book data
         </div>
       ) : (
-        <div className="flex h-full flex-col overflow-hidden">
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           <OrderBookColumnHeader />
 
-          <div className="flex-1 flex flex-col justify-end overflow-y-auto min-h-0">
+          <div className="shrink-0">
             <div className="flex flex-col-reverse">
               {asksWithTotal.map(({ price, size, total }) => (
                 <OrderBookRow
@@ -194,7 +195,7 @@ const OrderBookContent = memo(function OrderBookContent({
             </div>
           </div>
 
-          <div className="shrink-0 max-h-48 overflow-y-auto">
+          <div className="shrink-0">
             {bidsWithTotal.map(({ price, size, total }) => (
               <OrderBookRow
                 key={`bid-${price}-${size}`}

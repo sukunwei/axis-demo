@@ -5,6 +5,7 @@ import { useStore } from '../stores/useStore';
 import { PriceCell } from './cells/PriceCell';
 import { AssetDetailChart } from './AssetDetailChart';
 import { AssetDetailOrderBook } from './AssetDetailOrderBook';
+import { formatTrimmed } from '../lib/format';
 
 interface AssetDetailProps {
   symbol: string;
@@ -14,12 +15,12 @@ interface AssetDetailProps {
 function priceDecimals(price: number): number {
   if (price > 100) return 2;
   if (price > 1) return 4;
-  return 6;
+  return 8;
 }
 
 function formatPrice(value: number, decimals?: number): string {
   const d = decimals ?? priceDecimals(value);
-  return `$${value.toFixed(d)}`;
+  return `$${formatTrimmed(value, d)}`;
 }
 
 function formatVolume(value: number): string {
