@@ -109,7 +109,7 @@ const OrderBookContent = memo(function OrderBookContent({
   if (!book) {
     return (
       <div className={rootClass}>
-        <div className="flex h-full items-center justify-center py-8 text-zinc-600 text-xs">
+        <div className="flex min-h-[300px] items-center justify-center text-zinc-600 text-xs">
           Loading order book…
         </div>
       </div>
@@ -156,7 +156,7 @@ const OrderBookContent = memo(function OrderBookContent({
       )}
 
       {!hasData ? (
-        <div className="flex h-full items-center justify-center py-8 text-zinc-600 text-xs">
+        <div className="flex min-h-[300px] items-center justify-center text-zinc-600 text-xs">
           No order book data
         </div>
       ) : (
