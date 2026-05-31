@@ -79,14 +79,24 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
         <div className="text-xs text-zinc-500 mb-1">Gainers</div>
         <div className={`flex items-center gap-1 text-xl font-semibold ${gainerColor}`}>
           <ArrowUpIcon className="w-5 h-5" />
-          {gainerCount}
+          <AnimatedNumber
+            value={gainerCount}
+            decimals={0}
+            enableFlash={false}
+            paused={paused}
+          />
         </div>
       </div>
       <div>
         <div className="text-xs text-zinc-500 mb-1">Losers</div>
         <div className={`flex items-center gap-1 text-xl font-semibold ${loserColor}`}>
           <ArrowDownIcon className="w-5 h-5" />
-          {loserCount}
+          <AnimatedNumber
+            value={loserCount}
+            decimals={0}
+            enableFlash={false}
+            paused={paused}
+          />
         </div>
       </div>
     </div>
@@ -125,14 +135,27 @@ const PortfolioRow = observer(function PortfolioRow({
         </div>
         <div>
           <div className="font-medium text-zinc-100 text-sm">{symbol}</div>
-          <div className="text-xs text-zinc-500">{quantity.toLocaleString()}</div>
+          <div className="text-xs text-zinc-500 font-mono tabular-nums">
+            <AnimatedNumber
+              value={quantity}
+              decimals={4}
+              enableFlash={false}
+              paused={paused}
+            />
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-end">
         <PriceCell symbol={symbol} paused={paused} />
       </div>
       <div className="flex items-center justify-end font-mono tabular-nums text-sm text-zinc-400">
-        ${avgCost.toFixed(2)}
+        <AnimatedNumber
+          value={avgCost}
+          decimals={2}
+          prefix="$"
+          enableFlash={false}
+          paused={paused}
+        />
       </div>
       <div className="flex items-center justify-end font-mono tabular-nums text-sm text-zinc-100">
         <AnimatedNumber
