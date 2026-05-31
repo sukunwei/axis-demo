@@ -204,7 +204,7 @@ export const PriceChartCanvas = memo(function PriceChartCanvas({
   }, [paused, dataRef, stroke, decimals]);
 
   return (
-    <div ref={containerRef} className="h-full w-full min-h-[200px]" style={{ contain: 'layout' }}>
+    <div ref={containerRef} className="h-full w-full min-h-[400px]" style={{ contain: 'layout' }}>
       <canvas ref={canvasRef} className="block h-full w-full" aria-label="Price chart" />
     </div>
   );

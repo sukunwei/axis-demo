@@ -110,9 +110,9 @@ export const AssetDetail = observer(function AssetDetail({ symbol, onBack }: Ass
         </div>
       </section>
 
-      {/* Bottom: chart (left) + order book (right) */}
+      {/* Bottom: chart (left) + order book (right) — both stretch to full height on desktop */}
       <section className="flex min-h-0 flex-1 flex-col lg:flex-row">
-        <div className="flex min-h-[400px] min-w-0 flex-1 flex-col border-b border-zinc-800 lg:min-h-0 lg:border-b-0 lg:border-r">
+        <div className="flex min-h-[400px] min-w-0 flex-1 flex-col border-b border-zinc-800 lg:min-h-0 lg:h-full lg:border-b-0 lg:border-r">
           <AssetDetailChart symbol={symbol} isPositive={isPositive} decimals={decimals} />
         </div>
 
