@@ -29,6 +29,7 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
   const totalPnLPercent = portfolioStore.totalPnLPercent;
   const gainerCount = portfolioStore.gainerCount;
   const loserCount = portfolioStore.loserCount;
+  const hasMarketData = portfolioStore.hasMarketData;
 
   const theme = themeStore.colorTheme;
   const pnlColor = totalPnL >= 0 ? upColor(theme) : downColor(theme);
@@ -40,14 +41,18 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 p-4 bg-zinc-900 border border-zinc-800 rounded-xl">
       <div>
         <div className="text-xs text-zinc-500 mb-1">Portfolio Value</div>
-        <AnimatedNumber
-          value={totalValue}
-          decimals={2}
-          prefix="$"
-          className="text-xl font-semibold text-zinc-100"
-          animateNumber={true}
-          paused={paused}
-        />
+        {!hasMarketData ? (
+          <span className="text-xl font-semibold text-zinc-100 font-mono">—</span>
+        ) : (
+          <AnimatedNumber
+            value={totalValue}
+            decimals={2}
+            prefix="$"
+            className="text-xl font-semibold text-zinc-100"
+            animateNumber={true}
+            paused={paused}
+          />
+        )}
       </div>
       <div className="lg:col-span-1 col-span-2">
         <div className="text-xs text-zinc-500 mb-1">Total P&L</div>

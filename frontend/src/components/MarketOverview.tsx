@@ -27,7 +27,7 @@ export const MarketOverview = observer(function MarketOverview() {
         </div>
         <div className="flex flex-col items-center">
           <span className="font-mono tabular-nums text-lg text-zinc-100">
-            {totalValue === 0 ? '—' : `$${fmt(totalValue)}`}
+            {!portfolioStore.hasMarketData ? '—' : `$${fmt(totalValue)}`}
           </span>
           <span className="text-xs text-zinc-500">Portfolio</span>
         </div>

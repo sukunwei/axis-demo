@@ -38,6 +38,11 @@ export class PortfolioStore {
     makeAutoObservable(this);
   }
 
+  /** True once real market data has arrived (priceUpdateAt > 0) */
+  get hasMarketData(): boolean {
+    return this.marketStore.priceUpdateAt > 0;
+  }
+
   /** Static holdings (symbol/qty/cost) — stable reference for list sort keys */
   get positionBasis(): readonly MockPosition[] {
     return MOCK_POSITIONS;
