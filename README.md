@@ -25,13 +25,11 @@
 ## Architecture
 
 ```
-Browser (React 18 + MobX)
-    ↑ WebSocket
-Backend (Node.js + ws)
-    ├── HyperliquidFeed (default) / MockFeed (fallback)
-    ├── Aggregator (field diff + 75ms batch)
-    ├── Ring Buffer (20k seq window)
-    └── Hub (client registry + fanout + backpressure)
+Browser (React 18 + MobX) ←→ WebSocket ←→ Backend (Node.js)
+                                         ├── HyperliquidFeed / MockFeed
+                                         ├── Aggregator (diff + 75ms batch)
+                                         ├── Ring Buffer (20k seq)
+                                         └── Hub (fanout + backpressure)
 ```
 
 ---
