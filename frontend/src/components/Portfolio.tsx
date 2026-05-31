@@ -150,7 +150,12 @@ const PortfolioRow = observer(function PortfolioRow({
         </div>
       </div>
       <div className="flex items-center justify-end">
-        <PriceCell symbol={symbol} paused={paused} />
+        <PriceCell
+          symbol={symbol}
+          paused={paused}
+          enableFlash={true}
+          animateNumber={true}
+        />
       </div>
       <div className="flex items-center justify-end font-mono tabular-nums text-sm text-zinc-400">
         <AnimatedNumber

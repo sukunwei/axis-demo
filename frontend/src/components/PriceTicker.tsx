@@ -10,6 +10,8 @@ interface PriceTickerProps {
   suffix?: string;
   className?: string;
   paused?: boolean;
+  enableFlash?: boolean;
+  animateNumber?: boolean;
 }
 
 export const PriceTicker = observer(function PriceTicker({
@@ -19,6 +21,8 @@ export const PriceTicker = observer(function PriceTicker({
   suffix = '',
   className = '',
   paused = false,
+  enableFlash,
+  animateNumber,
 }: PriceTickerProps) {
   const { connectionStore, themeStore } = useStore();
   const { containerRef, valueRef, format, displayValue } = useAnimatedValue({
@@ -28,7 +32,8 @@ export const PriceTicker = observer(function PriceTicker({
     suffix,
     paused: paused || connectionStore.paused,
     theme: themeStore.colorTheme,
-    enableFlash: false,
+    enableFlash: enableFlash ?? false,
+    animateNumber: animateNumber ?? false,
     resetKey: asset.symbol,
   });
 
