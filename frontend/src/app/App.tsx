@@ -1,4 +1,4 @@
-import { useState, useEffect, Component, type ReactNode, lazy, Suspense } from 'react';
+import { useState, useEffect, useCallback, Component, type ReactNode, lazy, Suspense } from 'react';
 import { observer } from 'mobx-react-lite';
 import { ConnectionIndicator } from '../components/ConnectionIndicator';
 import { SettingsButton } from '../components/SettingsButton';
@@ -56,12 +56,43 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 }
 
+/** Tab buttons — pure React, no MobX, stable re-renders */
+function TabBar({
+  activeTab,
+  onTabChange,
+}: {
+  activeTab: Tab;
+  onTabChange: (tab: Tab) => void;
+}) {
+  return (
+    <div className="flex items-center gap-1 px-4 pt-4">
+      {(['watchlist', 'portfolio', 'news'] as const).map((tab) => (
+        <button
+          key={tab}
+          onClick={() => onTabChange(tab)}
+          className={`px-4 py-2 rounded-lg text-sm font-medium ${
+            activeTab === tab
+              ? 'bg-zinc-800 text-zinc-100'
+              : 'text-zinc-500 hover:text-zinc-300'
+          }`}
+        >
+          {tab.charAt(0).toUpperCase() + tab.slice(1)}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 const AppContent = observer(function AppContent() {
   const [activeTab, setActiveTab] = useState<Tab>('watchlist');
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
   const { connectionStore } = useStore();
 
   useRenderCounter();
+
+  const handleTabChange = useCallback((tab: Tab) => setActiveTab(tab), []);
+  const handleSelectSymbol = useCallback((symbol: string) => setSelectedSymbol(symbol), []);
+  const handleBack = useCallback(() => setSelectedSymbol(null), []);
 
   useEffect(() => {
     wsClient.connect();
@@ -103,7 +134,7 @@ const AppContent = observer(function AppContent() {
         <main className="flex flex-1 flex-col">
           {selectedSymbol ? (
             <div className="min-h-0 flex-1 p-4">
-              <AssetDetail symbol={selectedSymbol} onBack={() => setSelectedSymbol(null)} />
+              <AssetDetail symbol={selectedSymbol} onBack={handleBack} />
             </div>
           ) : (
             <>
@@ -111,50 +142,19 @@ const AppContent = observer(function AppContent() {
                 <MarketOverview />
               </div>
 
-              <div className="flex items-center gap-1 px-4 pt-4">
-                <button
-                  onClick={() => setActiveTab('watchlist')}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    activeTab === 'watchlist'
-                      ? 'bg-zinc-800 text-zinc-100'
-                      : 'text-zinc-500 hover:text-zinc-300'
-                  }`}
-                >
-                  Watchlist
-                </button>
-                <button
-                  onClick={() => setActiveTab('portfolio')}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    activeTab === 'portfolio'
-                      ? 'bg-zinc-800 text-zinc-100'
-                      : 'text-zinc-500 hover:text-zinc-300'
-                  }`}
-                >
-                  Portfolio
-                </button>
-                <button
-                  onClick={() => setActiveTab('news')}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    activeTab === 'news'
-                      ? 'bg-zinc-800 text-zinc-100'
-                      : 'text-zinc-500 hover:text-zinc-300'
-                  }`}
-                >
-                  News
-                </button>
-              </div>
+              <TabBar activeTab={activeTab} onTabChange={handleTabChange} />
 
               <div className="relative flex-1 overflow-hidden p-4">
                 {activeTab === 'watchlist' && (
                   <Watchlist
                     isActive={true}
-                    onSelectSymbol={setSelectedSymbol}
+                    onSelectSymbol={handleSelectSymbol}
                   />
                 )}
                 {activeTab === 'portfolio' && (
                   <Portfolio
                     isActive={true}
-                    onSelectSymbol={setSelectedSymbol}
+                    onSelectSymbol={handleSelectSymbol}
                   />
                 )}
                 {activeTab === 'news' && (
