@@ -185,7 +185,6 @@ function stopCurrentFeed(): void {
 function startMockFeed(reason?: string): void {
   stopCurrentFeed();
   activeFeedMode = 'mock';
-  // console.log(`[feed] starting Mock feed${reason ? ` (${reason})` : ''}`);
   aggregator.reset();
   feed = new MockFeed(
     (symbol, price) => aggregator.onTick(symbol, price),
@@ -198,8 +197,8 @@ function startMockFeed(reason?: string): void {
 }
 
 function startHyperliquidFeed(): void {
+  stopCurrentFeed();
   activeFeedMode = 'hyperliquid';
-  // console.log('[feed] starting Hyperliquid feed');
   aggregator.reset();
   feed = new HyperliquidFeed(
     (symbol, price) => aggregator.onTick(symbol, price),
