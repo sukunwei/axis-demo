@@ -3,7 +3,6 @@ import { observer } from 'mobx-react-lite';
 import { ConnectionIndicator } from '../components/ConnectionIndicator';
 import { SettingsButton } from '../components/SettingsButton';
 import { SettingsModal } from '../components/SettingsModal';
-import { PerformanceMonitor } from '../components/PerformanceMonitor';
 import { Watchlist } from '../components/Watchlist';
 import { Portfolio } from '../components/Portfolio';
 import { MarketOverview } from '../components/MarketOverview';
@@ -60,7 +59,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 const AppContent = observer(function AppContent() {
   const [activeTab, setActiveTab] = useState<Tab>('watchlist');
   const [selectedSymbol, setSelectedSymbol] = useState<string | null>(null);
-  const { connectionStore, settingsStore } = useStore();
+  const { connectionStore } = useStore();
 
   useRenderCounter();
 
@@ -101,9 +100,7 @@ const AppContent = observer(function AppContent() {
           </div>
         </header>
 
-        <main
-          className={`flex flex-1 flex-col ${settingsStore.showPerformancePanel ? 'pb-14' : ''}`}
-        >
+        <main className="flex flex-1 flex-col">
           {selectedSymbol ? (
             <div className="min-h-0 flex-1 p-4">
               <AssetDetail symbol={selectedSymbol} onBack={() => setSelectedSymbol(null)} />
@@ -186,7 +183,6 @@ const AppContent = observer(function AppContent() {
           )}
         </main>
 
-        <PerformanceMonitor />
         <SettingsModal />
       </div>
     </ErrorBoundary>

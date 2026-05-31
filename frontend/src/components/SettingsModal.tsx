@@ -80,17 +80,6 @@ export const SettingsModal = observer(function SettingsModal() {
               }}
             />
           </div>
-
-          <div className="flex items-center justify-between gap-4 rounded-xl border border-zinc-800 bg-zinc-950/60 px-4 py-3">
-            <div className="min-w-0">
-              <div className="text-sm font-medium text-zinc-100">Perf Panel</div>
-              <div className="mt-0.5 text-xs text-zinc-500">Show performance monitoring overlay</div>
-            </div>
-            <ToggleSwitch
-              checked={settingsStore.showPerformancePanel}
-              onChange={(checked) => settingsStore.setShowPerformancePanel(checked)}
-            />
-          </div>
         </div>
 
         <div className="border-t border-zinc-800 p-5">
