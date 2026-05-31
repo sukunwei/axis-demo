@@ -13,7 +13,7 @@
 
 The frontend renders hundreds of live Hyperliquid symbols and a **mock portfolio** (static positions, live P&L) with smooth number animations at ~60 fps, visible connection state, reconnect with sequence backfill, and correct reconciliation after a 30-second background tab.
 
-**Delivery**: public GitHub repo, one-command local deploy (`pnpm start`), and a 3–5 minute walkthrough video.
+**Delivery**: public GitHub repo, one-command local deploy (`pnpm start`).
 
 ---
 
@@ -37,14 +37,14 @@ The frontend renders hundreds of live Hyperliquid symbols and a **mock portfolio
 | Fallback feed | `MockFeed` via `FEED_MODE=mock` or Settings toggle; used when HL stalls or for offline dev |
 | Fan-out without per-client upstream work | Single aggregator + in-process `Hub` |
 | Diff-only wire format | `MarketDiff` = `{ symbol }` + changed fields only |
-| Batch window | 75 ms flush (within assignment’s 50–100 ms range) |
+| Batch window | 75 ms flush |
 | Reconnect backfill | Client `hello { lastSeq }` → ring buffer replay or snapshot |
 
-### 2.3 Non-goals (48-hour scope)
+### 2.3 Out of scope
 
 - Authentication / multi-user isolation
 - Persistent storage (Redis/DB)
-- Production-grade horizontal scaling
+- Horizontal scaling (single-instance only)
 - Mobile native app (web-only)
 
 ---
@@ -103,7 +103,7 @@ Hyperliquid allMids / l2Book tick
 
 ```mermaid
 flowchart LR
-  DEV["Developer machine"]
+  DEV["Local machine"]
   FE["Frontend<br/>Vite :5173"]
   BE["Backend<br/>Node :5174/8080"]
   HLAPI["Hyperliquid API<br/>wss://api.hyperliquid.xyz/ws"]
@@ -248,7 +248,7 @@ flowchart TB
 | **FrameScheduler (RAF)** | `ws/frameScheduler.ts` | Batch all WS messages in one `runInAction` per frame |
 | **RAF price animation** | `PriceTicker.tsx` | Animate via DOM ref; no React `setState` per frame |
 | **Virtual scroll** | `Watchlist.tsx` | Render ~20 visible rows + overscan, not 200 DOM rows |
-| **Tab keep-alive** | `App.tsx` | Panels use `hidden` instead of unmount; `paused` stops RAF when tab inactive |
+| **Tab inactive rendering** | `App.tsx` | Inactive panels unmount completely; `paused` prop stops RAF when tab hidden |
 | **Canvas chart + ref history** | `PriceChartCanvas`, `usePriceHistoryRef` | Chart reads ref in RAF loop; zero React re-renders on price ticks |
 | **Throttled order book** | `useThrottledOrderBook` | Order book UI ~4 fps; isolated from chart/header |
 
@@ -281,11 +281,11 @@ flowchart TB
 | **State** | MobX 6 | Fine-grained observability; row-level subscriptions without manual memo wiring |
 | **Styling** | Tailwind CSS v4 | Utility-first; consistent with design mockups |
 | **Backend** | Node.js + TypeScript + native `ws` | Fast iteration for 48h scope; shared types with frontend; no Express overhead |
-| **Fan-out** | In-process Hub | Assignment allows single-instance channels; avoids Redis/NATS ops for demo |
-| **Monorepo** | pnpm workspace | Shared protocol types; one repo for grading |
+| **Fan-out** | In-process Hub | Single-instance channel design; avoids Redis/NATS ops while keeping demo self-contained |
+| **Monorepo** | pnpm workspace | Shared protocol types; frontend and backend in one repo |
 | **Testing** | Vitest | Unit tests for aggregator, ring buffer, frameScheduler, stores |
 
-**Why not Go/Rust?** Node was chosen to ship faster in the time box while still demonstrating fan-out, backpressure, and diff batching in application code rather than framework magic.
+**Why not Go/Rust?** Node.js was chosen for fast iteration while still demonstrating fan-out, backpressure, and diff batching in application code rather than framework magic.
 
 ---
 
@@ -315,7 +315,7 @@ flowchart TB
 
 ## 9. Next Three Improvements
 
-The assignment asks for engineers who can name their own rough edges. These are the top three follow-ups:
+Top three follow-up items:
 
 1. **Automated performance & resilience evidence** — Add Chrome Profiler baselines and Playwright E2E for reconnect + 30s background resume so tick smoothness and reconcile behavior are regression-tested, not demo-only.
 
