@@ -31,7 +31,7 @@ export const AssetDetailOrderBook = memo(function AssetDetailOrderBook({ symbol 
     <div className="flex min-h-0 flex-1 flex-col lg:h-full lg:w-[340px] xl:w-[380px]">
       <PanelHeader
         title="Order Book"
-        subtitle={`Live · ${displayLevels} asks · ${displayLevels} bids`}
+        subtitle={`Live · ${displayLevels} asks · ${displayLevels} bids [mock]`}
       />
       <div className="min-h-0 flex-1 px-3 py-3">
         <OrderBook symbol={symbol} embedded book={book} />
