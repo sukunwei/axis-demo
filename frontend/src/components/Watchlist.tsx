@@ -3,7 +3,7 @@ import { observer } from 'mobx-react-lite';
 import { useStore } from '../stores/useStore';
 import { PriceCell } from './cells/PriceCell';
 import { ChangeCell } from './cells/ChangeCell';
-import { SearchIcon } from 'lucide-react';
+import { SearchIcon, Loader2 } from 'lucide-react';
 const ITEM_HEIGHT = 64;
 const OVERSCAN = 10;
 
@@ -40,11 +40,13 @@ const ColumnHeaders = observer(function ColumnHeaders({
 /** Pure virtual scroll — no MobX subscriptions */
 function WatchlistBody({
   sortedSymbols,
+  hasLoaded,
   searchTerm,
   onSelectSymbol,
   isActive,
 }: {
   sortedSymbols: string[];
+  hasLoaded: boolean;
   searchTerm: string;
   onSelectSymbol: (symbol: string) => void;
   isActive: boolean;
@@ -79,7 +81,11 @@ function WatchlistBody({
 
   return (
     <div ref={containerRef} className="flex-1 overflow-y-auto" onScroll={handleScroll}>
-      {sortedSymbols.length === 0 ? (
+      {!hasLoaded ? (
+        <div className="flex items-center justify-center h-full min-h-32">
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" aria-hidden />
+        </div>
+      ) : sortedSymbols.length === 0 ? (
         <div className="flex items-center justify-center h-32 text-zinc-500 text-sm">
           No symbols found
         </div>
@@ -142,11 +148,13 @@ const WatchlistSorted = observer(function WatchlistSorted({
   isActive: boolean;
 }) {
   const { marketStore } = useStore();
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   // sort only when sort params or symbols change — NOT on every price tick.
   // individual price updates are handled by MobX reactivity in PriceCell/ChangeCell.
   const sorted = useMemo(() => {
     const symbols = marketStore.symbols;
+    if (symbols.length > 0) setHasLoaded(true);
     let list = [...symbols];
     if (searchTerm) {
       const q = searchTerm.toLowerCase();
@@ -168,6 +176,7 @@ const WatchlistSorted = observer(function WatchlistSorted({
   return (
     <WatchlistBody
       sortedSymbols={sorted}
+      hasLoaded={hasLoaded}
       searchTerm={searchTerm}
       onSelectSymbol={onSelectSymbol}
       isActive={isActive}
