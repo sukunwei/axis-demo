@@ -27,8 +27,9 @@ export const AssetDetailChart = memo(function AssetDetailChart({
   const [hasData, setHasData] = useState(false);
   const isPaused = paused || connectionStore.paused;
 
-  // Track first time data becomes available — single state flip, no continuous updates
+  // Reset hasData and restart polling whenever symbol changes
   useEffect(() => {
+    setHasData(false);
     let raf = requestAnimationFrame(function check() {
       if (dataRef.current && dataRef.current.length > 1) {
         setHasData(true);
@@ -37,7 +38,7 @@ export const AssetDetailChart = memo(function AssetDetailChart({
       }
     });
     return () => cancelAnimationFrame(raf);
-  }, [dataRef]);
+  }, [symbol, dataRef]);
 
   const stroke = isPositive ? '#4ade80' : '#f87171';
 
