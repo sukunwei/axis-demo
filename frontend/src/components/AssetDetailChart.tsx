@@ -52,7 +52,7 @@ export const AssetDetailChart = memo(function AssetDetailChart({
         {hasData ? (
           <PriceChartCanvas dataRef={dataRef} stroke={stroke} decimals={decimals} paused={isPaused} />
         ) : (
-          <div className="flex h-full flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-zinc-800 bg-zinc-950/50">
+          <div className="flex h-full flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-zinc-800">
             <Loader2 className="h-8 w-8 animate-spin text-zinc-500" aria-hidden />
             <span className="text-sm text-zinc-500">Collecting live price data…</span>
           </div>
