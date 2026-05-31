@@ -45,6 +45,7 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
           decimals={2}
           prefix="$"
           className="text-xl font-semibold text-zinc-100"
+          animateNumber={true}
           paused={paused}
         />
       </div>
@@ -142,7 +143,6 @@ const PortfolioRow = observer(function PortfolioRow({
             <AnimatedNumber
               value={quantity}
               decimals={4}
-              enableFlash={true}
               animateNumber={true}
               paused={paused}
             />
@@ -162,7 +162,6 @@ const PortfolioRow = observer(function PortfolioRow({
           value={avgCost}
           decimals={2}
           prefix="$"
-          enableFlash={true}
           animateNumber={true}
           paused={paused}
         />
