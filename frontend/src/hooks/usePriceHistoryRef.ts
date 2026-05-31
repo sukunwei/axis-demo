@@ -9,10 +9,22 @@ export interface PricePoint {
 
 const MAX_HISTORY_POINTS = 120;
 
+/** Fallback seed when no live ticks collected yet — day open → current price */
+function seedFromDayOpen(symbol: string): PricePoint[] | null {
+  const asset = marketStore.getAsset(symbol);
+  if (!asset || asset.price <= 0) return null;
+  const ts = asset.ts || Date.now();
+  const open = asset.dayOpen > 0 ? asset.dayOpen : asset.price;
+  return [
+    { timestamp: ts - 60_000, price: open },
+    { timestamp: ts, price: asset.price },
+  ];
+}
+
 /**
  * Ref-based price history — zero React re-renders.
- * Data is written to a ref; Canvas reads it via RAF loop.
- * This eliminates the 250ms setState throttle that caused 4fps visual stuttering.
+ * Seeds from marketStore rolling history (collected while browsing watchlist),
+ * then appends live ticks via autorun.
  */
 export function usePriceHistoryRef(symbol: string) {
   const historyRef = useRef<PricePoint[]>([]);
@@ -21,6 +33,18 @@ export function usePriceHistoryRef(symbol: string) {
   useEffect(() => {
     historyRef.current = [];
     lastTsRef.current = 0;
+
+    const stored = marketStore.getPriceHistory(symbol);
+    if (stored.length >= 2) {
+      historyRef.current = stored.map((p) => ({ ...p }));
+      lastTsRef.current = historyRef.current[historyRef.current.length - 1].timestamp;
+    } else {
+      const seeded = seedFromDayOpen(symbol);
+      if (seeded) {
+        historyRef.current = seeded;
+        lastTsRef.current = seeded[seeded.length - 1].timestamp;
+      }
+    }
 
     const dispose = autorun(() => {
       const asset = marketStore.getAsset(symbol);
@@ -35,7 +59,6 @@ export function usePriceHistoryRef(symbol: string) {
       if (buf.length > MAX_HISTORY_POINTS) {
         buf.splice(0, buf.length - MAX_HISTORY_POINTS);
       }
-      // No setState — Canvas RAF loop reads this ref directly
     });
 
     return dispose;

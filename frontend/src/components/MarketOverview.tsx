@@ -1,9 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { useStore } from '../stores/useStore';
 import { TrendingUpIcon, TrendingDownIcon } from 'lucide-react';
+import { upColor, downColor } from '../lib/themeColors';
 
 export const MarketOverview = observer(function MarketOverview() {
-  const { marketStore, portfolioStore } = useStore();
+  const { marketStore, portfolioStore, themeStore } = useStore();
+  const theme = themeStore.colorTheme;
+  const gainerColor = upColor(theme);
+  const loserColor = downColor(theme);
   const symbolCount = marketStore.symbolCount;
   const gainerCount = portfolioStore.gainerCount;
   const loserCount = portfolioStore.loserCount;
@@ -23,15 +27,15 @@ export const MarketOverview = observer(function MarketOverview() {
           <span className="text-xs text-zinc-500">Portfolio</span>
         </div>
         <div className="flex flex-col items-center">
-          <span className="font-mono tabular-nums text-lg text-green-400">{gainerCount}</span>
+          <span className={`font-mono tabular-nums text-lg ${gainerColor}`}>{gainerCount}</span>
           <span className="text-xs text-zinc-500 flex items-center gap-1">
-            <TrendingUpIcon className="w-3 h-3 text-green-400" />Gainers
+            <TrendingUpIcon className={`w-3 h-3 ${gainerColor}`} />Gainers
           </span>
         </div>
         <div className="flex flex-col items-center">
-          <span className="font-mono tabular-nums text-lg text-red-400">{loserCount}</span>
+          <span className={`font-mono tabular-nums text-lg ${loserColor}`}>{loserCount}</span>
           <span className="text-xs text-zinc-500 flex items-center gap-1">
-            <TrendingDownIcon className="w-3 h-3 text-red-400" />Losers
+            <TrendingDownIcon className={`w-3 h-3 ${loserColor}`} />Losers
           </span>
         </div>
       </div>

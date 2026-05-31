@@ -29,6 +29,10 @@ export const AssetDetailChart = memo(function AssetDetailChart({
 
   // Reset hasData and restart polling whenever symbol changes
   useEffect(() => {
+    if (dataRef.current.length >= 2) {
+      setHasData(true);
+      return;
+    }
     setHasData(false);
     let raf = requestAnimationFrame(function check() {
       if (dataRef.current && dataRef.current.length > 1) {

@@ -22,18 +22,6 @@
 
 ---
 
-## Architecture
-
-```
-Browser (React 18 + MobX) ←→ WebSocket ←→ Backend (Node.js)
-                                         ├── HyperliquidFeed / MockFeed
-                                         ├── Aggregator (diff + 75ms batch)
-                                         ├── Ring Buffer (20k seq)
-                                         └── Hub (fanout + backpressure)
-```
-
----
-
 ## Quick Start
 
 ```bash
@@ -52,14 +40,3 @@ pnpm install && pnpm start
 | **[`docs/technical-design.md`](./docs/technical-design.md)** | Full architecture, protocol, module design |
 
 ---
-
-## Test Coverage
-
-```
-Frontend: 46 tests (vitest) — marketStore / portfolioStore / frameScheduler / connectionStore
-Backend: 25+ tests (vitest) — aggregator / ringBuffer / backfill
-```
-
-```bash
-pnpm -r test
-```

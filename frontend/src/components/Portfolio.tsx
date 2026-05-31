@@ -5,6 +5,7 @@ import type { MarketStore } from '../stores/marketStore';
 import { PriceCell } from './cells/PriceCell';
 import { AnimatedNumber } from './AnimatedNumber';
 import { ArrowUpIcon, ArrowDownIcon } from 'lucide-react';
+import { upColor, downColor } from '../lib/themeColors';
 
 /** Live metrics for one row — used in sort comparator and row observer */
 function positionMetrics(
@@ -22,14 +23,17 @@ function positionMetrics(
 }
 
 export const PortfolioSummary = observer(function PortfolioSummary({ paused = false }: { paused?: boolean }) {
-  const { portfolioStore } = useStore();
+  const { portfolioStore, themeStore } = useStore();
   const totalValue = portfolioStore.totalValue;
   const totalPnL = portfolioStore.totalPnL;
   const totalPnLPercent = portfolioStore.totalPnLPercent;
   const gainerCount = portfolioStore.gainerCount;
   const loserCount = portfolioStore.loserCount;
 
-  const pnlColor = totalPnL >= 0 ? 'text-green-400' : 'text-red-400';
+  const theme = themeStore.colorTheme;
+  const pnlColor = totalPnL >= 0 ? upColor(theme) : downColor(theme);
+  const gainerColor = upColor(theme);
+  const loserColor = downColor(theme);
   const pnlSign = totalPnL >= 0 ? '+' : '';
 
   return (
@@ -73,14 +77,14 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
       </div>
       <div>
         <div className="text-xs text-zinc-500 mb-1">Gainers</div>
-        <div className="flex items-center gap-1 text-xl font-semibold text-green-400">
+        <div className={`flex items-center gap-1 text-xl font-semibold ${gainerColor}`}>
           <ArrowUpIcon className="w-5 h-5" />
           {gainerCount}
         </div>
       </div>
       <div>
         <div className="text-xs text-zinc-500 mb-1">Losers</div>
-        <div className="flex items-center gap-1 text-xl font-semibold text-red-400">
+        <div className={`flex items-center gap-1 text-xl font-semibold ${loserColor}`}>
           <ArrowDownIcon className="w-5 h-5" />
           {loserCount}
         </div>
@@ -103,14 +107,15 @@ const PortfolioRow = observer(function PortfolioRow({
   avgCost,
   paused,
 }: PortfolioRowProps) {
-  const { marketStore } = useStore();
+  const { marketStore, themeStore } = useStore();
+  const theme = themeStore.colorTheme;
   const { marketValue, unrealizedPnL, unrealizedPnLPercent } = positionMetrics(
     symbol,
     quantity,
     avgCost,
     marketStore,
   );
-  const pnlColor = unrealizedPnL >= 0 ? 'text-green-400' : 'text-red-400';
+  const pnlColor = unrealizedPnL >= 0 ? upColor(theme) : downColor(theme);
 
   return (
     <div className="grid grid-cols-5 gap-3 px-4 py-3 border-b border-zinc-800/50 hover:bg-zinc-800/40 transition-colors">
