@@ -19,7 +19,7 @@ export const MarketOverview = observer(function MarketOverview() {
   return (
     <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
       <div className="px-4 py-2 border-b border-zinc-800">
-        <span className="text-sm font-medium text-zinc-300">Market Overview</span>
+        <span className="text-sm font-medium text-zinc-300">Overview</span>
       </div>
       <div className="flex items-center justify-around px-4 py-3">
         <div className="flex flex-col items-center">
