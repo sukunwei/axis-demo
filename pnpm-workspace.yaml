@@ -1,8 +1,7 @@
 packages:
   - 'frontend'
   - 'backend'
+
+# pnpm v10+: allow esbuild postinstall (downloads platform-native binary)
 allowBuilds:
-  esbuild: set this to true or false
-onlyBuiltDependencies:
-  - esbuild
-  - '@esbuild+darwin-x64'
+  esbuild: true
