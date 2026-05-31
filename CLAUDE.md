@@ -1,4 +1,4 @@
-# axis-demo — Claude / AI Collaboration Guidelines
+# axis-trading — Claude / AI Collaboration Guidelines
 
 > **Required reading before development**: `docs/axis.md` → `docs/technical-design.md`
 
@@ -27,7 +27,7 @@ Senior frontend engineer specializing in React / TypeScript / Vite, MobX, WebSoc
 ## Directory Structure
 
 ```
-axis-demo/
+axis-trading/
 ├── CLAUDE.md                 # This file
 ├── docs/
 │   ├── axis.md               # Assignment requirements

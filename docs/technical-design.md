@@ -1,4 +1,4 @@
-# Technical Design — axis-demo
+# Technical Design — axis-trading
 
 > Real-time watchlist and mock portfolio over a self-built WebSocket backend.  
 > Market focus: **Hyperliquid perpetuals** (live `allMids` + `l2Book` depth).  
@@ -9,7 +9,7 @@
 
 ## 1. Executive Summary
 
-**axis-demo** is a single-page web application that streams tick-by-tick market updates over WebSockets. The browser never connects to an exchange directly; all quotes flow through a Node.js backend that ingests **Hyperliquid live data** (`wss://api.hyperliquid.xyz/ws`), computes field-level diffs, batches updates, and fans them out to many clients from one in-process hub.
+**axis-trading** is a single-page web application that streams tick-by-tick market updates over WebSockets. The browser never connects to an exchange directly; all quotes flow through a Node.js backend that ingests **Hyperliquid live data** (`wss://api.hyperliquid.xyz/ws`), computes field-level diffs, batches updates, and fans them out to many clients from one in-process hub.
 
 The frontend renders hundreds of live Hyperliquid symbols and a **mock portfolio** (static positions, live P&L) with smooth number animations at ~60 fps, visible connection state, reconnect with sequence backfill, and correct reconciliation after a 30-second background tab.
 
