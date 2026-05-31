@@ -1,6 +1,6 @@
 # axis-trading — Claude / AI Collaboration Guidelines
 
-> **Required reading before development**: `docs/axis.md` → `docs/technical-design.md`
+> **Required reading before development**: `docs/technical-design.md`
 
 ## Role
 
@@ -30,9 +30,7 @@ Senior frontend engineer specializing in React / TypeScript / Vite, MobX, WebSoc
 axis-trading/
 ├── CLAUDE.md                 # This file
 ├── docs/
-│   ├── axis.md               # Assignment requirements
-│   ├── technical-design.md    # Architecture & design decisions
-│   └── loom-brief.md        # Demo walkthrough script
+│   └── technical-design.md    # Architecture & design decisions
 ├── frontend/src/
 │   ├── app/App.tsx
 │   ├── components/           # Watchlist / Portfolio / cells / PriceTicker
