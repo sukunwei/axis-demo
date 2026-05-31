@@ -17,8 +17,11 @@ export const MarketOverview = observer(function MarketOverview() {
   const totalValue = portfolioStore.totalValue;
 
   return (
-    <div className="bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3">
-      <div className="flex items-center justify-around">
+    <div className="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden">
+      <div className="px-4 py-2 border-b border-zinc-800">
+        <span className="text-sm font-medium text-zinc-300">Market Overview</span>
+      </div>
+      <div className="flex items-center justify-around px-4 py-3">
         <div className="flex flex-col items-center">
           <span className="font-mono tabular-nums text-lg text-zinc-100">
             {symbolCount === 0 ? '—' : symbolCount}
