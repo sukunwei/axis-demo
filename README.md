@@ -29,8 +29,6 @@ pnpm install && pnpm start
 # Frontend http://localhost:5173 | Backend ws://localhost:5174
 ```
 
-**Toggle mock mode**: Settings (top-right) → Mock Data
-
 ---
 
 ## Documentation
