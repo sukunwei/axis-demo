@@ -32,6 +32,8 @@ export class HyperliquidFeed {
   private shouldReconnect = true;
   private reconnectTimer: ReturnType<typeof setTimeout> | null = null;
   private _connected = false;
+  /** Active l2Book subscriptions — re-sent after reconnect */
+  private subscribedBooks = new Set<string>();
 
   constructor(onUpdate: TickHandler, onOrderBook: OrderBookHandler) {
     this.onUpdate = onUpdate;
@@ -84,6 +86,9 @@ export class HyperliquidFeed {
       this.ws!.send(
         JSON.stringify({ method: 'subscribe', subscription: { type: 'allMids' } }),
       );
+      for (const coin of this.subscribedBooks) {
+        this.sendL2Subscribe(coin);
+      }
     });
 
     this.ws.on('message', (raw: Buffer) => {
@@ -115,6 +120,9 @@ export class HyperliquidFeed {
       const data = msg.data as { mids?: Record<string, string> };
       if (data.mids) {
         for (const [symbol, price] of Object.entries(data.mids)) {
+          if (symbol.includes('ARB')) {
+            console.log('[hl] ARB found:', symbol, price);
+          }
           this.onUpdate(symbol, parseFloat(price));
         }
       }
@@ -134,20 +142,26 @@ export class HyperliquidFeed {
     }
   }
 
-  /** Subscribe to order book for a specific symbol (e.g. 'BTC-PERP') */
+  /** Subscribe to order book for a specific symbol (e.g. 'BTC') */
   subscribeOrderBook(symbol: string): void {
-    if (this.ws?.readyState === WebSocket.OPEN) {
-      const msg = JSON.stringify({ method: 'subscribe', subscription: { type: 'l2Book', coin: symbol } });
-      console.log('[hl] subscribing l2Book:', symbol, '→', msg);
-      this.ws.send(msg);
-    }
+    this.subscribedBooks.add(symbol);
+    this.sendL2Subscribe(symbol);
   }
 
   /** Unsubscribe from order book for a specific symbol */
   unsubscribeOrderBook(symbol: string): void {
+    this.subscribedBooks.delete(symbol);
     if (this.ws?.readyState === WebSocket.OPEN) {
       this.ws.send(
         JSON.stringify({ method: 'unsubscribe', subscription: { type: 'l2Book', coin: symbol } }),
+      );
+    }
+  }
+
+  private sendL2Subscribe(symbol: string): void {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      this.ws.send(
+        JSON.stringify({ method: 'subscribe', subscription: { type: 'l2Book', coin: symbol } }),
       );
     }
   }
