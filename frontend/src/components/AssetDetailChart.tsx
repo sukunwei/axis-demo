@@ -48,7 +48,7 @@ export const AssetDetailChart = memo(function AssetDetailChart({
         <span className="text-xs text-zinc-500">Live</span>
       </div>
 
-      <div className="min-h-0 flex-1 px-3 py-3">
+      <div className="flex min-h-0 flex-1 px-3 py-3">
         {hasData ? (
           <PriceChartCanvas dataRef={dataRef} stroke={stroke} decimals={decimals} paused={isPaused} />
         ) : (
