@@ -13,7 +13,7 @@
 
 The frontend renders hundreds of live Hyperliquid symbols and a **mock portfolio** (static positions, live P&L) with smooth number animations at ~60 fps, visible connection state, reconnect with sequence backfill, and correct reconciliation after a 30-second background tab.
 
-**Delivery**: public GitHub repo, one-command local deploy (`pnpm start` / `docker-compose up`), and a 3–5 minute walkthrough video.
+**Delivery**: public GitHub repo, one-command local deploy (`pnpm start`), and a 3–5 minute walkthrough video.
 
 ---
 
@@ -114,8 +114,7 @@ flowchart LR
   FE -->|"ws://localhost:5174"| BE
 ```
 
-**Local one-command start**: `pnpm install && pnpm start` (concurrently runs backend + frontend).  
-**Docker fallback**: `docker-compose up --build` (frontend nginx + backend container).
+**Local one-command start**: `pnpm install && pnpm start` (concurrently runs backend + frontend on ports 5174 and 5173).
 
 ---
 
@@ -143,8 +142,6 @@ On each upstream tick the aggregator:
 **Order book**: `onOrderBook(symbol, bids, asks)` patches depth fields into the same diff pipeline so clients receive `bids`/`asks` only when they change.
 
 ### 4.3 WebSocket protocol (summary)
-
-Full spec: [`docs/api-protocol.md`](./api-protocol.md).
 
 **Client → server**
 
@@ -193,7 +190,7 @@ During `Hub.fanOut`, clients with `ws.bufferedAmount > 256 KB` are **skipped for
 
 ### 4.6 Feed modes
 
-**Production default**: `FEED_MODE=hyperliquid` (also set in `docker-compose.yml` and `backend/.env.example`).
+**Production default**: `FEED_MODE=hyperliquid` (set via `backend/.env.example` or environment variable).
 
 | Mode | Role | Price source | Order book source |
 |------|------|--------------|-------------------|
@@ -298,7 +295,6 @@ flowchart TB
 |------|----------|
 | Aggregator field diff & batch merge | `backend/src/__tests__/aggregator.test.ts` |
 | Ring buffer readRange / window | `backend/src/__tests__/ringBuffer.test.ts` |
-| Hub hello backfill & field merge | `backend/src/__tests__/hub.test.ts` |
 | FrameScheduler seq gap / resync | `frontend/src/__tests__/frameScheduler.test.ts` |
 | Stores | `marketStore`, `portfolioStore`, `connectionStore` tests |
 
@@ -334,10 +330,8 @@ The assignment asks for engineers who can name their own rough edges. These are 
 | Document | Description |
 |----------|-------------|
 | [`axis.md`](./axis.md) | Assignment requirements |
-| [`api-protocol.md`](./api-protocol.md) | WebSocket protocol SSOT |
-| [`DESIGN_DECISIONS.md`](./DESIGN_DECISIONS.md) | Detailed trade-off notes (Chinese) |
 | [`README.md`](../README.md) | Setup, env vars, run commands |
-| [`loom-brief.md`](./loom-brief.md) | 3–5 min demo script (abbreviated) |
+| [`loom-brief.md`](./loom-brief.md) | 3–5 min demo script |
 
 ---
 

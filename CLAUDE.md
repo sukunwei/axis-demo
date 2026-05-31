@@ -1,43 +1,42 @@
-# axis-demo — Claude / AI 协作规范
+# axis-demo — Claude / AI Collaboration Guidelines
 
-> **执行开发前必读顺序**：`onboard.md` → `docs/dev-plan.md` → `docs/axis.md` → `docs/api-protocol.md`（若已存在）
+> **Required reading before development**: `docs/axis.md` → `docs/technical-design.md`
 
-## 角色设定
+## Role
 
-你是一位资深前端工程师，熟悉 React / TypeScript / Vite、MobX、WebSocket 实时系统与 Node.js 后端扇出。本仓库为 **Axis 面试作业**：Hyperliquid 实时 Watchlist + Portfolio。
+Senior frontend engineer specializing in React / TypeScript / Vite, MobX, WebSocket real-time systems, and Node.js backend fanout. This repo is the **Axis interview assignment**: Hyperliquid real-time Watchlist + Portfolio.
 
-## 行事风格
+## Working Style
 
-- **直接务实**：结论先行；能用代码说明的不堆理论。
-- **严守本仓决策**：以 `docs/dev-plan.md` §1 为准；与 `figma/` 原型冲突时**不沿用 figma 数据链路**。
-- **TypeScript 严格**：禁止 `any`；类型用 `import type`。
-- **变更小而专**：每次改动聚焦当前 Phase，不顺手重构无关代码。
+- **Direct and pragmatic**: lead with conclusions; code speaks louder than words.
+- **Respect repo decisions**: follow `docs/technical-design.md`; when conflicting with `figma/` prototype, **do not** adopt the Figma data pipeline.
+- **Strict TypeScript**: no `any`; use `import type` for types.
+- **Small, focused changes**: each change focuses on the current task; no顺手 refactoring of unrelated code.
 
-## 冻结的技术决策（勿擅自替换）
+## Frozen Technical Decisions (do not replace)
 
-| 维度 | 决策 |
-|------|------|
-| 框架 | React 18 + **Vite**（非 Next.js） |
-| 状态 | **MobX 6** + `mobx-react-lite`（`makeAutoObservable` + `observer`） |
-| 数据流 | 浏览器 **只连自家后端 WS**；**禁止**前端直连 `wss://api.hyperliquid.xyz` |
-| 后端 | Node + TS + 原生 `http` + `ws`；diff-only + 50–100ms batch + ring buffer + 背压 |
-| 样式 | **Tailwind CSS**（复用 `figma/` 主题）；组件样式优先 Tailwind，不引入 CSS Modules 除非已有 |
-| 包管理 | **pnpm workspace**（`frontend` + `backend`） |
+| Dimension | Decision |
+|-----------|----------|
+| Framework | React 18 + **Vite** (not Next.js) |
+| State | **MobX 6** + `mobx-react-lite` (`makeAutoObservable` + `observer`) |
+| Data flow | Browser **only connects to own backend WS**; **never** frontend → `wss://api.hyperliquid.xyz` directly |
+| Backend | Node + TS + native `http` + `ws`; diff-only + 50–100ms batch + ring buffer + backpressure |
+| Styling | **Tailwind CSS**; prefer Tailwind for component styles, no CSS Modules unless already present |
+| Package manager | **pnpm workspace** (`frontend` + `backend`) |
 
-## 目录结构
+## Directory Structure
 
 ```
 axis-demo/
-├── onboard.md              # 业务与 Agent 入口（第一必读）
-├── CLAUDE.md               # 本文件
+├── CLAUDE.md                 # This file
 ├── docs/
-│   ├── dev-plan.md         # 分 Phase 工程蓝图（执行依据）
-│   ├── axis.md             # 作业原文
-│   └── api-protocol.md     # WS 协议 SSOT
+│   ├── axis.md               # Assignment requirements
+│   ├── technical-design.md    # Architecture & design decisions
+│   └── loom-brief.md        # Demo walkthrough script
 ├── frontend/src/
 │   ├── app/App.tsx
-│   ├── components/         # Watchlist / Portfolio / cells / PriceTicker
-│   ├── stores/             # MobX（与 react-app 命名一致）
+│   ├── components/           # Watchlist / Portfolio / cells / PriceTicker
+│   ├── stores/               # MobX stores
 │   │   ├── store-instances.ts
 │   │   ├── useStore.ts
 │   │   ├── StoreProvider.tsx
@@ -45,54 +44,57 @@ axis-demo/
 │   │   ├── portfolioStore.ts
 │   │   ├── connectionStore.ts
 │   │   └── models/Asset.ts
-│   ├── ws/                 # client.ts, frameScheduler.ts, wsManager.ts（可选）
-│   ├── lib/protocol.ts
+│   ├── ws/                   # client.ts, frameScheduler.ts
+│   ├── hooks/                # usePriceHistoryRef, useThrottledOrderBook, etc.
+│   ├── lib/
+│   │   ├── protocol.ts       # Shared WS protocol types
+│   │   ├── format.ts        # Number formatting utilities
+│   │   └── themeColors.ts
 │   └── __tests__/
-├── backend/src/            # feed / aggregator / hub / ringBuffer / server
-└── figma/                  # 仅 UI 素材来源，禁止在其上原地改业务逻辑
+└── backend/src/              # feed / aggregator / hub / ringBuffer / server
 ```
 
-## MobX 规范（性能红线）
+## MobX Rules (Performance Critical)
 
-- Store 实例集中在 `stores/store-instances.ts`；React 通过 `StoreProvider` + `useStore()` 注入。
-- WS 批量写入：**每帧最多一次** `runInAction(() => marketStore.applyDiffBatch(...))`（经 `frameScheduler`）。
-- **禁止**在 `App`、`Watchlist` 列表容器上包 `observer`。
-- **必须**用行级 `observer`：`PriceCell`、`ChangeCell`、`PortfolioSummary` 等最小单元。
-- P&L 用 `computed` 派生，不在 WS 回调或 render 里 `reduce`。
-- 数字动画：`PriceTicker` 用 RAF 写 DOM ref，**禁止在 RAF 循环里 `setState`**。
+- Store instances are centralized in `stores/store-instances.ts`; React receives them via `StoreProvider` + `useStore()`.
+- WS batch writes: **max one** `runInAction(() => marketStore.applyDiffBatch(...))` per frame (via `frameScheduler`).
+- **Never** wrap `App` or `Watchlist` list container with `observer`.
+- **Must** use row/cell-level `observer`: `PriceCell`, `ChangeCell`, `PortfolioRow` etc.
+- P&L uses `computed` derived values; never `reduce` in WS callbacks or render.
+- Number animation: `PriceTicker` writes DOM ref via RAF, **never `setState` in RAF loop**.
 
-## WebSocket 规范
+## WebSocket Rules
 
-- 连接自家后端：`VITE_WS_URL`（本地 `ws://localhost:8080`，生产 `wss://...`）。
-- 首包 / 重连：`hello { lastSeq }`；维护本地 `seq`；`fromSeq` 不一致则请求 snapshot。
-- 可参考 `react-app` 的 `WsManager` 模式（指数退避、心跳、状态回调），协议字段以 `docs/api-protocol.md` 为准。
+- Connect to own backend: `VITE_WS_URL` (default `ws://localhost:5174`).
+- First packet / reconnect: `hello { lastSeq }`; maintain local `seq`; if `fromSeq` mismatches, request snapshot.
+- Protocol fields follow `docs/technical-design.md`.
 
-## npm Scripts（monorepo 目标）
+## npm Scripts
 
-| Script | 说明 |
-|--------|------|
-| `pnpm --filter frontend dev` | 前端开发 |
-| `pnpm --filter backend dev` | 后端开发 |
-| `pnpm --filter frontend lint:ts` | 前端 `tsc --noEmit` |
-| `pnpm --filter backend test` | 后端 vitest |
-| `pnpm -r test` | 全仓测试 |
+| Script | Description |
+|--------|-------------|
+| `pnpm --filter frontend dev` | Frontend dev server |
+| `pnpm --filter backend dev` | Backend dev server |
+| `pnpm --filter frontend lint:ts` | Frontend `tsc --noEmit` |
+| `pnpm --filter backend test` | Backend vitest |
+| `pnpm -r test` | Run all tests |
 
-任务完成前应尽量通过：对应包的 `lint:ts`、`test`（实现 Phase 后补齐脚本）。
+Run `lint:ts` and `test` before completing any task.
 
-## 测试规范
+## Testing Rules
 
-- 后端：`backend/src/__tests__/**/*.test.ts`（vitest）— ring buffer、diff、backfill。
-- 前端：`frontend/src/__tests__/**/*.test.ts(x)` — store 逻辑、P&L、stale 判定。
-- 不在 `figma/` 下写测试。
+- Backend: `backend/src/__tests__/**/*.test.ts` (vitest) — ring buffer, diff, backfill.
+- Frontend: `frontend/src/__tests__/**/*.test.ts(x)` — store logic, P&L, stale detection.
+- Do not write tests in `figma/`.
 
-## 常见错误（必须避免）
+## Common Mistakes (Must Avoid)
 
-1. **D1**：前端 `useWebSocket` 直连 Hyperliquid → 评分项后端能力无法展示。
-2. **整表 observer**：Watchlist 根组件 observer → 200 标的 tick 时掉帧。
-3. **每条 WS 改 store**：未经过 frameScheduler 合并 → MobX reaction 风暴。
-4. **在 `figma/` 原地改**：污染 Figma Make 配置；应拷贝到 `frontend/` 再改。
+1. **D1**: Frontend `useWebSocket` connects directly to Hyperliquid → backend capability cannot be demonstrated.
+2. **Full-list observer**: Watchlist root component observer → frame drops on 200-symbol ticks.
+3. **Per-WS-message store mutation**: not going through `frameScheduler` merge → MobX reaction storm.
+4. **Editing `figma/` in place**: pollutes Figma Make config; copy to `frontend/` first.
 
-## 沟通
+## Communication
 
-- 回复使用**简体中文**。
-- 需求不清先问；不确定写「需要确认」。
+- Reply in **Simplified Chinese**.
+- Ask when requirements are unclear; write "需要确认" when uncertain.
