@@ -21,8 +21,16 @@
 
 ## Quick Start
 
+Requires [pnpm](https://pnpm.io/installation). If not installed:
+
 ```bash
-npm install -g pnpm && pnpm install && pnpm start
+npm install -g pnpm
+```
+
+Then:
+
+```bash
+pnpm install && pnpm start
 ```
 
 ---
