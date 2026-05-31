@@ -145,29 +145,19 @@ const AppContent = observer(function AppContent() {
               </div>
 
               <div className="relative flex-1 overflow-hidden p-4">
-                {/* Keep panels mounted — conditional unmount was remounting ~50 live cells per switch */}
-                <div
-                  className={`h-full ${activeTab === 'watchlist' ? '' : 'hidden'}`}
-                  aria-hidden={activeTab !== 'watchlist'}
-                >
+                {activeTab === 'watchlist' && (
                   <Watchlist
-                    isActive={activeTab === 'watchlist'}
+                    isActive={true}
                     onSelectSymbol={setSelectedSymbol}
                   />
-                </div>
-                <div
-                  className={`h-full ${activeTab === 'portfolio' ? '' : 'hidden'}`}
-                  aria-hidden={activeTab !== 'portfolio'}
-                >
+                )}
+                {activeTab === 'portfolio' && (
                   <Portfolio
-                    isActive={activeTab === 'portfolio'}
+                    isActive={true}
                     onSelectSymbol={setSelectedSymbol}
                   />
-                </div>
-                <div
-                  className={`h-full ${activeTab === 'news' ? '' : 'hidden'}`}
-                  aria-hidden={activeTab !== 'news'}
-                >
+                )}
+                {activeTab === 'news' && (
                   <Suspense
                     fallback={
                       <div className="flex h-32 items-center justify-center text-sm text-zinc-500">
@@ -177,7 +167,7 @@ const AppContent = observer(function AppContent() {
                   >
                     <NewsTab />
                   </Suspense>
-                </div>
+                )}
               </div>
             </>
           )}

@@ -34,7 +34,7 @@ export const NewsTab = observer(function NewsTab() {
   }
 
   return (
-    <div className="flex flex-col gap-3 overflow-y-auto pr-1">
+    <div className="flex flex-col gap-3 overflow-y-auto pr-1 h-full">
       {newsStore.items.map((item) => (
         <a
           key={item.id}
