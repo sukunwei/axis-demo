@@ -82,7 +82,7 @@ function WatchlistBody({
   return (
     <div ref={containerRef} className="flex-1 overflow-y-auto" onScroll={handleScroll}>
       {!hasLoaded ? (
-        <div className="flex items-center justify-center h-full min-h-32">
+        <div className="flex items-center justify-center min-h-[600px]">
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" aria-hidden />
         </div>
       ) : sortedSymbols.length === 0 ? (
