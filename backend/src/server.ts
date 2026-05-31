@@ -2,7 +2,7 @@
  * Axis Backend — HTTP + WebSocket server
  *
  * Wires: Hyperliquid/Mock feed → Aggregator → Hub → clients
- * Supports FEED_MODE=mock|hyperliquid (default: mock)
+ * Supports FEED_MODE=mock|hyperliquid (default: hyperliquid)
  * Stale detection: if no tick for STALE_THRESHOLD_MS → broadcast 'stale'
  */
 
@@ -18,7 +18,7 @@ import { handleContext } from './routes/context.js';
 import type { ClientMessage, ServerMessage } from './protocol.js';
 
 const PORT = Number(process.env.PORT ?? 5174);
-const FEED_MODE = process.env.FEED_MODE ?? 'mock';
+const FEED_MODE = process.env.FEED_MODE ?? 'hyperliquid';
 const STALE_THRESHOLD_MS = 10_000;
 
 // ── Infrastructure ────────────────────────────────────────────────────────────
@@ -63,6 +63,55 @@ const httpServer = http.createServer((req, res) => {
 // ── WebSocket ────────────────────────────────────────────────────────────────
 const wss = new WebSocketServer({ server: httpServer });
 
+/** Ref-counted l2Book subscriptions (shared across clients) */
+const orderBookSubRefs = new Map<string, number>();
+const clientOrderBookSubs = new WeakMap<WebSocket, Set<string>>();
+
+function subscribeOrderBookSymbol(symbol: string): void {
+  const next = (orderBookSubRefs.get(symbol) ?? 0) + 1;
+  orderBookSubRefs.set(symbol, next);
+  if (next === 1 && feed instanceof HyperliquidFeed) {
+    feed.subscribeOrderBook(symbol);
+  }
+}
+
+function unsubscribeOrderBookSymbol(symbol: string): void {
+  const current = orderBookSubRefs.get(symbol) ?? 0;
+  if (current <= 1) {
+    orderBookSubRefs.delete(symbol);
+    if (feed instanceof HyperliquidFeed) {
+      feed.unsubscribeOrderBook(symbol);
+    }
+  } else {
+    orderBookSubRefs.set(symbol, current - 1);
+  }
+}
+
+function trackClientOrderBookSub(ws: WebSocket, symbol: string): void {
+  let subs = clientOrderBookSubs.get(ws);
+  if (!subs) {
+    subs = new Set();
+    clientOrderBookSubs.set(ws, subs);
+  }
+  if (subs.has(symbol)) return;
+  subs.add(symbol);
+  subscribeOrderBookSymbol(symbol);
+}
+
+function untrackClientOrderBookSub(ws: WebSocket, symbol: string): void {
+  const subs = clientOrderBookSubs.get(ws);
+  if (!subs?.has(symbol)) return;
+  subs.delete(symbol);
+  unsubscribeOrderBookSymbol(symbol);
+}
+
+function resubscribeAllOrderBooks(): void {
+  if (!(feed instanceof HyperliquidFeed)) return;
+  for (const symbol of orderBookSubRefs.keys()) {
+    feed.subscribeOrderBook(symbol);
+  }
+}
+
 wss.on('connection', (ws: WebSocket) => {
   hub.addClient(ws);
   ws.send(JSON.stringify({ type: 'feed_mode', mode: activeFeedMode } satisfies ServerMessage));
@@ -101,20 +150,25 @@ wss.on('connection', (ws: WebSocket) => {
 
       hub.broadcastFeedMode(activeFeedMode);
       hub.broadcastSnapshot(aggregator.seq, aggregator.snapshot());
+    } else if (msg.type === 'subscribe_orderbook') {
+      trackClientOrderBookSub(ws, msg.symbol);
+    } else if (msg.type === 'unsubscribe_orderbook') {
+      untrackClientOrderBookSub(ws, msg.symbol);
     }
   });
 
-  ws.on('close', () => hub.removeClient(ws));
+  ws.on('close', () => {
+    const subs = clientOrderBookSubs.get(ws);
+    if (subs) {
+      for (const symbol of subs) unsubscribeOrderBookSymbol(symbol);
+      clientOrderBookSubs.delete(ws);
+    }
+    hub.removeClient(ws);
+  });
   ws.on('error', (err) => console.error('[ws] client error', err));
 });
 
 // ── Feed ─────────────────────────────────────────────────────────────────────
-interface FeedWithOrderBook {
-  subscribeOrderBook(symbol: string): void;
-  unsubscribeOrderBook(symbol: string): void;
-  start(): Promise<void>;
-}
-
 type Feed = MockFeed | HyperliquidFeed;
 let feed: Feed;
 /** Effective feed after HL stall fallback (may differ from FEED_MODE env). */
@@ -122,12 +176,6 @@ let activeFeedMode: 'mock' | 'hyperliquid' = FEED_MODE === 'hyperliquid' ? 'hype
 let mockFallbackDone = false;
 
 const HL_STALL_FALLBACK_MS = 12_000;
-
-// Hyperliquid symbols for order book subscription
-const PERP_COINS = [
-  'BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE', 'ADA', 'AVAX',
-  'LINK', 'MATIC', 'DOT', 'SHIB', 'LTC', 'UNI', 'ATOM', 'APT',
-];
 
 function stopCurrentFeed(): void {
   if (feed instanceof MockFeed) feed.stop();
@@ -160,11 +208,7 @@ function startHyperliquidFeed(): void {
 
   feed.start().then(async () => {
     await (feed as HyperliquidFeed).waitForOpen();
-    const hlFeed = feed as FeedWithOrderBook;
-    for (const coin of PERP_COINS) {
-      hlFeed.subscribeOrderBook(coin);
-    }
-    // console.log(`[hl] subscribed to ${PERP_COINS.length} order books`);
+    resubscribeAllOrderBooks();
   }).catch((err: unknown) => {
     console.error('[feed] HL feed failed to start, falling back to mock', err);
     startMockFeed('HL start failed');

@@ -120,9 +120,6 @@ export class HyperliquidFeed {
       const data = msg.data as { mids?: Record<string, string> };
       if (data.mids) {
         for (const [symbol, price] of Object.entries(data.mids)) {
-          if (symbol.includes('ARB')) {
-            console.log('[hl] ARB found:', symbol, price);
-          }
           this.onUpdate(symbol, parseFloat(price));
         }
       }
