@@ -12,7 +12,7 @@
 | Capability | Implementation |
 |------------|---------------|
 | **60fps price animation** | RAF + direct DOM ref writes; `setState` fires only once on init |
-| **200 symbols without stutter** | Row-level MobX `observer` (PriceCell); Watchlist shell does NOT observe |
+| **200+ symbols without stutter** | Row-level MobX `observer` (PriceCell); Watchlist shell does NOT observe |
 | **Diff-only protocol** | Field-level change push; 75ms batch flush; minimal bandwidth |
 | **Frame scheduler** | WS messages aggregated via RAF; max one `runInAction` per frame; no MobX reaction storm |
 | **Zero zombie prices on reconnect** | Client stores `lastSeq`; Ring Buffer replays within window; snapshot outside window |

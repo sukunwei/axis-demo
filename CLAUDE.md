@@ -88,7 +88,7 @@ Run `lint:ts` and `test` before completing any task.
 ## Common Mistakes (Must Avoid)
 
 1. **D1**: Frontend `useWebSocket` connects directly to Hyperliquid → backend capability cannot be demonstrated.
-2. **Full-list observer**: Watchlist root component observer → frame drops on 200-symbol ticks.
+2. **Full-list observer**: Watchlist root component observer → frame drops on 200+ symbol ticks.
 3. **Per-WS-message store mutation**: not going through `frameScheduler` merge → MobX reaction storm.
 4. **Editing `figma/` in place**: pollutes Figma Make config; copy to `frontend/` first.
 
