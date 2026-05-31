@@ -325,14 +325,4 @@ The assignment asks for engineers who can name their own rough edges. These are 
 
 ---
 
-## 10. References
-
-| Document | Description |
-|----------|-------------|
-| [`axis.md`](./axis.md) | Assignment requirements |
-| [`README.md`](../README.md) | Setup, env vars, run commands |
-| [`loom-brief.md`](./loom-brief.md) | 3–5 min demo script |
-
----
-
 *End of technical design.*
