@@ -21,10 +21,8 @@
 
 ## Quick Start
 
-Requires [pnpm](https://pnpm.io/installation):
-
 ```bash
-pnpm install && pnpm start
+npm install -g pnpm && pnpm install && pnpm start
 # Frontend http://localhost:5173 | Backend ws://localhost:5174
 ```
 
