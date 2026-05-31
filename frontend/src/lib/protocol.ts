@@ -23,7 +23,9 @@ export type MarketDiff = { symbol: string } & Partial<Omit<MarketItem, 'symbol'>
 export type ClientMessage =
   | { type: 'hello'; lastSeq?: number }
   | { type: 'ping'; ts: number }
-  | { type: 'set_feed_mode'; mode: FeedMode };
+  | { type: 'set_feed_mode'; mode: FeedMode }
+  | { type: 'subscribe_orderbook'; symbol: string }
+  | { type: 'unsubscribe_orderbook'; symbol: string };
 
 // Server → Client
 export type ServerMessage =

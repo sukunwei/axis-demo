@@ -1,0 +1,1636 @@
+- generic [ref=e3] [box=0,0,1200,11443]:
+  - banner [ref=e4] [box=0,0,1200,61]:
+    - heading "axis-demo" [level=1] [ref=e5] [box=24,16,89,28]
+    - generic [ref=e8] [box=1101,22,63,16]: Connected
+  - generic [ref=e9] [box=0,61,1200,11382]:
+    - main [ref=e10] [box=0,61,944,11382]:
+      - generic [ref=e11] [box=0,61,944,52]:
+        - button "Watchlist" [ref=e12] [box=16,77,93,36]
+        - button "Portfolio" [ref=e13] [box=113,77,88,36]
+      - generic [ref=e15] [box=16,129,912,11298]:
+        - generic [ref=e17] [box=33,142,878,38]:
+          - generic [ref=e18] [box=33,142,779,38]:
+            - img [ref=e19] [box=45,153,16,16]
+            - textbox "Search symbols…" [ref=e22] [box=33,142,779,38]
+          - generic [ref=e23] [box=832,153,79,16]: 200 symbols
+        - generic [ref=e24] [box=17,193,910,33]:
+          - button "Symbol ↑" [ref=e25] [box=33,201,287,16]
+          - button "Price" [ref=e26] [box=328,201,287,16]
+          - button "24h Change" [ref=e27] [box=624,201,287,16]
+        - generic [ref=e55] [box=17,226,910,11200]:
+          - generic [ref=e56] [cursor=pointer] [box=17,226,910,56]:
+            - generic [ref=e57] [box=33,238,287,31]:
+              - generic [ref=e58] [box=33,240,28,28]: A
+              - generic [ref=e59] [box=69,244,36,20]: AAVE
+            - generic [ref=e61] [box=558,242,58,24]: $92.36
+            - generic [ref=e62] [box=624,238,287,31]:
+              - img [ref=e63] [box=844,248,12,12]
+              - text: +0.39%
+          - generic [ref=e65] [cursor=pointer] [box=17,282,910,56]:
+            - generic [ref=e66] [box=33,294,287,31]:
+              - generic [ref=e67] [box=33,296,28,28]: A
+              - generic [ref=e68] [box=69,300,29,20]: ADA
+            - generic [ref=e70] [box=568,298,48,24]: $0.48
+            - generic [ref=e71] [box=624,294,287,31]:
+              - img [ref=e72] [box=844,304,12,12]
+              - text: "-0.79%"
+          - generic [ref=e74] [cursor=pointer] [box=17,338,910,56]:
+            - generic [ref=e75] [box=33,350,287,31]:
+              - generic [ref=e76] [box=33,352,28,28]: A
+              - generic [ref=e77] [box=69,356,38,20]: ALGO
+            - generic [ref=e79] [box=568,354,48,24]: $0.17
+            - generic [ref=e80] [box=624,350,287,31]:
+              - img [ref=e81] [box=844,360,12,12]
+              - text: "-0.22%"
+          - generic [ref=e83] [cursor=pointer] [box=17,394,910,56]:
+            - generic [ref=e84] [box=33,406,287,31]:
+              - generic [ref=e85] [box=33,408,28,28]: A
+              - generic [ref=e86] [box=69,412,27,20]: APT
+            - generic [ref=e88] [box=568,410,48,24]: $9.09
+            - generic [ref=e89] [box=624,406,287,31]:
+              - img [ref=e90] [box=844,416,12,12]
+              - text: "-0.11%"
+          - generic [ref=e92] [cursor=pointer] [box=17,450,910,56]:
+            - generic [ref=e93] [box=33,462,287,31]:
+              - generic [ref=e94] [box=33,464,28,28]: A
+              - generic [ref=e95] [box=69,468,28,20]: ARB
+            - generic [ref=e97] [box=568,466,48,24]: $1.05
+            - generic [ref=e98] [box=624,462,287,31]: +0.00%
+          - generic [ref=e99] [cursor=pointer] [box=17,506,910,56]:
+            - generic [ref=e100] [box=33,518,287,31]:
+              - generic [ref=e101] [box=33,520,28,28]: A
+              - generic [ref=e102] [box=69,524,40,20]: ATOM
+            - generic [ref=e104] [box=568,522,48,24]: $8.24
+            - generic [ref=e105] [box=624,518,287,31]:
+              - img [ref=e106] [box=844,528,12,12]
+              - text: +0.49%
+          - generic [ref=e108] [cursor=pointer] [box=17,562,910,56]:
+            - generic [ref=e109] [box=33,574,287,31]:
+              - generic [ref=e110] [box=33,576,28,28]: A
+              - generic [ref=e111] [box=69,580,36,20]: AVAX
+            - generic [ref=e113] [box=558,578,58,24]: $38.26
+            - generic [ref=e114] [box=624,574,287,31]:
+              - img [ref=e115] [box=844,584,12,12]
+              - text: +0.68%
+          - generic [ref=e117] [cursor=pointer] [box=17,618,910,56]:
+            - generic [ref=e118] [box=33,630,287,31]:
+              - generic [ref=e119] [box=33,632,28,28]: B
+              - generic [ref=e120] [box=69,636,29,20]: BNB
+            - generic [ref=e122] [box=548,634,67,24]: $600.16
+            - generic [ref=e123] [box=624,630,287,31]:
+              - img [ref=e1846] [box=844,640,12,12]
+              - text: +0.03%
+          - generic [ref=e126] [cursor=pointer] [box=17,674,910,56]:
+            - generic [ref=e127] [box=33,686,287,31]:
+              - generic [ref=e128] [box=33,688,28,28]: B
+              - generic [ref=e129] [box=69,692,28,20]: BTC
+            - generic [ref=e131] [box=529,690,87,24]: $67100.29
+            - generic [ref=e132] [box=624,686,287,31]:
+              - img [ref=e133] [box=844,696,12,12]
+              - text: +0.15%
+          - generic [ref=e135] [cursor=pointer] [box=17,730,910,56]:
+            - generic [ref=e136] [box=33,742,287,31]:
+              - generic [ref=e137] [box=33,744,28,28]: D
+              - generic [ref=e138] [box=69,748,40,20]: DOGE
+            - generic [ref=e140] [box=568,746,48,24]: $0.14
+            - generic [ref=e141] [box=624,742,287,31]:
+              - img [ref=e142] [box=844,752,12,12]
+              - text: "-0.50%"
+          - generic [ref=e144] [cursor=pointer] [box=17,786,910,56]:
+            - generic [ref=e145] [box=33,798,287,31]:
+              - generic [ref=e146] [box=33,800,28,28]: D
+              - generic [ref=e147] [box=69,804,29,20]: DOT
+            - generic [ref=e149] [box=568,802,48,24]: $7.51
+            - generic [ref=e150] [box=624,798,287,31]:
+              - img [ref=e1848] [box=844,808,12,12]
+              - text: +0.13%
+          - generic [ref=e151] [cursor=pointer] [box=17,842,910,56]:
+            - generic [ref=e152] [box=33,854,287,31]:
+              - generic [ref=e153] [box=33,856,28,28]: E
+              - generic [ref=e154] [box=69,860,27,20]: ETC
+            - generic [ref=e156] [box=558,858,58,24]: $25.98
+            - generic [ref=e157] [box=624,854,287,31]:
+              - img [ref=e158] [box=844,864,12,12]
+              - text: "-0.08%"
+          - generic [ref=e160] [cursor=pointer] [box=17,898,910,56]:
+            - generic [ref=e161] [box=33,910,287,31]:
+              - generic [ref=e162] [box=33,912,28,28]: E
+              - generic [ref=e163] [box=69,916,28,20]: ETH
+            - generic [ref=e165] [box=539,914,77,24]: $3477.12
+            - generic [ref=e166] [box=624,910,287,31]:
+              - img [ref=e167] [box=844,920,12,12]
+              - text: "-0.65%"
+          - generic [ref=e169] [cursor=pointer] [box=17,954,910,56]:
+            - generic [ref=e170] [box=33,966,287,31]:
+              - generic [ref=e171] [box=33,968,28,28]: F
+              - generic [ref=e172] [box=69,972,20,20]: FIL
+            - generic [ref=e174] [box=568,970,48,24]: $5.19
+            - generic [ref=e175] [box=624,966,287,31]:
+              - img [ref=e176] [box=844,976,12,12]
+              - text: "-0.19%"
+          - generic [ref=e178] [cursor=pointer] [box=17,1010,910,56]:
+            - generic [ref=e179] [box=33,1022,287,31]:
+              - generic [ref=e180] [box=33,1024,28,28]: F
+              - generic [ref=e181] [box=69,1028,29,20]: FTM
+            - generic [ref=e183] [box=568,1026,48,24]: $0.72
+            - generic [ref=e184] [box=624,1022,287,31]:
+              - img [ref=e185] [box=844,1032,12,12]
+              - text: "-0.57%"
+          - generic [ref=e187] [cursor=pointer] [box=17,1066,910,56]:
+            - generic [ref=e188] [box=33,1078,287,31]:
+              - generic [ref=e189] [box=33,1080,28,28]: G
+              - generic [ref=e190] [box=69,1084,28,20]: GRT
+            - generic [ref=e192] [box=568,1082,48,24]: $0.22
+            - generic [ref=e193] [box=624,1078,287,31]:
+              - img [ref=e194] [box=844,1088,12,12]
+              - text: +0.26%
+          - generic [ref=e196] [cursor=pointer] [box=17,1122,910,56]:
+            - generic [ref=e197] [box=33,1134,287,31]:
+              - generic [ref=e198] [box=33,1136,28,28]: H
+              - generic [ref=e199] [box=69,1140,45,20]: HBA74
+            - generic [ref=e201] [box=558,1138,58,24]: $39.67
+            - generic [ref=e202] [box=624,1134,287,31]:
+              - img [ref=e203] [box=844,1144,12,12]
+              - text: "-0.46%"
+          - generic [ref=e205] [cursor=pointer] [box=17,1178,910,56]:
+            - generic [ref=e206] [box=33,1190,287,31]:
+              - generic [ref=e207] [box=33,1192,28,28]: H
+              - generic [ref=e208] [box=69,1196,49,20]: HDI164
+            - generic [ref=e210] [box=558,1194,58,24]: $63.21
+            - generic [ref=e211] [box=624,1190,287,31]:
+              - img [ref=e212] [box=844,1200,12,12]
+              - text: +0.21%
+          - generic [ref=e214] [cursor=pointer] [box=17,1234,910,56]:
+            - generic [ref=e215] [box=33,1246,287,31]:
+              - generic [ref=e216] [box=33,1248,28,28]: H
+              - generic [ref=e217] [box=69,1252,42,20]: HDI59
+            - generic [ref=e219] [box=558,1250,58,24]: $86.82
+            - generic [ref=e220] [box=624,1246,287,31]:
+              - img [ref=e221] [box=844,1256,12,12]
+              - text: +0.52%
+          - generic [ref=e223] [cursor=pointer] [box=17,1290,910,56]:
+            - generic [ref=e224] [box=33,1302,287,31]:
+              - generic [ref=e225] [box=33,1304,28,28]: H
+              - generic [ref=e226] [box=69,1308,49,20]: HDU89
+            - generic [ref=e228] [box=558,1306,58,24]: $52.49
+            - generic [ref=e229] [box=624,1302,287,31]:
+              - img [ref=e230] [box=844,1312,12,12]
+              - text: "-0.05%"
+          - generic [ref=e232] [cursor=pointer] [box=17,1346,910,56]:
+            - generic [ref=e233] [box=33,1358,287,31]:
+              - generic [ref=e234] [box=33,1360,28,28]: H
+              - generic [ref=e235] [box=69,1364,54,20]: HGO119
+            - generic [ref=e237] [box=558,1362,58,24]: $46.57
+            - generic [ref=e238] [box=624,1358,287,31]:
+              - img [ref=e239] [box=844,1368,12,12]
+              - text: "-0.71%"
+          - generic [ref=e241] [cursor=pointer] [box=17,1402,910,56]:
+            - generic [ref=e242] [box=33,1414,287,31]:
+              - generic [ref=e243] [box=33,1416,28,28]: H
+              - generic [ref=e244] [box=69,1420,47,20]: HGO14
+            - generic [ref=e246] [box=558,1418,58,24]: $52.93
+            - generic [ref=e247] [box=624,1414,287,31]:
+              - img [ref=e248] [box=844,1424,12,12]
+              - text: "-0.20%"
+          - generic [ref=e250] [cursor=pointer] [box=17,1458,910,56]:
+            - generic [ref=e251] [box=33,1470,287,31]:
+              - generic [ref=e252] [box=33,1472,28,28]: H
+              - generic [ref=e253] [box=69,1476,54,20]: HGY104
+            - generic [ref=e255] [box=558,1474,58,24]: $68.45
+            - generic [ref=e256] [box=624,1470,287,31]:
+              - img [ref=e257] [box=844,1480,12,12]
+              - text: +0.51%
+          - generic [ref=e259] [cursor=pointer] [box=17,1514,910,56]:
+            - generic [ref=e260] [box=33,1526,287,31]:
+              - generic [ref=e261] [box=33,1528,28,28]: H
+              - generic [ref=e262] [box=69,1532,53,20]: HVE149
+            - generic [ref=e264] [box=558,1530,58,24]: $31.16
+            - generic [ref=e265] [box=624,1526,287,31]:
+              - img [ref=e1850] [box=844,1536,12,12]
+              - text: +0.00%
+          - generic [ref=e268] [cursor=pointer] [box=17,1570,910,56]:
+            - generic [ref=e269] [box=33,1582,287,31]:
+              - generic [ref=e270] [box=33,1584,28,28]: H
+              - generic [ref=e271] [box=69,1588,46,20]: HVE44
+            - generic [ref=e273] [box=548,1586,67,24]: $100.14
+            - generic [ref=e274] [box=624,1582,287,31]:
+              - img [ref=e275] [box=844,1592,12,12]
+              - text: +0.74%
+          - generic [ref=e277] [cursor=pointer] [box=17,1626,910,56]:
+            - generic [ref=e278] [box=33,1638,287,31]:
+              - generic [ref=e279] [box=33,1640,28,28]: H
+              - generic [ref=e280] [box=69,1644,54,20]: HZO134
+            - generic [ref=e282] [box=558,1642,58,24]: $65.97
+            - generic [ref=e283] [box=624,1638,287,31]:
+              - img [ref=e284] [box=844,1648,12,12]
+              - text: "-0.23%"
+          - generic [ref=e286] [cursor=pointer] [box=17,1682,910,56]:
+            - generic [ref=e287] [box=33,1694,287,31]:
+              - generic [ref=e288] [box=33,1696,28,28]: H
+              - generic [ref=e289] [box=69,1700,47,20]: HZO29
+            - generic [ref=e291] [box=558,1698,58,24]: $94.66
+            - generic [ref=e292] [box=624,1694,287,31]:
+              - img [ref=e293] [box=844,1704,12,12]
+              - text: +0.46%
+          - generic [ref=e295] [cursor=pointer] [box=17,1738,910,56]:
+            - generic [ref=e296] [box=33,1750,287,31]:
+              - generic [ref=e297] [box=33,1752,28,28]: I
+              - generic [ref=e298] [box=69,1756,23,20]: ICP
+            - generic [ref=e300] [box=558,1754,58,24]: $12.03
+            - generic [ref=e301] [box=624,1750,287,31]:
+              - img [ref=e1852] [box=844,1760,12,12]
+              - text: +0.25%
+          - generic [ref=e302] [cursor=pointer] [box=17,1794,910,56]:
+            - generic [ref=e303] [box=33,1806,287,31]:
+              - generic [ref=e304] [box=33,1808,28,28]: J
+              - generic [ref=e305] [box=69,1812,43,20]: JBA87
+            - generic [ref=e307] [box=558,1810,58,24]: $80.80
+            - generic [ref=e308] [box=624,1806,287,31]:
+              - img [ref=e309] [box=844,1816,12,12]
+              - text: "-0.46%"
+          - generic [ref=e311] [cursor=pointer] [box=17,1850,910,56]:
+            - generic [ref=e312] [box=33,1862,287,31]:
+              - generic [ref=e313] [box=33,1864,28,28]: J
+              - generic [ref=e314] [box=69,1868,38,20]: JDI72
+            - generic [ref=e316] [box=558,1866,58,24]: $40.09
+            - generic [ref=e317] [box=624,1862,287,31]:
+              - img [ref=e318] [box=844,1872,12,12]
+              - text: +1.58%
+          - generic [ref=e320] [cursor=pointer] [box=17,1906,910,56]:
+            - generic [ref=e321] [box=33,1918,287,31]:
+              - generic [ref=e322] [box=33,1920,28,28]: J
+              - generic [ref=e323] [box=69,1924,52,20]: JDU102
+            - generic [ref=e325] [box=558,1922,58,24]: $59.98
+            - generic [ref=e326] [box=624,1918,287,31]:
+              - img [ref=e327] [box=844,1928,12,12]
+              - text: +0.15%
+          - generic [ref=e329] [cursor=pointer] [box=17,1962,910,56]:
+            - generic [ref=e330] [box=33,1974,287,31]:
+              - generic [ref=e331] [box=33,1976,28,28]: J
+              - generic [ref=e332] [box=69,1980,53,20]: JGO132
+            - generic [ref=e334] [box=558,1978,58,24]: $56.22
+            - generic [ref=e335] [box=624,1974,287,31]:
+              - img [ref=e336] [box=844,1984,12,12]
+              - text: "-0.38%"
+          - generic [ref=e338] [cursor=pointer] [box=17,2018,910,56]:
+            - generic [ref=e339] [box=33,2030,287,31]:
+              - generic [ref=e340] [box=33,2032,28,28]: J
+              - generic [ref=e341] [box=69,2036,45,20]: JGO27
+            - generic [ref=e343] [box=558,2034,58,24]: $92.85
+            - generic [ref=e344] [box=624,2030,287,31]:
+              - img [ref=e345] [box=844,2040,12,12]
+              - text: +0.07%
+          - generic [ref=e347] [cursor=pointer] [box=17,2074,910,56]:
+            - generic [ref=e348] [box=33,2086,287,31]:
+              - generic [ref=e349] [box=33,2088,28,28]: J
+              - generic [ref=e350] [box=69,2092,48,20]: JGY117
+            - generic [ref=e352] [box=558,2090,58,24]: $19.43
+            - generic [ref=e353] [box=624,2086,287,31]:
+              - img [ref=e354] [box=844,2096,12,12]
+              - text: "-0.83%"
+          - generic [ref=e356] [cursor=pointer] [box=17,2130,910,56]:
+            - generic [ref=e357] [box=33,2142,287,31]:
+              - generic [ref=e358] [box=33,2144,28,28]: J
+              - generic [ref=e359] [box=69,2148,42,20]: JGY12
+            - generic [ref=e361] [box=558,2146,58,24]: $26.57
+            - generic [ref=e362] [box=624,2142,287,31]:
+              - img [ref=e363] [box=844,2152,12,12]
+              - text: "-0.47%"
+          - generic [ref=e365] [cursor=pointer] [box=17,2186,910,56]:
+            - generic [ref=e366] [box=33,2198,287,31]:
+              - generic [ref=e367] [box=33,2200,28,28]: J
+              - generic [ref=e368] [box=69,2204,51,20]: JNX147
+            - generic [ref=e370] [box=558,2202,58,24]: $94.35
+            - generic [ref=e371] [box=624,2198,287,31]:
+              - img [ref=e372] [box=844,2208,12,12]
+              - text: +0.87%
+          - generic [ref=e374] [cursor=pointer] [box=17,2242,910,56]:
+            - generic [ref=e375] [box=33,2254,287,31]:
+              - generic [ref=e376] [box=33,2256,28,28]: J
+              - generic [ref=e377] [box=69,2260,45,20]: JNX42
+            - generic [ref=e379] [box=558,2258,58,24]: $29.43
+            - generic [ref=e380] [box=624,2254,287,31]:
+              - img [ref=e381] [box=844,2264,12,12]
+              - text: "-0.31%"
+          - generic [ref=e383] [cursor=pointer] [box=17,2298,910,56]:
+            - generic [ref=e384] [box=33,2310,287,31]:
+              - generic [ref=e385] [box=33,2312,28,28]: J
+              - generic [ref=e386] [box=69,2316,50,20]: JVE162
+            - generic [ref=e388] [box=558,2314,58,24]: $28.71
+            - generic [ref=e389] [box=624,2310,287,31]:
+              - img [ref=e390] [box=844,2320,12,12]
+              - text: +0.12%
+          - generic [ref=e392] [cursor=pointer] [box=17,2354,910,56]:
+            - generic [ref=e393] [box=33,2366,287,31]:
+              - generic [ref=e394] [box=33,2368,28,28]: J
+              - generic [ref=e395] [box=69,2372,42,20]: JVE57
+            - generic [ref=e397] [box=558,2370,58,24]: $32.08
+            - generic [ref=e398] [box=624,2366,287,31]:
+              - img [ref=e399] [box=844,2376,12,12]
+              - text: "-1.71%"
+          - generic [ref=e401] [cursor=pointer] [box=17,2410,910,56]:
+            - generic [ref=e402] [box=33,2422,287,31]:
+              - generic [ref=e403] [box=33,2424,28,28]: K
+              - generic [ref=e404] [box=69,2428,53,20]: KCU154
+            - generic [ref=e406] [box=558,2426,58,24]: $30.88
+            - generic [ref=e407] [box=624,2422,287,31]:
+              - img [ref=e1854] [box=844,2432,12,12]
+              - text: "-0.01%"
+          - generic [ref=e410] [cursor=pointer] [box=17,2466,910,56]:
+            - generic [ref=e411] [box=33,2478,287,31]:
+              - generic [ref=e412] [box=33,2480,28,28]: K
+              - generic [ref=e413] [box=69,2484,47,20]: KCU49
+            - generic [ref=e415] [box=568,2482,48,24]: $9.42
+            - generic [ref=e416] [box=624,2478,287,31]:
+              - img [ref=e417] [box=844,2488,12,12]
+              - text: +0.59%
+          - generic [ref=e419] [cursor=pointer] [box=17,2522,910,56]:
+            - generic [ref=e420] [box=33,2534,287,31]:
+              - generic [ref=e421] [box=33,2536,28,28]: K
+              - generic [ref=e422] [box=69,2540,50,20]: KFA139
+            - generic [ref=e424] [box=558,2538,58,24]: $67.12
+            - generic [ref=e425] [box=624,2534,287,31]:
+              - img [ref=e426] [box=844,2544,12,12]
+              - text: "-0.14%"
+          - generic [ref=e428] [cursor=pointer] [box=17,2578,910,56]:
+            - generic [ref=e429] [box=33,2590,287,31]:
+              - generic [ref=e430] [box=33,2592,28,28]: K
+              - generic [ref=e431] [box=69,2596,44,20]: KFA34
+            - generic [ref=e433] [box=558,2594,58,24]: $93.32
+            - generic [ref=e434] [box=624,2590,287,31]:
+              - img [ref=e435] [box=844,2600,12,12]
+              - text: "-0.18%"
+          - generic [ref=e437] [cursor=pointer] [box=17,2634,910,56]:
+            - generic [ref=e438] [box=33,2646,287,31]:
+              - generic [ref=e439] [box=33,2648,28,28]: K
+              - generic [ref=e440] [box=69,2652,47,20]: KGO79
+            - generic [ref=e442] [box=558,2650,58,24]: $30.06
+            - generic [ref=e443] [box=624,2646,287,31]:
+              - img [ref=e444] [box=844,2656,12,12]
+              - text: +0.61%
+          - generic [ref=e446] [cursor=pointer] [box=17,2690,910,56]:
+            - generic [ref=e447] [box=33,2702,287,31]:
+              - generic [ref=e448] [box=33,2704,28,28]: K
+              - generic [ref=e449] [box=69,2708,53,20]: KGY169
+            - generic [ref=e451] [box=558,2706,58,24]: $50.52
+            - generic [ref=e452] [box=624,2702,287,31]:
+              - img [ref=e453] [box=844,2712,12,12]
+              - text: +0.98%
+          - generic [ref=e455] [cursor=pointer] [box=17,2746,910,56]:
+            - generic [ref=e456] [box=33,2758,287,31]:
+              - generic [ref=e457] [box=33,2760,28,28]: K
+              - generic [ref=e458] [box=69,2764,46,20]: KGY64
+            - generic [ref=e460] [box=558,2762,58,24]: $18.46
+            - generic [ref=e461] [box=624,2758,287,31]:
+              - img [ref=e462] [box=844,2768,12,12]
+              - text: +0.31%
+          - generic [ref=e464] [cursor=pointer] [box=17,2802,910,56]:
+            - generic [ref=e465] [box=33,2814,287,31]:
+              - generic [ref=e466] [box=33,2816,28,28]: K
+              - generic [ref=e467] [box=69,2820,47,20]: KNX94
+            - generic [ref=e469] [box=558,2818,58,24]: $97.95
+            - generic [ref=e470] [box=624,2814,287,31]:
+              - img [ref=e471] [box=844,2824,12,12]
+              - text: "-0.51%"
+          - generic [ref=e473] [cursor=pointer] [box=17,2858,910,56]:
+            - generic [ref=e474] [box=33,2870,287,31]:
+              - generic [ref=e475] [box=33,2872,28,28]: K
+              - generic [ref=e476] [box=69,2876,46,20]: KRI124
+            - generic [ref=e478] [box=558,2874,58,24]: $64.99
+            - generic [ref=e479] [box=624,2870,287,31]:
+              - img [ref=e480] [box=844,2880,12,12]
+              - text: +0.39%
+          - generic [ref=e482] [cursor=pointer] [box=17,2914,910,56]:
+            - generic [ref=e483] [box=33,2926,287,31]:
+              - generic [ref=e484] [box=33,2928,28,28]: K
+              - generic [ref=e485] [box=69,2932,38,20]: KRI19
+            - generic [ref=e487] [box=558,2930,58,24]: $55.33
+            - generic [ref=e488] [box=624,2926,287,31]:
+              - img [ref=e489] [box=844,2936,12,12]
+              - text: "-0.59%"
+          - generic [ref=e491] [cursor=pointer] [box=17,2970,910,56]:
+            - generic [ref=e492] [box=33,2982,287,31]:
+              - generic [ref=e493] [box=33,2984,28,28]: K
+              - generic [ref=e494] [box=69,2988,56,20]: KWA109
+            - generic [ref=e496] [box=558,2986,58,24]: $64.69
+            - generic [ref=e497] [box=624,2982,287,31]:
+              - img [ref=e498] [box=844,2992,12,12]
+              - text: "-0.12%"
+          - generic [ref=e500] [cursor=pointer] [box=17,3026,910,56]:
+            - generic [ref=e501] [box=33,3038,287,31]:
+              - generic [ref=e502] [box=33,3040,28,28]: K
+              - generic [ref=e503] [box=69,3044,41,20]: KWA4
+            - generic [ref=e505] [box=558,3042,58,24]: $85.96
+            - generic [ref=e506] [box=624,3038,287,31]:
+              - img [ref=e507] [box=844,3048,12,12]
+              - text: "-0.68%"
+          - generic [ref=e509] [cursor=pointer] [box=17,3082,910,56]:
+            - generic [ref=e510] [box=33,3094,287,31]:
+              - generic [ref=e511] [box=33,3096,28,28]: L
+              - generic [ref=e512] [box=69,3100,46,20]: LCU88
+            - generic [ref=e514] [box=558,3098,58,24]: $15.31
+            - generic [ref=e515] [box=624,3094,287,31]:
+              - img [ref=e516] [box=844,3104,12,12]
+              - text: "-0.68%"
+          - generic [ref=e518] [cursor=pointer] [box=17,3138,910,56]:
+            - generic [ref=e519] [box=33,3150,287,31]:
+              - generic [ref=e520] [box=33,3152,28,28]: L
+              - generic [ref=e521] [box=69,3156,50,20]: LEX103
+            - generic [ref=e523] [box=558,3154,58,24]: $44.44
+            - generic [ref=e524] [box=624,3150,287,31]:
+              - img [ref=e525] [box=844,3160,12,12]
+              - text: "-0.56%"
+          - generic [ref=e527] [cursor=pointer] [box=17,3194,910,56]:
+            - generic [ref=e528] [box=33,3206,287,31]:
+              - generic [ref=e529] [box=33,3208,28,28]: L
+              - generic [ref=e530] [box=69,3212,41,20]: LFA73
+            - generic [ref=e532] [box=558,3210,58,24]: $41.70
+            - generic [ref=e533] [box=624,3206,287,31]:
+              - img [ref=e1856] [box=844,3216,12,12]
+              - text: "-0.33%"
+          - generic [ref=e536] [cursor=pointer] [box=17,3250,910,56]:
+            - generic [ref=e537] [box=33,3262,287,31]:
+              - generic [ref=e538] [box=33,3264,28,28]: L
+              - generic [ref=e539] [box=69,3268,42,20]: LFI118
+            - generic [ref=e541] [box=558,3266,58,24]: $50.99
+            - generic [ref=e542] [box=624,3262,287,31]:
+              - img [ref=e543] [box=844,3272,12,12]
+              - text: "-1.53%"
+          - generic [ref=e545] [cursor=pointer] [box=17,3306,910,56]:
+            - generic [ref=e546] [box=33,3318,287,31]:
+              - generic [ref=e547] [box=33,3320,28,28]: L
+              - generic [ref=e548] [box=69,3324,35,20]: LFI13
+            - generic [ref=e550] [box=558,3322,58,24]: $18.72
+            - generic [ref=e551] [box=624,3318,287,31]:
+              - img [ref=e552] [box=844,3328,12,12]
+              - text: +0.81%
+          - generic [ref=e554] [cursor=pointer] [box=17,3362,910,56]:
+            - generic [ref=e555] [box=33,3374,287,31]:
+              - generic [ref=e556] [box=33,3376,28,28]: L
+              - generic [ref=e557] [box=69,3380,53,20]: LHU133
+            - generic [ref=e559] [box=558,3378,58,24]: $96.84
+            - generic [ref=e560] [box=624,3374,287,31]:
+              - img [ref=e561] [box=844,3384,12,12]
+              - text: +0.21%
+          - generic [ref=e563] [cursor=pointer] [box=17,3418,910,56]:
+            - generic [ref=e564] [box=33,3430,287,31]:
+              - generic [ref=e565] [box=33,3432,28,28]: L
+              - generic [ref=e566] [box=69,3436,46,20]: LHU28
+            - generic [ref=e568] [box=558,3434,58,24]: $95.59
+            - generic [ref=e569] [box=624,3430,287,31]:
+              - img [ref=e570] [box=844,3440,12,12]
+              - text: +1.29%
+          - generic [ref=e572] [cursor=pointer] [box=17,3474,910,56]:
+            - generic [ref=e573] [box=33,3486,287,31]:
+              - generic [ref=e574] [box=33,3488,28,28]: L
+              - generic [ref=e575] [box=69,3492,31,20]: LINK
+            - generic [ref=e577] [box=558,3490,58,24]: $14.06
+            - generic [ref=e578] [box=624,3486,287,31]:
+              - img [ref=e579] [box=844,3496,12,12]
+              - text: +0.43%
+          - generic [ref=e581] [cursor=pointer] [box=17,3530,910,56]:
+            - generic [ref=e582] [box=33,3542,287,31]:
+              - generic [ref=e583] [box=33,3544,28,28]: L
+              - generic [ref=e584] [box=69,3548,45,20]: LRI163
+            - generic [ref=e586] [box=558,3546,58,24]: $48.64
+            - generic [ref=e587] [box=624,3542,287,31]:
+              - img [ref=e588] [box=844,3552,12,12]
+              - text: "-0.05%"
+          - generic [ref=e590] [cursor=pointer] [box=17,3586,910,56]:
+            - generic [ref=e591] [box=33,3598,287,31]:
+              - generic [ref=e592] [box=33,3600,28,28]: L
+              - generic [ref=e593] [box=69,3604,39,20]: LRI58
+            - generic [ref=e595] [box=558,3602,58,24]: $39.45
+            - generic [ref=e596] [box=624,3598,287,31]:
+              - img [ref=e597] [box=844,3608,12,12]
+              - text: +0.39%
+          - generic [ref=e599] [cursor=pointer] [box=17,3642,910,56]:
+            - generic [ref=e600] [box=33,3654,287,31]:
+              - generic [ref=e601] [box=33,3656,28,28]: L
+              - generic [ref=e602] [box=69,3660,25,20]: LTC
+            - generic [ref=e604] [box=558,3658,58,24]: $82.05
+            - generic [ref=e605] [box=624,3654,287,31]:
+              - img [ref=e1858] [box=844,3664,12,12]
+              - text: +0.06%
+          - generic [ref=e608] [cursor=pointer] [box=17,3698,910,56]:
+            - generic [ref=e609] [box=33,3710,287,31]:
+              - generic [ref=e610] [box=33,3712,28,28]: L
+              - generic [ref=e611] [box=69,3716,53,20]: LWA148
+            - generic [ref=e613] [box=558,3714,58,24]: $56.21
+            - generic [ref=e614] [box=624,3710,287,31]:
+              - img [ref=e615] [box=844,3720,12,12]
+              - text: "-1.10%"
+          - generic [ref=e617] [cursor=pointer] [box=17,3754,910,56]:
+            - generic [ref=e618] [box=33,3766,287,31]:
+              - generic [ref=e619] [box=33,3768,28,28]: L
+              - generic [ref=e620] [box=69,3772,47,20]: LWA43
+            - generic [ref=e622] [box=558,3770,58,24]: $82.86
+            - generic [ref=e623] [box=624,3766,287,31]:
+              - img [ref=e624] [box=844,3776,12,12]
+              - text: "-1.72%"
+          - generic [ref=e626] [cursor=pointer] [box=17,3810,910,56]:
+            - generic [ref=e627] [box=33,3822,287,31]:
+              - generic [ref=e628] [box=33,3824,28,28]: M
+              - generic [ref=e629] [box=69,3828,42,20]: MANA
+            - generic [ref=e631] [box=568,3826,48,24]: $0.38
+            - generic [ref=e632] [box=624,3822,287,31]:
+              - img [ref=e633] [box=844,3832,12,12]
+              - text: "-0.35%"
+          - generic [ref=e635] [cursor=pointer] [box=17,3866,910,56]:
+            - generic [ref=e636] [box=33,3878,287,31]:
+              - generic [ref=e637] [box=33,3880,28,28]: M
+              - generic [ref=e638] [box=69,3884,43,20]: MATIC
+            - generic [ref=e640] [box=568,3882,48,24]: $0.72
+            - generic [ref=e641] [box=624,3878,287,31]:
+              - img [ref=e1860] [box=844,3888,12,12]
+              - text: +0.05%
+          - generic [ref=e644] [cursor=pointer] [box=17,3922,910,56]:
+            - generic [ref=e645] [box=33,3934,287,31]:
+              - generic [ref=e646] [box=33,3936,28,28]: M
+              - generic [ref=e647] [box=69,3940,55,20]: MDU141
+            - generic [ref=e649] [box=568,3938,48,24]: $2.21
+            - generic [ref=e650] [box=624,3934,287,31]:
+              - img [ref=e651] [box=844,3944,12,12]
+              - text: "-0.19%"
+          - generic [ref=e653] [cursor=pointer] [box=17,3978,910,56]:
+            - generic [ref=e654] [box=33,3990,287,31]:
+              - generic [ref=e655] [box=33,3992,28,28]: M
+              - generic [ref=e656] [box=69,3996,50,20]: MDU36
+            - generic [ref=e658] [box=558,3994,58,24]: $52.39
+            - generic [ref=e659] [box=624,3990,287,31]:
+              - img [ref=e660] [box=844,4000,12,12]
+              - text: +0.63%
+          - generic [ref=e662] [cursor=pointer] [box=17,4034,910,56]:
+            - generic [ref=e663] [box=33,4046,287,31]:
+              - generic [ref=e664] [box=33,4048,28,28]: M
+              - generic [ref=e665] [box=69,4052,53,20]: MFA126
+            - generic [ref=e667] [box=558,4050,58,24]: $14.78
+            - generic [ref=e668] [box=624,4046,287,31]:
+              - img [ref=e669] [box=844,4056,12,12]
+              - text: "-0.26%"
+          - generic [ref=e671] [cursor=pointer] [box=17,4090,910,56]:
+            - generic [ref=e672] [box=33,4102,287,31]:
+              - generic [ref=e673] [box=33,4104,28,28]: M
+              - generic [ref=e674] [box=69,4108,44,20]: MFA21
+            - generic [ref=e676] [box=558,4106,58,24]: $21.10
+            - generic [ref=e677] [box=624,4102,287,31]:
+              - img [ref=e678] [box=844,4112,12,12]
+              - text: +0.71%
+          - generic [ref=e680] [cursor=pointer] [box=17,4146,910,56]:
+            - generic [ref=e681] [box=33,4158,287,31]:
+              - generic [ref=e682] [box=33,4160,28,28]: M
+              - generic [ref=e683] [box=69,4164,51,20]: MGO66
+            - generic [ref=e685] [box=558,4162,58,24]: $29.21
+            - generic [ref=e686] [box=624,4158,287,31]:
+              - img [ref=e687] [box=844,4168,12,12]
+              - text: +0.21%
+          - generic [ref=e689] [cursor=pointer] [box=17,4202,910,56]:
+            - generic [ref=e690] [box=33,4214,287,31]:
+              - generic [ref=e691] [box=33,4216,28,28]: M
+              - generic [ref=e692] [box=69,4220,56,20]: MGY156
+            - generic [ref=e694] [box=558,4218,58,24]: $38.39
+            - generic [ref=e695] [box=624,4214,287,31]:
+              - img [ref=e696] [box=844,4224,12,12]
+              - text: "-0.76%"
+          - generic [ref=e698] [cursor=pointer] [box=17,4258,910,56]:
+            - generic [ref=e699] [box=33,4270,287,31]:
+              - generic [ref=e700] [box=33,4272,28,28]: M
+              - generic [ref=e701] [box=69,4276,47,20]: MGY51
+            - generic [ref=e703] [box=558,4274,58,24]: $97.91
+            - generic [ref=e704] [box=624,4270,287,31]:
+              - img [ref=e705] [box=844,4280,12,12]
+              - text: +0.68%
+          - generic [ref=e707] [cursor=pointer] [box=17,4314,910,56]:
+            - generic [ref=e708] [box=33,4326,287,31]:
+              - generic [ref=e709] [box=33,4328,28,28]: M
+              - generic [ref=e710] [box=69,4332,48,20]: MNX81
+            - generic [ref=e712] [box=558,4330,58,24]: $16.86
+            - generic [ref=e713] [box=624,4326,287,31]:
+              - img [ref=e714] [box=844,4336,12,12]
+              - text: "-0.42%"
+          - generic [ref=e716] [cursor=pointer] [box=17,4370,910,56]:
+            - generic [ref=e717] [box=33,4382,287,31]:
+              - generic [ref=e718] [box=33,4384,28,28]: M
+              - generic [ref=e719] [box=69,4388,45,20]: MRI111
+            - generic [ref=e721] [box=558,4386,58,24]: $47.40
+            - generic [ref=e722] [box=624,4382,287,31]:
+              - img [ref=e723] [box=844,4392,12,12]
+              - text: +1.66%
+          - generic [ref=e725] [cursor=pointer] [box=17,4426,910,56]:
+            - generic [ref=e726] [box=33,4438,287,31]:
+              - generic [ref=e727] [box=33,4440,28,28]: M
+              - generic [ref=e728] [box=69,4444,34,20]: MRI6
+            - generic [ref=e730] [box=558,4442,58,24]: $74.58
+            - generic [ref=e731] [box=624,4438,287,31]:
+              - img [ref=e1862] [box=844,4448,12,12]
+              - text: +0.01%
+          - generic [ref=e734] [cursor=pointer] [box=17,4482,910,56]:
+            - generic [ref=e735] [box=33,4494,287,31]:
+              - generic [ref=e736] [box=33,4496,28,28]: M
+              - generic [ref=e737] [box=69,4500,52,20]: MWA96
+            - generic [ref=e739] [box=558,4498,58,24]: $74.56
+            - generic [ref=e740] [box=624,4494,287,31]:
+              - img [ref=e741] [box=844,4504,12,12]
+              - text: +0.26%
+          - generic [ref=e743] [cursor=pointer] [box=17,4538,910,56]:
+            - generic [ref=e744] [box=33,4550,287,31]:
+              - generic [ref=e745] [box=33,4552,28,28]: "N"
+              - generic [ref=e746] [box=69,4556,54,20]: NCU127
+            - generic [ref=e748] [box=568,4554,48,24]: $6.95
+            - generic [ref=e749] [box=624,4550,287,31]:
+              - img [ref=e1864] [box=844,4560,12,12]
+              - text: +0.28%
+          - generic [ref=e752] [cursor=pointer] [box=17,4594,910,56]:
+            - generic [ref=e753] [box=33,4606,287,31]:
+              - generic [ref=e754] [box=33,4608,28,28]: "N"
+              - generic [ref=e755] [box=69,4612,48,20]: NCU22
+            - generic [ref=e757] [box=558,4610,58,24]: $75.22
+            - generic [ref=e758] [box=624,4606,287,31]:
+              - img [ref=e759] [box=844,4616,12,12]
+              - text: +1.84%
+          - generic [ref=e761] [cursor=pointer] [box=17,4650,910,56]:
+            - generic [ref=e762] [box=33,4662,287,31]:
+              - generic [ref=e763] [box=33,4664,28,28]: "N"
+              - generic [ref=e764] [box=69,4668,46,20]: NDI112
+            - generic [ref=e766] [box=558,4666,58,24]: $14.51
+            - generic [ref=e767] [box=624,4662,287,31]:
+              - img [ref=e1866] [box=844,4672,12,12]
+              - text: "-0.04%"
+          - generic [ref=e770] [cursor=pointer] [box=17,4706,910,56]:
+            - generic [ref=e771] [box=33,4718,287,31]:
+              - generic [ref=e772] [box=33,4720,28,28]: "N"
+              - generic [ref=e773] [box=69,4724,32,20]: NDI7
+            - generic [ref=e775] [box=558,4722,58,24]: $19.46
+            - generic [ref=e776] [box=624,4718,287,31]:
+              - img [ref=e777] [box=844,4728,12,12]
+              - text: "-1.35%"
+          - generic [ref=e779] [cursor=pointer] [box=17,4762,910,56]:
+            - generic [ref=e780] [box=33,4774,287,31]:
+              - generic [ref=e781] [box=33,4776,28,28]: "N"
+              - generic [ref=e782] [box=69,4780,37,20]: NEAR
+            - generic [ref=e784] [box=568,4778,48,24]: $6.85
+            - generic [ref=e785] [box=624,4774,287,31]:
+              - img [ref=e786] [box=844,4784,12,12]
+              - text: +0.74%
+          - generic [ref=e788] [cursor=pointer] [box=17,4818,910,56]:
+            - generic [ref=e789] [box=33,4830,287,31]:
+              - generic [ref=e790] [box=33,4832,28,28]: "N"
+              - generic [ref=e791] [box=69,4836,52,20]: NEX142
+            - generic [ref=e793] [box=558,4834,58,24]: $33.68
+            - generic [ref=e794] [box=624,4830,287,31]:
+              - img [ref=e795] [box=844,4840,12,12]
+              - text: "-0.34%"
+          - generic [ref=e797] [cursor=pointer] [box=17,4874,910,56]:
+            - generic [ref=e798] [box=33,4886,287,31]:
+              - generic [ref=e799] [box=33,4888,28,28]: "N"
+              - generic [ref=e800] [box=69,4892,45,20]: NEX37
+            - generic [ref=e802] [box=558,4890,58,24]: $12.15
+            - generic [ref=e803] [box=624,4886,287,31]:
+              - img [ref=e804] [box=844,4896,12,12]
+              - text: +0.74%
+          - generic [ref=e806] [cursor=pointer] [box=17,4930,910,56]:
+            - generic [ref=e807] [box=33,4942,287,31]:
+              - generic [ref=e808] [box=33,4944,28,28]: "N"
+              - generic [ref=e809] [box=69,4948,45,20]: NFI157
+            - generic [ref=e811] [box=558,4946,58,24]: $31.25
+            - generic [ref=e812] [box=624,4942,287,31]:
+              - img [ref=e813] [box=844,4952,12,12]
+              - text: "-1.41%"
+          - generic [ref=e815] [cursor=pointer] [box=17,4986,910,56]:
+            - generic [ref=e816] [box=33,4998,287,31]:
+              - generic [ref=e817] [box=33,5000,28,28]: "N"
+              - generic [ref=e818] [box=69,5004,39,20]: NFI52
+            - generic [ref=e820] [box=558,5002,58,24]: $72.54
+            - generic [ref=e821] [box=624,4998,287,31]:
+              - img [ref=e822] [box=844,5008,12,12]
+              - text: +2.25%
+          - generic [ref=e824] [cursor=pointer] [box=17,5042,910,56]:
+            - generic [ref=e825] [box=33,5054,287,31]:
+              - generic [ref=e826] [box=33,5056,28,28]: "N"
+              - generic [ref=e827] [box=69,5060,48,20]: NHU67
+            - generic [ref=e829] [box=558,5058,58,24]: $33.66
+            - generic [ref=e830] [box=624,5054,287,31]:
+              - img [ref=e1868] [box=844,5064,12,12]
+              - text: +0.03%
+          - generic [ref=e833] [cursor=pointer] [box=17,5098,910,56]:
+            - generic [ref=e834] [box=33,5110,287,31]:
+              - generic [ref=e835] [box=33,5112,28,28]: "N"
+              - generic [ref=e836] [box=69,5116,45,20]: NVE97
+            - generic [ref=e838] [box=568,5114,48,24]: $6.93
+            - generic [ref=e839] [box=624,5110,287,31]:
+              - img [ref=e840] [box=844,5120,12,12]
+              - text: "-0.07%"
+          - generic [ref=e842] [cursor=pointer] [box=17,5154,910,56]:
+            - generic [ref=e843] [box=33,5166,287,31]:
+              - generic [ref=e844] [box=33,5168,28,28]: "N"
+              - generic [ref=e845] [box=69,5172,47,20]: NZO82
+            - generic [ref=e847] [box=558,5170,58,24]: $31.46
+            - generic [ref=e848] [box=624,5166,287,31]:
+              - img [ref=e849] [box=844,5176,12,12]
+              - text: +0.12%
+          - generic [ref=e851] [cursor=pointer] [box=17,5210,910,56]:
+            - generic [ref=e852] [box=33,5222,287,31]:
+              - generic [ref=e853] [box=33,5224,28,28]: O
+              - generic [ref=e854] [box=69,5228,20,20]: OP
+            - generic [ref=e856] [box=568,5226,48,24]: $2.40
+            - generic [ref=e857] [box=624,5222,287,31]: +0.00%
+          - generic [ref=e858] [cursor=pointer] [box=17,5266,910,56]:
+            - generic [ref=e859] [box=33,5278,287,31]:
+              - generic [ref=e860] [box=33,5280,28,28]: P
+              - generic [ref=e861] [box=69,5284,52,20]: PBA140
+            - generic [ref=e863] [box=558,5282,58,24]: $55.88
+            - generic [ref=e864] [box=624,5278,287,31]:
+              - img [ref=e865] [box=844,5288,12,12]
+              - text: "-0.39%"
+          - generic [ref=e867] [cursor=pointer] [box=17,5322,910,56]:
+            - generic [ref=e868] [box=33,5334,287,31]:
+              - generic [ref=e869] [box=33,5336,28,28]: P
+              - generic [ref=e870] [box=69,5340,45,20]: PBA35
+            - generic [ref=e872] [box=558,5338,58,24]: $70.94
+            - generic [ref=e873] [box=624,5334,287,31]:
+              - img [ref=e874] [box=844,5344,12,12]
+              - text: +0.40%
+          - generic [ref=e876] [cursor=pointer] [box=17,5378,910,56]:
+            - generic [ref=e877] [box=33,5390,287,31]:
+              - generic [ref=e878] [box=33,5392,28,28]: P
+              - generic [ref=e879] [box=69,5396,47,20]: PDI125
+            - generic [ref=e881] [box=558,5394,58,24]: $13.44
+            - generic [ref=e882] [box=624,5390,287,31]:
+              - img [ref=e883] [box=844,5400,12,12]
+              - text: "-0.32%"
+          - generic [ref=e885] [cursor=pointer] [box=17,5434,910,56]:
+            - generic [ref=e886] [box=33,5446,287,31]:
+              - generic [ref=e887] [box=33,5448,28,28]: P
+              - generic [ref=e888] [box=69,5452,40,20]: PDI20
+            - generic [ref=e890] [box=558,5450,58,24]: $24.38
+            - generic [ref=e891] [box=624,5446,287,31]:
+              - img [ref=e892] [box=844,5456,12,12]
+              - text: "-0.52%"
+          - generic [ref=e894] [cursor=pointer] [box=17,5490,910,56]:
+            - generic [ref=e895] [box=33,5502,287,31]:
+              - generic [ref=e896] [box=33,5504,28,28]: P
+              - generic [ref=e897] [box=69,5508,51,20]: PEX155
+            - generic [ref=e899] [box=558,5506,58,24]: $66.64
+            - generic [ref=e900] [box=624,5502,287,31]:
+              - img [ref=e901] [box=844,5512,12,12]
+              - text: "-0.23%"
+          - generic [ref=e903] [cursor=pointer] [box=17,5546,910,56]:
+            - generic [ref=e904] [box=33,5558,287,31]:
+              - generic [ref=e905] [box=33,5560,28,28]: P
+              - generic [ref=e906] [box=69,5564,44,20]: PEX50
+            - generic [ref=e908] [box=558,5562,58,24]: $82.16
+            - generic [ref=e909] [box=624,5558,287,31]:
+              - img [ref=e1870] [box=844,5568,12,12]
+              - text: "-0.04%"
+          - generic [ref=e912] [cursor=pointer] [box=17,5602,910,56]:
+            - generic [ref=e913] [box=33,5614,287,31]:
+              - generic [ref=e914] [box=33,5616,28,28]: P
+              - generic [ref=e915] [box=69,5620,38,20]: PFI65
+            - generic [ref=e917] [box=558,5618,58,24]: $70.94
+            - generic [ref=e918] [box=624,5614,287,31]:
+              - img [ref=e919] [box=844,5624,12,12]
+              - text: +0.54%
+          - generic [ref=e921] [cursor=pointer] [box=17,5658,910,56]:
+            - generic [ref=e922] [box=33,5670,287,31]:
+              - generic [ref=e923] [box=33,5672,28,28]: P
+              - generic [ref=e924] [box=69,5676,48,20]: PHU80
+            - generic [ref=e926] [box=558,5674,58,24]: $66.88
+            - generic [ref=e927] [box=624,5670,287,31]:
+              - img [ref=e1872] [box=844,5680,12,12]
+              - text: +0.01%
+          - generic [ref=e930] [cursor=pointer] [box=17,5714,910,56]:
+            - generic [ref=e931] [box=33,5726,287,31]:
+              - generic [ref=e932] [box=33,5728,28,28]: P
+              - generic [ref=e933] [box=69,5732,49,20]: PVE110
+            - generic [ref=e935] [box=558,5730,58,24]: $95.46
+            - generic [ref=e936] [box=624,5726,287,31]:
+              - img [ref=e1874] [box=844,5736,12,12]
+              - text: "-0.14%"
+          - generic [ref=e939] [cursor=pointer] [box=17,5770,910,56]:
+            - generic [ref=e940] [box=33,5782,287,31]:
+              - generic [ref=e941] [box=33,5784,28,28]: P
+              - generic [ref=e942] [box=69,5788,35,20]: PVE5
+            - generic [ref=e944] [box=558,5786,58,24]: $24.38
+            - generic [ref=e945] [box=624,5782,287,31]:
+              - img [ref=e946] [box=844,5792,12,12]
+              - text: "-2.45%"
+          - generic [ref=e948] [cursor=pointer] [box=17,5826,910,56]:
+            - generic [ref=e949] [box=33,5838,287,31]:
+              - generic [ref=e950] [box=33,5840,28,28]: P
+              - generic [ref=e951] [box=69,5844,46,20]: PZO95
+            - generic [ref=e953] [box=558,5842,58,24]: $85.79
+            - generic [ref=e954] [box=624,5838,287,31]:
+              - img [ref=e1876] [box=844,5848,12,12]
+              - text: "-0.19%"
+          - generic [ref=e957] [cursor=pointer] [box=17,5882,910,56]:
+            - generic [ref=e958] [box=33,5894,287,31]:
+              - generic [ref=e959] [box=33,5896,28,28]: Q
+              - generic [ref=e960] [box=69,5900,53,20]: QBA153
+            - generic [ref=e962] [box=558,5898,58,24]: $98.03
+            - generic [ref=e963] [box=624,5894,287,31]:
+              - img [ref=e964] [box=844,5904,12,12]
+              - text: "-0.41%"
+          - generic [ref=e966] [cursor=pointer] [box=17,5938,910,56]:
+            - generic [ref=e967] [box=33,5950,287,31]:
+              - generic [ref=e968] [box=33,5952,28,28]: Q
+              - generic [ref=e969] [box=69,5956,48,20]: QBA48
+            - generic [ref=e971] [box=558,5954,58,24]: $78.55
+            - generic [ref=e972] [box=624,5950,287,31]:
+              - img [ref=e1878] [box=844,5960,12,12]
+              - text: "-0.06%"
+          - generic [ref=e975] [cursor=pointer] [box=17,5994,910,56]:
+            - generic [ref=e976] [box=33,6006,287,31]:
+              - generic [ref=e977] [box=33,6008,28,28]: Q
+              - generic [ref=e978] [box=69,6012,49,20]: QDI138
+            - generic [ref=e980] [box=568,6010,48,24]: $5.98
+            - generic [ref=e981] [box=624,6006,287,31]:
+              - img [ref=e982] [box=844,6016,12,12]
+              - text: +0.36%
+          - generic [ref=e984] [cursor=pointer] [box=17,6050,910,56]:
+            - generic [ref=e985] [box=33,6062,287,31]:
+              - generic [ref=e986] [box=33,6064,28,28]: Q
+              - generic [ref=e987] [box=69,6068,42,20]: QDI33
+            - generic [ref=e989] [box=568,6066,48,24]: $7.79
+            - generic [ref=e990] [box=624,6062,287,31]:
+              - img [ref=e991] [box=844,6072,12,12]
+              - text: +0.40%
+          - generic [ref=e993] [cursor=pointer] [box=17,6106,910,56]:
+            - generic [ref=e994] [box=33,6118,287,31]:
+              - generic [ref=e995] [box=33,6120,28,28]: Q
+              - generic [ref=e996] [box=69,6124,56,20]: QDU168
+            - generic [ref=e998] [box=558,6122,58,24]: $47.12
+            - generic [ref=e999] [box=624,6118,287,31]:
+              - img [ref=e1880] [box=844,6128,12,12]
+              - text: "-0.03%"
+          - generic [ref=e1002] [cursor=pointer] [box=17,6162,910,56]:
+            - generic [ref=e1003] [box=33,6174,287,31]:
+              - generic [ref=e1004] [box=33,6176,28,28]: Q
+              - generic [ref=e1005] [box=69,6180,49,20]: QDU63
+            - generic [ref=e1007] [box=558,6178,58,24]: $60.35
+            - generic [ref=e1008] [box=624,6174,287,31]:
+              - img [ref=e1882] [box=844,6184,12,12]
+              - text: "-0.07%"
+          - generic [ref=e1011] [cursor=pointer] [box=17,6218,910,56]:
+            - generic [ref=e1012] [box=33,6230,287,31]:
+              - generic [ref=e1013] [box=33,6232,28,28]: Q
+              - generic [ref=e1014] [box=69,6236,39,20]: QFI78
+            - generic [ref=e1016] [box=558,6234,58,24]: $23.71
+            - generic [ref=e1017] [box=624,6230,287,31]:
+              - img [ref=e1018] [box=844,6240,12,12]
+              - text: +0.67%
+          - generic [ref=e1020] [cursor=pointer] [box=17,6274,910,56]:
+            - generic [ref=e1021] [box=33,6286,287,31]:
+              - generic [ref=e1022] [box=33,6288,28,28]: Q
+              - generic [ref=e1023] [box=69,6292,49,20]: QHU93
+            - generic [ref=e1025] [box=558,6290,58,24]: $38.40
+            - generic [ref=e1026] [box=624,6286,287,31]:
+              - img [ref=e1027] [box=844,6296,12,12]
+              - text: "-1.58%"
+          - generic [ref=e1029] [cursor=pointer] [box=17,6330,910,56]:
+            - generic [ref=e1030] [box=33,6342,287,31]:
+              - generic [ref=e1031] [box=33,6344,28,28]: Q
+              - generic [ref=e1032] [box=69,6348,52,20]: QVE123
+            - generic [ref=e1034] [box=558,6346,58,24]: $53.30
+            - generic [ref=e1035] [box=624,6342,287,31]:
+              - img [ref=e1036] [box=844,6352,12,12]
+              - text: +0.46%
+          - generic [ref=e1038] [cursor=pointer] [box=17,6386,910,56]:
+            - generic [ref=e1039] [box=33,6398,287,31]:
+              - generic [ref=e1040] [box=33,6400,28,28]: Q
+              - generic [ref=e1041] [box=69,6404,44,20]: QVE18
+            - generic [ref=e1043] [box=568,6402,48,24]: $3.74
+            - generic [ref=e1044] [box=624,6398,287,31]:
+              - img [ref=e1045] [box=844,6408,12,12]
+              - text: "-0.13%"
+          - generic [ref=e1047] [cursor=pointer] [box=17,6442,910,56]:
+            - generic [ref=e1048] [box=33,6454,287,31]:
+              - generic [ref=e1049] [box=33,6456,28,28]: Q
+              - generic [ref=e1050] [box=69,6460,54,20]: QZO108
+            - generic [ref=e1052] [box=568,6458,48,24]: $2.00
+            - generic [ref=e1053] [box=624,6454,287,31]:
+              - img [ref=e1054] [box=844,6464,12,12]
+              - text: +0.10%
+          - generic [ref=e1056] [cursor=pointer] [box=17,6498,910,56]:
+            - generic [ref=e1057] [box=33,6510,287,31]:
+              - generic [ref=e1058] [box=33,6512,28,28]: Q
+              - generic [ref=e1059] [box=69,6516,39,20]: QZO3
+            - generic [ref=e1061] [box=558,6514,58,24]: $26.83
+            - generic [ref=e1062] [box=624,6510,287,31]:
+              - img [ref=e1063] [box=844,6520,12,12]
+              - text: "-1.81%"
+          - generic [ref=e1065] [cursor=pointer] [box=17,6554,910,56]:
+            - generic [ref=e1066] [box=33,6566,287,31]:
+              - generic [ref=e1067] [box=33,6568,28,28]: R
+              - generic [ref=e1068] [box=69,6572,49,20]: RBA113
+            - generic [ref=e1070] [box=558,6570,58,24]: $13.98
+            - generic [ref=e1071] [box=624,6566,287,31]:
+              - img [ref=e1072] [box=844,6576,12,12]
+              - text: +0.47%
+          - generic [ref=e1074] [cursor=pointer] [box=17,6610,910,56]:
+            - generic [ref=e1075] [box=33,6622,287,31]:
+              - generic [ref=e1076] [box=33,6624,28,28]: R
+              - generic [ref=e1077] [box=69,6628,37,20]: RBA8
+            - generic [ref=e1079] [box=558,6626,58,24]: $68.69
+            - generic [ref=e1080] [box=624,6622,287,31]:
+              - img [ref=e1884] [box=844,6632,12,12]
+              - text: +0.04%
+          - generic [ref=e1083] [cursor=pointer] [box=17,6666,910,56]:
+            - generic [ref=e1084] [box=33,6678,287,31]:
+              - generic [ref=e1085] [box=33,6680,28,28]: R
+              - generic [ref=e1086] [box=69,6684,54,20]: RDU128
+            - generic [ref=e1088] [box=558,6682,58,24]: $43.22
+            - generic [ref=e1089] [box=624,6678,287,31]:
+              - img [ref=e1090] [box=844,6688,12,12]
+              - text: +0.42%
+          - generic [ref=e1092] [cursor=pointer] [box=17,6722,910,56]:
+            - generic [ref=e1093] [box=33,6734,287,31]:
+              - generic [ref=e1094] [box=33,6736,28,28]: R
+              - generic [ref=e1095] [box=69,6740,47,20]: RDU23
+            - generic [ref=e1097] [box=558,6738,58,24]: $50.47
+            - generic [ref=e1098] [box=624,6734,287,31]:
+              - img [ref=e1099] [box=844,6744,12,12]
+              - text: "-0.65%"
+          - generic [ref=e1101] [cursor=pointer] [box=17,6778,910,56]:
+            - generic [ref=e1102] [box=33,6790,287,31]:
+              - generic [ref=e1103] [box=33,6792,28,28]: R
+              - generic [ref=e1104] [box=69,6796,55,20]: RGO158
+            - generic [ref=e1106] [box=558,6794,58,24]: $41.42
+            - generic [ref=e1107] [box=624,6790,287,31]:
+              - img [ref=e1108] [box=844,6800,12,12]
+              - text: +0.23%
+          - generic [ref=e1110] [cursor=pointer] [box=17,6834,910,56]:
+            - generic [ref=e1111] [box=33,6846,287,31]:
+              - generic [ref=e1112] [box=33,6848,28,28]: R
+              - generic [ref=e1113] [box=69,6852,48,20]: RGO53
+            - generic [ref=e1115] [box=558,6850,58,24]: $22.18
+            - generic [ref=e1116] [box=624,6846,287,31]:
+              - img [ref=e1117] [box=844,6856,12,12]
+              - text: "-0.62%"
+          - generic [ref=e1119] [cursor=pointer] [box=17,6890,910,56]:
+            - generic [ref=e1120] [box=33,6902,287,31]:
+              - generic [ref=e1121] [box=33,6904,28,28]: R
+              - generic [ref=e1122] [box=69,6908,53,20]: RGY143
+            - generic [ref=e1124] [box=558,6906,58,24]: $83.21
+            - generic [ref=e1125] [box=624,6902,287,31]:
+              - img [ref=e1886] [box=844,6912,12,12]
+              - text: "-0.12%"
+          - generic [ref=e1128] [cursor=pointer] [box=17,6946,910,56]:
+            - generic [ref=e1129] [box=33,6958,287,31]:
+              - generic [ref=e1130] [box=33,6960,28,28]: R
+              - generic [ref=e1131] [box=69,6964,46,20]: RGY38
+            - generic [ref=e1133] [box=558,6962,58,24]: $55.56
+            - generic [ref=e1134] [box=624,6958,287,31]:
+              - img [ref=e1135] [box=844,6968,12,12]
+              - text: "-1.28%"
+          - generic [ref=e1137] [cursor=pointer] [box=17,7002,910,56]:
+            - generic [ref=e1138] [box=33,7014,287,31]:
+              - generic [ref=e1139] [box=33,7016,28,28]: R
+              - generic [ref=e1140] [box=69,7020,47,20]: RNX68
+            - generic [ref=e1142] [box=558,7018,58,24]: $21.89
+            - generic [ref=e1143] [box=624,7014,287,31]:
+              - img [ref=e1144] [box=844,7024,12,12]
+              - text: "-0.91%"
+          - generic [ref=e1146] [cursor=pointer] [box=17,7058,910,56]:
+            - generic [ref=e1147] [box=33,7070,287,31]:
+              - generic [ref=e1148] [box=33,7072,28,28]: R
+              - generic [ref=e1149] [box=69,7076,40,20]: RRI98
+            - generic [ref=e1151] [box=558,7074,58,24]: $51.10
+            - generic [ref=e1152] [box=624,7070,287,31]:
+              - img [ref=e1153] [box=844,7080,12,12]
+              - text: +0.88%
+          - generic [ref=e1155] [cursor=pointer] [box=17,7114,910,56]:
+            - generic [ref=e1156] [box=33,7126,287,31]:
+              - generic [ref=e1157] [box=33,7128,28,28]: R
+              - generic [ref=e1158] [box=69,7132,49,20]: RWA83
+            - generic [ref=e1160] [box=558,7130,58,24]: $31.15
+            - generic [ref=e1161] [box=624,7126,287,31]:
+              - img [ref=e1162] [box=844,7136,12,12]
+              - text: "-0.73%"
+          - generic [ref=e1164] [cursor=pointer] [box=17,7170,910,56]:
+            - generic [ref=e1165] [box=33,7182,287,31]:
+              - generic [ref=e1166] [box=33,7184,28,28]: S
+              - generic [ref=e1167] [box=69,7188,39,20]: SAND
+            - generic [ref=e1169] [box=568,7186,48,24]: $0.42
+            - generic [ref=e1170] [box=624,7182,287,31]:
+              - img [ref=e1171] [box=844,7192,12,12]
+              - text: +0.60%
+          - generic [ref=e1173] [cursor=pointer] [box=17,7226,910,56]:
+            - generic [ref=e1174] [box=33,7238,287,31]:
+              - generic [ref=e1175] [box=33,7240,28,28]: S
+              - generic [ref=e1176] [box=69,7244,51,20]: SCU114
+            - generic [ref=e1178] [box=558,7242,58,24]: $29.29
+            - generic [ref=e1179] [box=624,7238,287,31]:
+              - img [ref=e1180] [box=844,7248,12,12]
+              - text: +0.65%
+          - generic [ref=e1182] [cursor=pointer] [box=17,7282,910,56]:
+            - generic [ref=e1183] [box=33,7294,287,31]:
+              - generic [ref=e1184] [box=33,7296,28,28]: S
+              - generic [ref=e1185] [box=69,7300,38,20]: SCU9
+            - generic [ref=e1187] [box=568,7298,48,24]: $0.38
+            - generic [ref=e1188] [box=624,7294,287,31]:
+              - img [ref=e1189] [box=844,7304,12,12]
+              - text: "-1.52%"
+          - generic [ref=e1191] [cursor=pointer] [box=17,7338,910,56]:
+            - generic [ref=e1192] [box=33,7350,287,31]:
+              - generic [ref=e1193] [box=33,7352,28,28]: S
+              - generic [ref=e1194] [box=69,7356,51,20]: SEX129
+            - generic [ref=e1196] [box=568,7354,48,24]: $9.72
+            - generic [ref=e1197] [box=624,7350,287,31]:
+              - img [ref=e1198] [box=844,7360,12,12]
+              - text: "-1.62%"
+          - generic [ref=e1200] [cursor=pointer] [box=17,7394,910,56]:
+            - generic [ref=e1201] [box=33,7406,287,31]:
+              - generic [ref=e1202] [box=33,7408,28,28]: S
+              - generic [ref=e1203] [box=69,7412,44,20]: SEX24
+            - generic [ref=e1205] [box=558,7410,58,24]: $28.36
+            - generic [ref=e1206] [box=624,7406,287,31]:
+              - img [ref=e1207] [box=844,7416,12,12]
+              - text: "-0.22%"
+          - generic [ref=e1209] [cursor=pointer] [box=17,7450,910,56]:
+            - generic [ref=e1210] [box=33,7462,287,31]:
+              - generic [ref=e1211] [box=33,7464,28,28]: S
+              - generic [ref=e1212] [box=69,7468,44,20]: SFA99
+            - generic [ref=e1214] [box=558,7466,58,24]: $77.01
+            - generic [ref=e1215] [box=624,7462,287,31]:
+              - img [ref=e1216] [box=844,7472,12,12]
+              - text: +1.22%
+          - generic [ref=e1218] [cursor=pointer] [box=17,7506,910,56]:
+            - generic [ref=e1219] [box=33,7518,287,31]:
+              - generic [ref=e1220] [box=33,7520,28,28]: S
+              - generic [ref=e1221] [box=69,7524,45,20]: SFI144
+            - generic [ref=e1223] [box=558,7522,58,24]: $20.81
+            - generic [ref=e1224] [box=624,7518,287,31]:
+              - img [ref=e1225] [box=844,7528,12,12]
+              - text: +1.62%
+          - generic [ref=e1227] [cursor=pointer] [box=17,7562,910,56]:
+            - generic [ref=e1228] [box=33,7574,287,31]:
+              - generic [ref=e1229] [box=33,7576,28,28]: S
+              - generic [ref=e1230] [box=69,7580,39,20]: SFI39
+            - generic [ref=e1232] [box=558,7578,58,24]: $43.78
+            - generic [ref=e1233] [box=624,7574,287,31]:
+              - img [ref=e1234] [box=844,7584,12,12]
+              - text: +0.88%
+          - generic [ref=e1236] [cursor=pointer] [box=17,7618,910,56]:
+            - generic [ref=e1237] [box=33,7630,287,31]:
+              - generic [ref=e1238] [box=33,7632,28,28]: S
+              - generic [ref=e1239] [box=69,7636,32,20]: SHIB
+            - generic [ref=e1241] [box=568,7634,48,24]: $0.00
+            - generic [ref=e1242] [box=624,7630,287,31]: +0.00%
+          - generic [ref=e1243] [cursor=pointer] [box=17,7674,910,56]:
+            - generic [ref=e1244] [box=33,7686,287,31]:
+              - generic [ref=e1245] [box=33,7688,28,28]: S
+              - generic [ref=e1246] [box=69,7692,54,20]: SHU159
+            - generic [ref=e1248] [box=558,7690,58,24]: $53.23
+            - generic [ref=e1249] [box=624,7686,287,31]:
+              - img [ref=e1888] [box=844,7696,12,12]
+              - text: "-0.11%"
+          - generic [ref=e1252] [cursor=pointer] [box=17,7730,910,56]:
+            - generic [ref=e1253] [box=33,7742,287,31]:
+              - generic [ref=e1254] [box=33,7744,28,28]: S
+              - generic [ref=e1255] [box=69,7748,47,20]: SHU54
+            - generic [ref=e1257] [box=558,7746,58,24]: $16.53
+            - generic [ref=e1258] [box=624,7742,287,31]:
+              - img [ref=e1259] [box=844,7752,12,12]
+              - text: +1.13%
+          - generic [ref=e1261] [cursor=pointer] [box=17,7786,910,56]:
+            - generic [ref=e1262] [box=33,7798,287,31]:
+              - generic [ref=e1263] [box=33,7800,28,28]: S
+              - generic [ref=e1264] [box=69,7804,28,20]: SOL
+            - generic [ref=e1266] [box=548,7802,67,24]: $178.80
+            - generic [ref=e1267] [box=624,7798,287,31]:
+              - img [ref=e1268] [box=844,7808,12,12]
+              - text: "-0.67%"
+          - generic [ref=e1270] [cursor=pointer] [box=17,7842,910,56]:
+            - generic [ref=e1271] [box=33,7854,287,31]:
+              - generic [ref=e1272] [box=33,7856,28,28]: S
+              - generic [ref=e1273] [box=69,7860,45,20]: SVE84
+            - generic [ref=e1275] [box=558,7858,58,24]: $57.96
+            - generic [ref=e1276] [box=624,7854,287,31]:
+              - img [ref=e1277] [box=844,7864,12,12]
+              - text: +0.36%
+          - generic [ref=e1279] [cursor=pointer] [box=17,7898,910,56]:
+            - generic [ref=e1280] [box=33,7910,287,31]:
+              - generic [ref=e1281] [box=33,7912,28,28]: S
+              - generic [ref=e1282] [box=69,7916,46,20]: SZO69
+            - generic [ref=e1284] [box=558,7914,58,24]: $57.80
+            - generic [ref=e1285] [box=624,7910,287,31]:
+              - img [ref=e1286] [box=844,7920,12,12]
+              - text: +0.99%
+          - generic [ref=e1288] [cursor=pointer] [box=17,7954,910,56]:
+            - generic [ref=e1289] [box=33,7966,287,31]:
+              - generic [ref=e1290] [box=33,7968,28,28]: T
+              - generic [ref=e1291] [box=69,7972,52,20]: TBA100
+            - generic [ref=e1293] [box=558,7970,58,24]: $81.23
+            - generic [ref=e1294] [box=624,7966,287,31]:
+              - img [ref=e1295] [box=844,7976,12,12]
+              - text: "-0.60%"
+          - generic [ref=e1297] [cursor=pointer] [box=17,8010,910,56]:
+            - generic [ref=e1298] [box=33,8022,287,31]:
+              - generic [ref=e1299] [box=33,8024,28,28]: T
+              - generic [ref=e1300] [box=69,8028,41,20]: TDI85
+            - generic [ref=e1302] [box=558,8026,58,24]: $47.86
+            - generic [ref=e1303] [box=624,8022,287,31]:
+              - img [ref=e1304] [box=844,8032,12,12]
+              - text: "-0.61%"
+          - generic [ref=e1306] [cursor=pointer] [box=17,8066,910,56]:
+            - generic [ref=e1307] [box=33,8078,287,31]:
+              - generic [ref=e1308] [box=33,8080,28,28]: T
+              - generic [ref=e1309] [box=69,8084,45,20]: TDU10
+            - generic [ref=e1311] [box=558,8082,58,24]: $83.63
+            - generic [ref=e1312] [box=624,8078,287,31]:
+              - img [ref=e1313] [box=844,8088,12,12]
+              - text: "-0.13%"
+          - generic [ref=e1315] [cursor=pointer] [box=17,8122,910,56]:
+            - generic [ref=e1316] [box=33,8134,287,31]:
+              - generic [ref=e1317] [box=33,8136,28,28]: T
+              - generic [ref=e1318] [box=69,8140,51,20]: TDU115
+            - generic [ref=e1320] [box=558,8138,58,24]: $57.22
+            - generic [ref=e1321] [box=624,8134,287,31]:
+              - img [ref=e1322] [box=844,8144,12,12]
+              - text: +0.60%
+          - generic [ref=e1324] [cursor=pointer] [box=17,8178,910,56]:
+            - generic [ref=e1325] [box=33,8190,287,31]:
+              - generic [ref=e1326] [box=33,8192,28,28]: T
+              - generic [ref=e1327] [box=69,8196,54,20]: TGO145
+            - generic [ref=e1329] [box=558,8194,58,24]: $95.04
+            - generic [ref=e1330] [box=624,8190,287,31]:
+              - img [ref=e1331] [box=844,8200,12,12]
+              - text: "-0.18%"
+          - generic [ref=e1333] [cursor=pointer] [box=17,8234,910,56]:
+            - generic [ref=e1334] [box=33,8246,287,31]:
+              - generic [ref=e1335] [box=33,8248,28,28]: T
+              - generic [ref=e1336] [box=69,8252,48,20]: TGO40
+            - generic [ref=e1338] [box=558,8250,58,24]: $33.85
+            - generic [ref=e1339] [box=624,8246,287,31]:
+              - img [ref=e1340] [box=844,8256,12,12]
+              - text: +0.45%
+          - generic [ref=e1342] [cursor=pointer] [box=17,8290,910,56]:
+            - generic [ref=e1343] [box=33,8302,287,31]:
+              - generic [ref=e1344] [box=33,8304,28,28]: T
+              - generic [ref=e1345] [box=69,8308,52,20]: TGY130
+            - generic [ref=e1347] [box=568,8306,48,24]: $5.69
+            - generic [ref=e1348] [box=624,8302,287,31]:
+              - img [ref=e1349] [box=844,8312,12,12]
+              - text: +0.27%
+          - generic [ref=e1351] [cursor=pointer] [box=17,8346,910,56]:
+            - generic [ref=e1352] [box=33,8358,287,31]:
+              - generic [ref=e1353] [box=33,8360,28,28]: T
+              - generic [ref=e1354] [box=69,8364,45,20]: TGY25
+            - generic [ref=e1356] [box=568,8362,48,24]: $7.47
+            - generic [ref=e1357] [box=624,8358,287,31]:
+              - img [ref=e1358] [box=844,8368,12,12]
+              - text: "-0.01%"
+          - generic [ref=e1360] [cursor=pointer] [box=17,8402,910,56]:
+            - generic [ref=e1361] [box=33,8414,287,31]:
+              - generic [ref=e1362] [box=33,8416,28,28]: T
+              - generic [ref=e1363] [box=69,8420,53,20]: TNX160
+            - generic [ref=e1365] [box=558,8418,58,24]: $61.83
+            - generic [ref=e1366] [box=624,8414,287,31]:
+              - img [ref=e1890] [box=844,8424,12,12]
+              - text: +0.07%
+          - generic [ref=e1369] [cursor=pointer] [box=17,8458,910,56]:
+            - generic [ref=e1370] [box=33,8470,287,31]:
+              - generic [ref=e1371] [box=33,8472,28,28]: T
+              - generic [ref=e1372] [box=69,8476,46,20]: TNX55
+            - generic [ref=e1374] [box=558,8474,58,24]: $33.83
+            - generic [ref=e1375] [box=624,8470,287,31]:
+              - img [ref=e1376] [box=844,8480,12,12]
+              - text: +0.70%
+          - generic [ref=e1378] [cursor=pointer] [box=17,8514,910,56]:
+            - generic [ref=e1379] [box=33,8526,287,31]:
+              - generic [ref=e1380] [box=33,8528,28,28]: T
+              - generic [ref=e1381] [box=69,8532,48,20]: TWA70
+            - generic [ref=e1383] [box=558,8530,58,24]: $16.47
+            - generic [ref=e1384] [box=624,8526,287,31]:
+              - img [ref=e1385] [box=844,8536,12,12]
+              - text: +0.56%
+          - generic [ref=e1387] [cursor=pointer] [box=17,8570,910,56]:
+            - generic [ref=e1388] [box=33,8582,287,31]:
+              - generic [ref=e1389] [box=33,8584,28,28]: U
+              - generic [ref=e1390] [box=69,8588,24,20]: UNI
+            - generic [ref=e1392] [box=568,8586,48,24]: $9.46
+            - generic [ref=e1393] [box=624,8582,287,31]:
+              - img [ref=e1394] [box=844,8592,12,12]
+              - text: "-0.42%"
+          - generic [ref=e1396] [cursor=pointer] [box=17,8626,910,56]:
+            - generic [ref=e1397] [box=33,8638,287,31]:
+              - generic [ref=e1398] [box=33,8640,28,28]: V
+              - generic [ref=e1399] [box=69,8644,27,20]: VET
+            - generic [ref=e1401] [box=568,8642,48,24]: $0.03
+            - generic [ref=e1402] [box=624,8638,287,31]:
+              - img [ref=e1403] [box=844,8648,12,12]
+              - text: "-0.10%"
+          - generic [ref=e1405] [cursor=pointer] [box=17,8682,910,56]:
+            - generic [ref=e1406] [box=33,8694,287,31]:
+              - generic [ref=e1407] [box=33,8696,28,28]: W
+              - generic [ref=e1408] [box=69,8700,57,20]: WCU167
+            - generic [ref=e1410] [box=558,8698,58,24]: $89.91
+            - generic [ref=e1411] [box=624,8694,287,31]:
+              - img [ref=e1412] [box=844,8704,12,12]
+              - text: "-0.36%"
+          - generic [ref=e1414] [cursor=pointer] [box=17,8738,910,56]:
+            - generic [ref=e1415] [box=33,8750,287,31]:
+              - generic [ref=e1416] [box=33,8752,28,28]: W
+              - generic [ref=e1417] [box=69,8756,51,20]: WCU62
+            - generic [ref=e1419] [box=558,8754,58,24]: $91.32
+            - generic [ref=e1420] [box=624,8750,287,31]:
+              - img [ref=e1421] [box=844,8760,12,12]
+              - text: +0.55%
+          - generic [ref=e1423] [cursor=pointer] [box=17,8794,910,56]:
+            - generic [ref=e1424] [box=33,8806,287,31]:
+              - generic [ref=e1425] [box=33,8808,28,28]: W
+              - generic [ref=e1426] [box=69,8812,48,20]: WEX77
+            - generic [ref=e1428] [box=558,8810,58,24]: $53.36
+            - generic [ref=e1429] [box=624,8806,287,31]:
+              - img [ref=e1430] [box=844,8816,12,12]
+              - text: "-2.34%"
+          - generic [ref=e1432] [cursor=pointer] [box=17,8850,910,56]:
+            - generic [ref=e1433] [box=33,8862,287,31]:
+              - generic [ref=e1434] [box=33,8864,28,28]: W
+              - generic [ref=e1435] [box=69,8868,54,20]: WFA152
+            - generic [ref=e1437] [box=558,8866,58,24]: $53.94
+            - generic [ref=e1438] [box=624,8862,287,31]:
+              - img [ref=e1439] [box=844,8872,12,12]
+              - text: "-1.23%"
+          - generic [ref=e1441] [cursor=pointer] [box=17,8906,910,56]:
+            - generic [ref=e1442] [box=33,8918,287,31]:
+              - generic [ref=e1443] [box=33,8920,28,28]: W
+              - generic [ref=e1444] [box=69,8924,48,20]: WFA47
+            - generic [ref=e1446] [box=558,8922,58,24]: $69.57
+            - generic [ref=e1447] [box=624,8918,287,31]:
+              - img [ref=e1892] [box=844,8928,12,12]
+              - text: "-0.15%"
+          - generic [ref=e1450] [cursor=pointer] [box=17,8962,910,56]:
+            - generic [ref=e1451] [box=33,8974,287,31]:
+              - generic [ref=e1452] [box=33,8976,28,28]: W
+              - generic [ref=e1453] [box=69,8980,52,20]: WGO92
+            - generic [ref=e1455] [box=558,8978,58,24]: $81.16
+            - generic [ref=e1456] [box=624,8974,287,31]:
+              - img [ref=e1457] [box=844,8984,12,12]
+              - text: +0.49%
+          - generic [ref=e1459] [cursor=pointer] [box=17,9018,910,56]:
+            - generic [ref=e1460] [box=33,9030,287,31]:
+              - generic [ref=e1461] [box=33,9032,28,28]: W
+              - generic [ref=e1462] [box=69,9036,57,20]: WNX107
+            - generic [ref=e1464] [box=558,9034,58,24]: $15.17
+            - generic [ref=e1465] [box=624,9030,287,31]:
+              - img [ref=e1466] [box=844,9040,12,12]
+              - text: +0.06%
+          - generic [ref=e1468] [cursor=pointer] [box=17,9074,910,56]:
+            - generic [ref=e1469] [box=33,9086,287,31]:
+              - generic [ref=e1470] [box=33,9088,28,28]: W
+              - generic [ref=e1471] [box=69,9092,42,20]: WNX2
+            - generic [ref=e1473] [box=558,9090,58,24]: $17.38
+            - generic [ref=e1474] [box=624,9086,287,31]:
+              - img [ref=e1475] [box=844,9096,12,12]
+              - text: "-0.59%"
+          - generic [ref=e1477] [cursor=pointer] [box=17,9130,910,56]:
+            - generic [ref=e1478] [box=33,9142,287,31]:
+              - generic [ref=e1479] [box=33,9144,28,28]: W
+              - generic [ref=e1480] [box=69,9148,50,20]: WRI137
+            - generic [ref=e1482] [box=568,9146,48,24]: $7.81
+            - generic [ref=e1483] [box=624,9142,287,31]:
+              - img [ref=e1484] [box=844,9152,12,12]
+              - text: +0.01%
+          - generic [ref=e1486] [cursor=pointer] [box=17,9186,910,56]:
+            - generic [ref=e1487] [box=33,9198,287,31]:
+              - generic [ref=e1488] [box=33,9200,28,28]: W
+              - generic [ref=e1489] [box=69,9204,44,20]: WRI32
+            - generic [ref=e1491] [box=558,9202,58,24]: $62.13
+            - generic [ref=e1492] [box=624,9198,287,31]:
+              - img [ref=e1493] [box=844,9208,12,12]
+              - text: +1.53%
+          - generic [ref=e1495] [cursor=pointer] [box=17,9242,910,56]:
+            - generic [ref=e1496] [box=33,9254,287,31]:
+              - generic [ref=e1497] [box=33,9256,28,28]: W
+              - generic [ref=e1498] [box=69,9260,59,20]: WWA122
+            - generic [ref=e1500] [box=558,9258,58,24]: $50.56
+            - generic [ref=e1501] [box=624,9254,287,31]:
+              - img [ref=e1894] [box=844,9264,12,12]
+              - text: +0.16%
+          - generic [ref=e1504] [cursor=pointer] [box=17,9298,910,56]:
+            - generic [ref=e1505] [box=33,9310,287,31]:
+              - generic [ref=e1506] [box=33,9312,28,28]: W
+              - generic [ref=e1507] [box=69,9316,50,20]: WWA17
+            - generic [ref=e1509] [box=558,9314,58,24]: $32.15
+            - generic [ref=e1510] [box=624,9310,287,31]:
+              - img [ref=e1511] [box=844,9320,12,12]
+              - text: +0.63%
+          - generic [ref=e1513] [cursor=pointer] [box=17,9354,910,56]:
+            - generic [ref=e1514] [box=33,9366,287,31]:
+              - generic [ref=e1515] [box=33,9368,28,28]: X
+              - generic [ref=e1516] [box=69,9372,46,20]: XCU75
+            - generic [ref=e1518] [box=558,9370,58,24]: $89.38
+            - generic [ref=e1519] [box=624,9366,287,31]:
+              - img [ref=e1520] [box=844,9376,12,12]
+              - text: "-0.21%"
+          - generic [ref=e1522] [cursor=pointer] [box=17,9410,910,56]:
+            - generic [ref=e1523] [box=33,9422,287,31]:
+              - generic [ref=e1524] [box=33,9424,28,28]: X
+              - generic [ref=e1525] [box=69,9428,45,20]: XEX90
+            - generic [ref=e1527] [box=558,9426,58,24]: $88.29
+            - generic [ref=e1528] [box=624,9422,287,31]:
+              - img [ref=e1529] [box=844,9432,12,12]
+              - text: "-1.30%"
+          - generic [ref=e1531] [cursor=pointer] [box=17,9466,910,56]:
+            - generic [ref=e1532] [box=33,9478,287,31]:
+              - generic [ref=e1533] [box=33,9480,28,28]: X
+              - generic [ref=e1534] [box=69,9484,50,20]: XFA165
+            - generic [ref=e1536] [box=558,9482,58,24]: $72.72
+            - generic [ref=e1537] [box=624,9478,287,31]:
+              - img [ref=e1538] [box=844,9488,12,12]
+              - text: "-1.50%"
+          - generic [ref=e1540] [cursor=pointer] [box=17,9522,910,56]:
+            - generic [ref=e1541] [box=33,9534,287,31]:
+              - generic [ref=e1542] [box=33,9536,28,28]: X
+              - generic [ref=e1543] [box=69,9540,44,20]: XFA60
+            - generic [ref=e1545] [box=568,9538,48,24]: $0.96
+            - generic [ref=e1546] [box=624,9534,287,31]:
+              - img [ref=e1547] [box=844,9544,12,12]
+              - text: +0.30%
+          - generic [ref=e1549] [cursor=pointer] [box=17,9578,910,56]:
+            - generic [ref=e1550] [box=33,9590,287,31]:
+              - generic [ref=e1551] [box=33,9592,28,28]: X
+              - generic [ref=e1552] [box=69,9596,30,20]: XFI0
+            - generic [ref=e1554] [box=558,9594,58,24]: $59.95
+            - generic [ref=e1555] [box=624,9590,287,31]:
+              - img [ref=e1556] [box=844,9600,12,12]
+              - text: "-0.27%"
+          - generic [ref=e1558] [cursor=pointer] [box=17,9634,910,56]:
+            - generic [ref=e1559] [box=33,9646,287,31]:
+              - generic [ref=e1560] [box=33,9648,28,28]: X
+              - generic [ref=e1561] [box=69,9652,46,20]: XFI105
+            - generic [ref=e1563] [box=558,9650,58,24]: $93.91
+            - generic [ref=e1564] [box=624,9646,287,31]:
+              - img [ref=e1896] [box=844,9656,12,12]
+              - text: +0.17%
+          - generic [ref=e1567] [cursor=pointer] [box=17,9690,910,56]:
+            - generic [ref=e1568] [box=33,9702,287,31]:
+              - generic [ref=e1569] [box=33,9704,28,28]: X
+              - generic [ref=e1570] [box=69,9708,30,20]: XLM
+            - generic [ref=e1572] [box=568,9706,48,24]: $0.11
+            - generic [ref=e1573] [box=624,9702,287,31]:
+              - img [ref=e1898] [box=844,9712,12,12]
+              - text: +0.05%
+          - generic [ref=e1576] [cursor=pointer] [box=17,9746,910,56]:
+            - generic [ref=e1577] [box=33,9758,287,31]:
+              - generic [ref=e1578] [box=33,9760,28,28]: X
+              - generic [ref=e1579] [box=69,9764,54,20]: XNX120
+            - generic [ref=e1581] [box=558,9762,58,24]: $42.68
+            - generic [ref=e1582] [box=624,9758,287,31]:
+              - img [ref=e1583] [box=844,9768,12,12]
+              - text: +0.41%
+          - generic [ref=e1585] [cursor=pointer] [box=17,9802,910,56]:
+            - generic [ref=e1586] [box=33,9814,287,31]:
+              - generic [ref=e1587] [box=33,9816,28,28]: X
+              - generic [ref=e1588] [box=69,9820,45,20]: XNX15
+            - generic [ref=e1590] [box=558,9818,58,24]: $17.46
+            - generic [ref=e1591] [box=624,9814,287,31]:
+              - img [ref=e1592] [box=844,9824,12,12]
+              - text: +0.92%
+          - generic [ref=e1594] [cursor=pointer] [box=17,9858,910,56]:
+            - generic [ref=e1595] [box=33,9870,287,31]:
+              - generic [ref=e1596] [box=33,9872,28,28]: X
+              - generic [ref=e1597] [box=69,9876,47,20]: XRI150
+            - generic [ref=e1599] [box=558,9874,58,24]: $75.58
+            - generic [ref=e1600] [box=624,9870,287,31]:
+              - img [ref=e1601] [box=844,9880,12,12]
+              - text: +0.59%
+          - generic [ref=e1603] [cursor=pointer] [box=17,9914,910,56]:
+            - generic [ref=e1604] [box=33,9926,287,31]:
+              - generic [ref=e1605] [box=33,9928,28,28]: X
+              - generic [ref=e1606] [box=69,9932,40,20]: XRI45
+            - generic [ref=e1608] [box=558,9930,58,24]: $43.19
+            - generic [ref=e1609] [box=624,9926,287,31]:
+              - img [ref=e1610] [box=844,9936,12,12]
+              - text: "-0.00%"
+          - generic [ref=e1612] [cursor=pointer] [box=17,9970,910,56]:
+            - generic [ref=e1613] [box=33,9982,287,31]:
+              - generic [ref=e1614] [box=33,9984,28,28]: X
+              - generic [ref=e1615] [box=69,9988,28,20]: XRP
+            - generic [ref=e1617] [box=568,9986,48,24]: $0.62
+            - generic [ref=e1618] [box=624,9982,287,31]:
+              - img [ref=e1619] [box=844,9992,12,12]
+              - text: "-0.35%"
+          - generic [ref=e1621] [cursor=pointer] [box=17,10026,910,56]:
+            - generic [ref=e1622] [box=33,10038,287,31]:
+              - generic [ref=e1623] [box=33,10040,28,28]: X
+              - generic [ref=e1624] [box=69,10044,56,20]: XWA135
+            - generic [ref=e1626] [box=558,10042,58,24]: $55.27
+            - generic [ref=e1627] [box=624,10038,287,31]:
+              - img [ref=e1628] [box=844,10048,12,12]
+              - text: +0.71%
+          - generic [ref=e1630] [cursor=pointer] [box=17,10082,910,56]:
+            - generic [ref=e1631] [box=33,10094,287,31]:
+              - generic [ref=e1632] [box=33,10096,28,28]: X
+              - generic [ref=e1633] [box=69,10100,50,20]: XWA30
+            - generic [ref=e1635] [box=558,10098,58,24]: $11.10
+            - generic [ref=e1636] [box=624,10094,287,31]:
+              - img [ref=e1637] [box=844,10104,12,12]
+              - text: +0.04%
+          - generic [ref=e1639] [cursor=pointer] [box=17,10138,910,56]:
+            - generic [ref=e1640] [box=33,10150,287,31]:
+              - generic [ref=e1641] [box=33,10152,28,28]: "Y"
+              - generic [ref=e1642] [box=69,10156,51,20]: YCU101
+            - generic [ref=e1644] [box=558,10154,58,24]: $81.38
+            - generic [ref=e1645] [box=624,10150,287,31]:
+              - img [ref=e1646] [box=844,10160,12,12]
+              - text: "-2.71%"
+          - generic [ref=e1648] [cursor=pointer] [box=17,10194,910,56]:
+            - generic [ref=e1649] [box=33,10206,287,31]:
+              - generic [ref=e1650] [box=33,10208,28,28]: "Y"
+              - generic [ref=e1651] [box=69,10212,40,20]: YEX11
+            - generic [ref=e1653] [box=558,10210,58,24]: $59.04
+            - generic [ref=e1654] [box=624,10206,287,31]:
+              - img [ref=e1655] [box=844,10216,12,12]
+              - text: "-0.33%"
+          - generic [ref=e1657] [cursor=pointer] [box=17,10250,910,56]:
+            - generic [ref=e1658] [box=33,10262,287,31]:
+              - generic [ref=e1659] [box=33,10264,28,28]: "Y"
+              - generic [ref=e1660] [box=69,10268,49,20]: YEX116
+            - generic [ref=e1662] [box=558,10266,58,24]: $79.43
+            - generic [ref=e1663] [box=624,10262,287,31]:
+              - img [ref=e1664] [box=844,10272,12,12]
+              - text: +0.13%
+          - generic [ref=e1666] [cursor=pointer] [box=17,10306,910,56]:
+            - generic [ref=e1667] [box=33,10318,287,31]:
+              - generic [ref=e1668] [box=33,10320,28,28]: "Y"
+              - generic [ref=e1669] [box=69,10324,44,20]: YFA86
+            - generic [ref=e1671] [box=558,10322,58,24]: $71.19
+            - generic [ref=e1672] [box=624,10318,287,31]:
+              - img [ref=e1900] [box=844,10328,12,12]
+              - text: "-0.02%"
+          - generic [ref=e1675] [cursor=pointer] [box=17,10362,910,56]:
+            - generic [ref=e1676] [box=33,10374,287,31]:
+              - generic [ref=e1677] [box=33,10376,28,28]: "Y"
+              - generic [ref=e1678] [box=69,10380,43,20]: YFI131
+            - generic [ref=e1680] [box=558,10378,58,24]: $23.08
+            - generic [ref=e1681] [box=624,10374,287,31]:
+              - img [ref=e1682] [box=844,10384,12,12]
+              - text: +0.47%
+          - generic [ref=e1684] [cursor=pointer] [box=17,10418,910,56]:
+            - generic [ref=e1685] [box=33,10430,287,31]:
+              - generic [ref=e1686] [box=33,10432,28,28]: "Y"
+              - generic [ref=e1687] [box=69,10436,39,20]: YFI26
+            - generic [ref=e1689] [box=558,10434,58,24]: $68.20
+            - generic [ref=e1690] [box=624,10430,287,31]:
+              - img [ref=e1691] [box=844,10440,12,12]
+              - text: +0.18%
+          - generic [ref=e1693] [cursor=pointer] [box=17,10474,910,56]:
+            - generic [ref=e1694] [box=33,10486,287,31]:
+              - generic [ref=e1695] [box=33,10488,28,28]: "Y"
+              - generic [ref=e1696] [box=69,10492,55,20]: YHU146
+            - generic [ref=e1698] [box=558,10490,58,24]: $52.09
+            - generic [ref=e1699] [box=624,10486,287,31]:
+              - img [ref=e1700] [box=844,10496,12,12]
+              - text: +0.49%
+          - generic [ref=e1702] [cursor=pointer] [box=17,10530,910,56]:
+            - generic [ref=e1703] [box=33,10542,287,31]:
+              - generic [ref=e1704] [box=33,10544,28,28]: "Y"
+              - generic [ref=e1705] [box=69,10548,45,20]: YHU41
+            - generic [ref=e1707] [box=558,10546,58,24]: $32.41
+            - generic [ref=e1708] [box=624,10542,287,31]:
+              - img [ref=e1709] [box=844,10552,12,12]
+              - text: +0.35%
+          - generic [ref=e1711] [cursor=pointer] [box=17,10586,910,56]:
+            - generic [ref=e1712] [box=33,10598,287,31]:
+              - generic [ref=e1713] [box=33,10600,28,28]: "Y"
+              - generic [ref=e1714] [box=69,10604,37,20]: YRI71
+            - generic [ref=e1716] [box=558,10602,58,24]: $55.81
+            - generic [ref=e1717] [box=624,10598,287,31]:
+              - img [ref=e1718] [box=844,10608,12,12]
+              - text: "-0.41%"
+          - generic [ref=e1720] [cursor=pointer] [box=17,10642,910,56]:
+            - generic [ref=e1721] [box=33,10654,287,31]:
+              - generic [ref=e1722] [box=33,10656,28,28]: "Y"
+              - generic [ref=e1723] [box=69,10660,51,20]: YZO161
+            - generic [ref=e1725] [box=558,10658,58,24]: $69.07
+            - generic [ref=e1726] [box=624,10654,287,31]:
+              - img [ref=e1727] [box=844,10664,12,12]
+              - text: "-0.12%"
+          - generic [ref=e1729] [cursor=pointer] [box=17,10698,910,56]:
+            - generic [ref=e1730] [box=33,10710,287,31]:
+              - generic [ref=e1731] [box=33,10712,28,28]: "Y"
+              - generic [ref=e1732] [box=69,10716,46,20]: YZO56
+            - generic [ref=e1734] [box=558,10714,58,24]: $63.02
+            - generic [ref=e1735] [box=624,10710,287,31]:
+              - img [ref=e1736] [box=844,10720,12,12]
+              - text: +0.20%
+          - generic [ref=e1738] [cursor=pointer] [box=17,10754,910,56]:
+            - generic [ref=e1739] [box=33,10766,287,31]:
+              - generic [ref=e1740] [box=33,10768,28,28]: Z
+              - generic [ref=e1741] [box=69,10772,52,20]: ZBA166
+            - generic [ref=e1743] [box=558,10770,58,24]: $18.64
+            - generic [ref=e1744] [box=624,10766,287,31]:
+              - img [ref=e1745] [box=844,10776,12,12]
+              - text: +0.27%
+          - generic [ref=e1747] [cursor=pointer] [box=17,10810,910,56]:
+            - generic [ref=e1748] [box=33,10822,287,31]:
+              - generic [ref=e1749] [box=33,10824,28,28]: Z
+              - generic [ref=e1750] [box=69,10828,43,20]: ZBA61
+            - generic [ref=e1752] [box=558,10826,58,24]: $63.93
+            - generic [ref=e1753] [box=624,10822,287,31]:
+              - img [ref=e1754] [box=844,10832,12,12]
+              - text: +0.49%
+          - generic [ref=e1756] [cursor=pointer] [box=17,10866,910,56]:
+            - generic [ref=e1757] [box=33,10878,287,31]:
+              - generic [ref=e1758] [box=33,10880,28,28]: Z
+              - generic [ref=e1759] [box=69,10884,45,20]: ZDI151
+            - generic [ref=e1761] [box=558,10882,58,24]: $68.98
+            - generic [ref=e1762] [box=624,10878,287,31]:
+              - img [ref=e1763] [box=844,10888,12,12]
+              - text: +0.37%
+          - generic [ref=e1765] [cursor=pointer] [box=17,10922,910,56]:
+            - generic [ref=e1766] [box=33,10934,287,31]:
+              - generic [ref=e1767] [box=33,10936,28,28]: Z
+              - generic [ref=e1768] [box=69,10940,41,20]: ZDI46
+            - generic [ref=e1770] [box=558,10938,58,24]: $29.63
+            - generic [ref=e1771] [box=624,10934,287,31]:
+              - img [ref=e1772] [box=844,10944,12,12]
+              - text: +0.12%
+          - generic [ref=e1774] [cursor=pointer] [box=17,10978,910,56]:
+            - generic [ref=e1775] [box=33,10990,287,31]:
+              - generic [ref=e1776] [box=33,10992,28,28]: Z
+              - generic [ref=e1777] [box=69,10996,46,20]: ZDU76
+            - generic [ref=e1779] [box=558,10994,58,24]: $49.46
+            - generic [ref=e1780] [box=624,10990,287,31]:
+              - img [ref=e1902] [box=844,11000,12,12]
+              - text: "-0.14%"
+          - generic [ref=e1783] [cursor=pointer] [box=17,11034,910,56]:
+            - generic [ref=e1784] [box=33,11046,287,31]:
+              - generic [ref=e1785] [box=33,11048,28,28]: Z
+              - generic [ref=e1786] [box=69,11052,44,20]: ZGY91
+            - generic [ref=e1788] [box=558,11050,58,24]: $14.56
+            - generic [ref=e1789] [box=624,11046,287,31]:
+              - img [ref=e1790] [box=844,11056,12,12]
+              - text: "-0.69%"
+          - generic [ref=e1792] [cursor=pointer] [box=17,11090,910,56]:
+            - generic [ref=e1793] [box=33,11102,287,31]:
+              - generic [ref=e1794] [box=33,11104,28,28]: Z
+              - generic [ref=e1795] [box=69,11108,36,20]: ZHU1
+            - generic [ref=e1797] [box=558,11106,58,24]: $84.66
+            - generic [ref=e1798] [box=624,11102,287,31]:
+              - img [ref=e1799] [box=844,11112,12,12]
+              - text: "-0.69%"
+          - generic [ref=e1801] [cursor=pointer] [box=17,11146,910,56]:
+            - generic [ref=e1802] [box=33,11158,287,31]:
+              - generic [ref=e1803] [box=33,11160,28,28]: Z
+              - generic [ref=e1804] [box=69,11164,54,20]: ZHU106
+            - generic [ref=e1806] [box=558,11162,58,24]: $32.65
+            - generic [ref=e1807] [box=624,11158,287,31]:
+              - img [ref=e1808] [box=844,11168,12,12]
+              - text: "-0.86%"
+          - generic [ref=e1810] [cursor=pointer] [box=17,11202,910,56]:
+            - generic [ref=e1811] [box=33,11214,287,31]:
+              - generic [ref=e1812] [box=33,11216,28,28]: Z
+              - generic [ref=e1813] [box=69,11220,51,20]: ZVE136
+            - generic [ref=e1815] [box=558,11218,58,24]: $52.71
+            - generic [ref=e1816] [box=624,11214,287,31]:
+              - img [ref=e1904] [box=844,11224,12,12]
+              - text: +0.08%
+          - generic [ref=e1819] [cursor=pointer] [box=17,11258,910,56]:
+            - generic [ref=e1820] [box=33,11270,287,31]:
+              - generic [ref=e1821] [box=33,11272,28,28]: Z
+              - generic [ref=e1822] [box=69,11276,42,20]: ZVE31
+            - generic [ref=e1824] [box=558,11274,58,24]: $35.89
+            - generic [ref=e1825] [box=624,11270,287,31]:
+              - img [ref=e1826] [box=844,11280,12,12]
+              - text: "-0.43%"
+          - generic [ref=e1828] [cursor=pointer] [box=17,11314,910,56]:
+            - generic [ref=e1829] [box=33,11326,287,31]:
+              - generic [ref=e1830] [box=33,11328,28,28]: Z
+              - generic [ref=e1831] [box=69,11332,50,20]: ZZO121
+            - generic [ref=e1833] [box=558,11330,58,24]: $30.65
+            - generic [ref=e1834] [box=624,11326,287,31]:
+              - img [ref=e1835] [box=844,11336,12,12]
+              - text: "-0.36%"
+          - generic [ref=e1837] [cursor=pointer] [box=17,11370,910,56]:
+            - generic [ref=e1838] [box=33,11382,287,31]:
+              - generic [ref=e1839] [box=33,11384,28,28]: Z
+              - generic [ref=e1840] [box=69,11388,44,20]: ZZO16
+            - generic [ref=e1842] [box=558,11386,58,24]: $47.97
+            - generic [ref=e1843] [box=624,11382,287,31]:
+              - img [ref=e1844] [box=844,11392,12,12]
+              - text: "-1.65%"
+    - complementary [ref=e30] [box=944,61,256,11382]:
+      - generic [ref=e31] [box=961,77,223,178]:
+        - generic [ref=e32] [box=978,94,189,16]:
+          - img [ref=e33] [box=978,94,16,16]
+          - generic [ref=e35] [box=1002,94,121,16]: Market Overview
+        - generic [ref=e36] [box=978,122,189,116]:
+          - generic [ref=e37] [box=978,122,189,20]:
+            - generic [ref=e38] [box=978,124,48,16]: Symbols
+            - generic [ref=e39] [box=1142,122,25,20]: "200"
+          - generic [ref=e40] [box=978,154,189,20]:
+            - generic [ref=e41] [box=978,156,82,16]: Portfolio Value
+            - generic [ref=e42] [box=1083,154,84,20]: $83,623.64
+          - generic [ref=e43] [box=978,186,189,20]:
+            - generic [ref=e44] [box=978,188,59,16]:
+              - img [ref=e45] [box=978,190,12,12]
+              - text: Gainers
+            - generic [ref=e48] [box=1159,186,8,20]: "7"
+          - generic [ref=e49] [box=978,218,189,20]:
+            - generic [ref=e50] [box=978,220,53,16]:
+              - img [ref=e51] [box=978,222,12,12]
+              - text: Losers
+            - generic [ref=e54] [box=1159,218,8,20]: "3"

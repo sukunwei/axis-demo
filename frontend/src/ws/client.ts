@@ -61,6 +61,18 @@ class WsClient {
     }
   }
 
+  subscribeOrderBook(symbol: string): void {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      this.send({ type: 'subscribe_orderbook', symbol });
+    }
+  }
+
+  unsubscribeOrderBook(symbol: string): void {
+    if (this.ws?.readyState === WebSocket.OPEN) {
+      this.send({ type: 'unsubscribe_orderbook', symbol });
+    }
+  }
+
   private open(): void {
     this.ws = new WebSocket(WS_URL);
 
@@ -68,6 +80,8 @@ class WsClient {
       this.retryDelay = 1_000;
       connectionStore.setConnected();
       this.startPing();
+      const preferred: FeedMode = settingsStore.mockDataEnabled ? 'mock' : 'hyperliquid';
+      this.send({ type: 'set_feed_mode', mode: preferred });
       const lastSeq = marketStore.seq;
       this.send({ type: 'hello', lastSeq: lastSeq > 0 ? lastSeq : undefined });
     };
