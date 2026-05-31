@@ -23,7 +23,6 @@
 
 ```bash
 npm install -g pnpm && pnpm install && pnpm start
-# Frontend http://localhost:5173 | Backend ws://localhost:5174
 ```
 
 ---
