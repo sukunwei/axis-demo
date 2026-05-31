@@ -1,9 +1,6 @@
 # axis-demo — Real-time Watchlist & Portfolio
 
-> Hyperliquid live market watchlist + mock portfolio, 60fps smooth updates, self-built WebSocket backend.
-
-**GitHub**: [sukunwei/axis-demo](https://github.com/sukunwei/axis-demo)
-**One-command start**: `pnpm install && pnpm start` → [http://localhost:5173](http://localhost:5173)
+> Live Hyperliquid market data with a mock portfolio — 200+ symbols at 60fps, powered by a diff-only WebSocket backend built in Node.js.
 
 ---
 
