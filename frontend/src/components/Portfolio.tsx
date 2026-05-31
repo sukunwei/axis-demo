@@ -45,7 +45,8 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
           decimals={2}
           prefix="$"
           className="text-xl font-semibold text-zinc-100"
-          enableFlash={false}
+          enableFlash={true}
+          animateNumber={true}
           paused={paused}
         />
       </div>
@@ -57,7 +58,8 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
             decimals={2}
             prefix={`${pnlSign}$`}
             className={pnlColor}
-            enableFlash={false}
+            enableFlash={true}
+            animateNumber={true}
             paused={paused}
           />
           <span className="text-sm ml-1">
@@ -68,7 +70,8 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
               prefix={totalPnLPercent >= 0 ? '+' : ''}
               suffix="%"
               className={`text-sm ${pnlColor}`}
-              enableFlash={false}
+              enableFlash={true}
+              animateNumber={true}
               paused={paused}
             />
             )
@@ -82,7 +85,8 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
           <AnimatedNumber
             value={gainerCount}
             decimals={0}
-            enableFlash={false}
+            enableFlash={true}
+            animateNumber={true}
             paused={paused}
           />
         </div>
@@ -94,7 +98,8 @@ export const PortfolioSummary = observer(function PortfolioSummary({ paused = fa
           <AnimatedNumber
             value={loserCount}
             decimals={0}
-            enableFlash={false}
+            enableFlash={true}
+            animateNumber={true}
             paused={paused}
           />
         </div>
@@ -139,7 +144,8 @@ const PortfolioRow = observer(function PortfolioRow({
             <AnimatedNumber
               value={quantity}
               decimals={4}
-              enableFlash={false}
+              enableFlash={true}
+              animateNumber={true}
               paused={paused}
             />
           </div>
@@ -153,7 +159,8 @@ const PortfolioRow = observer(function PortfolioRow({
           value={avgCost}
           decimals={2}
           prefix="$"
-          enableFlash={false}
+          enableFlash={true}
+          animateNumber={true}
           paused={paused}
         />
       </div>
@@ -162,7 +169,8 @@ const PortfolioRow = observer(function PortfolioRow({
           value={marketValue}
           decimals={2}
           prefix="$"
-          enableFlash={false}
+          enableFlash={true}
+          animateNumber={true}
           paused={paused}
         />
       </div>
@@ -173,7 +181,8 @@ const PortfolioRow = observer(function PortfolioRow({
           prefix={unrealizedPnL >= 0 ? '+' : ''}
           suffix="%"
           className={pnlColor}
-          enableFlash={false}
+          enableFlash={true}
+          animateNumber={true}
           paused={paused}
         />
       </div>
