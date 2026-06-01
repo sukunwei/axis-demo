@@ -1,7 +1,9 @@
 packages:
   - 'frontend'
-  - 'backend'
+  - 'backend/nodejs'
 
 # pnpm v10+: allow esbuild postinstall (downloads platform-native binary)
 allowBuilds:
+  '@prisma/engines': false
   esbuild: true
+  prisma: false
