@@ -4,7 +4,7 @@
 
 ---
 
-## Key Capabilities (Interview Highlights)
+## Key Capabilities
 
 | Capability | Implementation |
 |------------|---------------|
