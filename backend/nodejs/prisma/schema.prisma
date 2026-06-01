@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Todo {
+  id          Int        @id @default(autoincrement())
+  text        String     @db.VarChar(500)
+  description String?    @db.VarChar(2000)
+  completed   Boolean    @default(false)
+  priority    String     @default("medium")
+  dueDate     DateTime?  @db.Date
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([completed])
+  @@index([createdAt])
+  @@index([dueDate])
+  @@index([priority])
+}
