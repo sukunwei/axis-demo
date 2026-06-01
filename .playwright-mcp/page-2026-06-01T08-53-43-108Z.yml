@@ -1,0 +1,40 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - heading "Todo List" [level=1] [ref=e6]
+    - paragraph [ref=e7]: 1 task remaining
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - button "Add Task" [ref=e10]:
+        - img [ref=e11]
+        - text: Add Task
+      - generic [ref=e12]:
+        - img [ref=e13]
+        - textbox "Search tasks..." [ref=e16]
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - combobox [ref=e19]:
+          - option "Created" [selected]
+          - option "Due Date"
+          - option "Priority"
+    - generic [ref=e20]:
+      - button "All 1" [ref=e21]
+      - button "Active 1" [ref=e22]
+      - button "Completed 0" [ref=e23]
+    - generic [ref=e26]:
+      - button [ref=e27]
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - heading "new task" [level=3] [ref=e30]
+          - generic [ref=e31]:
+            - button [ref=e32]:
+              - img [ref=e33]
+            - button [ref=e36]:
+              - img [ref=e37]
+        - paragraph [ref=e39]: new task
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - img [ref=e42]
+            - text: High
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - text: 2026/6/1 (Overdue)

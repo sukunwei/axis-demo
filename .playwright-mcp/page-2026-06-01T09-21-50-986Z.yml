@@ -1,0 +1,77 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - heading "Todo List" [level=1] [ref=e6]
+    - paragraph [ref=e7]: 3 tasks remaining
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - button "Add Task" [ref=e10]:
+        - img [ref=e11]
+        - text: Add Task
+      - generic [ref=e12]:
+        - img [ref=e13]
+        - textbox "Search tasks..." [ref=e16]
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - combobox [ref=e19]:
+          - option "Created" [selected]
+          - option "Due Date"
+          - option "Priority"
+    - generic [ref=e20]:
+      - button "All 4" [ref=e25]
+      - button "Active 3" [ref=e26]
+      - button "Completed 1" [ref=e27]
+    - generic [ref=e24]:
+      - generic [ref=e29]:
+        - button [ref=e30]
+        - generic [ref=e31]:
+          - generic [ref=e32]:
+            - heading "Browser POST test" [level=3] [ref=e33]
+            - generic [ref=e34]:
+              - button [ref=e35]:
+                - img [ref=e36]
+              - button [active] [ref=e39]:
+                - img [ref=e40]
+          - generic [ref=e43]:
+            - img [ref=e44]
+            - text: Medium
+      - generic [ref=e47]:
+        - button [ref=e48]
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - heading "UI test delete" [level=3] [ref=e51]
+            - generic [ref=e52]:
+              - button [ref=e53]:
+                - img [ref=e54]
+              - button [ref=e57]:
+                - img [ref=e58]
+          - generic [ref=e61]:
+            - img [ref=e62]
+            - text: Medium
+      - generic [ref=e65]:
+        - button [ref=e66]
+        - generic [ref=e67]:
+          - generic [ref=e68]:
+            - heading "UI delete test" [level=3] [ref=e69]
+            - generic [ref=e70]:
+              - button [ref=e71]:
+                - img [ref=e72]
+              - button [ref=e75]:
+                - img [ref=e76]
+          - generic [ref=e79]:
+            - img [ref=e80]
+            - text: Medium
+      - generic [ref=e83]:
+        - button [ref=e84]:
+          - img [ref=e85]
+        - generic [ref=e87]:
+          - generic [ref=e88]:
+            - heading "test2" [level=3] [ref=e89]
+            - generic [ref=e90]:
+              - button [disabled] [ref=e91]:
+                - img [ref=e92]
+              - button [ref=e95]:
+                - img [ref=e96]
+          - paragraph [ref=e98]: test2
+          - generic [ref=e100]:
+            - img [ref=e101]
+            - text: Medium

@@ -1,0 +1,23 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - heading "Todo List" [level=1] [ref=e6]
+    - paragraph [ref=e7]: 0 tasks remaining
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - button "Add Task" [ref=e10]:
+        - img [ref=e11]
+        - text: Add Task
+      - generic [ref=e12]:
+        - img [ref=e13]
+        - textbox "Search tasks..." [ref=e16]
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - combobox [ref=e19]:
+          - option "Created" [selected]
+          - option "Due Date"
+          - option "Priority"
+    - generic [ref=e20]:
+      - button "All 0" [ref=e21]
+      - button "Active 0" [ref=e22]
+      - button "Completed 0" [ref=e23]
+    - generic [ref=e24]: No tasks yet, add one to get started!

@@ -1,0 +1,51 @@
+- generic [ref=e4]:
+  - generic [ref=e5]:
+    - heading "Todo List" [level=1] [ref=e6]
+    - paragraph [ref=e7]: 1 task remaining
+  - generic [ref=e8]:
+    - generic [ref=e9]:
+      - button "Add Task" [ref=e10]:
+        - img [ref=e11]
+        - text: Add Task
+      - generic [ref=e12]:
+        - img [ref=e13]
+        - textbox "Search tasks..." [ref=e16]
+      - generic [ref=e17]:
+        - img [ref=e18]
+        - combobox [ref=e19]:
+          - option "Created" [selected]
+          - option "Due Date"
+          - option "Priority"
+    - generic [ref=e20]:
+      - button "All 2" [ref=e21]
+      - button "Active 1" [ref=e22]
+      - button "Completed 1" [ref=e23]
+    - generic [ref=e24]:
+      - generic [ref=e26]:
+        - button [ref=e27]
+        - generic [ref=e28]:
+          - generic [ref=e29]:
+            - heading "Debug test" [level=3] [ref=e30]
+            - generic [ref=e31]:
+              - button [ref=e32]:
+                - img [ref=e33]
+              - button [ref=e36]:
+                - img [ref=e37]
+          - generic [ref=e40]:
+            - img [ref=e41]
+            - text: Low
+      - generic [ref=e44]:
+        - button [ref=e45]:
+          - img [ref=e46]
+        - generic [ref=e48]:
+          - generic [ref=e49]:
+            - heading "test2" [level=3] [ref=e50]
+            - generic [ref=e51]:
+              - button [disabled] [ref=e52]:
+                - img [ref=e53]
+              - button [ref=e56]:
+                - img [ref=e57]
+          - paragraph [ref=e59]: test2
+          - generic [ref=e61]:
+            - img [ref=e62]
+            - text: Medium
