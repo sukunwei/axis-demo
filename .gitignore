@@ -3,3 +3,23 @@ dist/
 .env
 .DS_Store
 *.log
+
+# .NET
+backend/donet/TodoApi/bin/
+backend/donet/TodoApi/obj/
+*.dll
+*.pdb
+*.deps.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+backend/python/.venv/
+
+# Frontend
+frontend/dist/
+
+# Local dev artifacts
+.playwright-mcp/

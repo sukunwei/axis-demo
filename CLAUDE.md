@@ -1,15 +1,13 @@
-# axis-trading — Claude / AI Collaboration Guidelines
-
-> **Required reading before development**: `docs/technical-design.md`
+# todo-list-web-app — Claude / AI Collaboration Guidelines
 
 ## Role
 
-Senior frontend engineer specializing in React / TypeScript / Vite, MobX, WebSocket real-time systems, and Node.js backend fanout. This repo is the **Axis interview assignment**: Hyperliquid real-time Watchlist + Portfolio.
+Senior fullstack engineer comfortable across React + TypeScript + Vite on the frontend, and Node.js (Fastify + Prisma) / .NET (ASP.NET Core + EF Core) / Python (FastAPI + SQLAlchemy) on the backend. This repo is a Todo List web app with **three interchangeable backends** sharing one REST contract.
 
 ## Working Style
 
 - **Direct and pragmatic**: lead with conclusions; code speaks louder than words.
-- **Respect repo decisions**: follow `docs/technical-design.md`; when conflicting with `figma/` prototype, **do not** adopt the Figma data pipeline.
+- **Respect repo decisions**: keep backend parity — `backend/donet/`, `backend/python/`, and `backend/nodejs/` all expose the same `/api/todos` contract on `:5555`; the frontend must not know which one is running.
 - **Strict TypeScript**: no `any`; use `import type` for types.
 - **Small, focused changes**: each change focuses on the current task; no顺手 refactoring of unrelated code.
 
@@ -17,80 +15,80 @@ Senior frontend engineer specializing in React / TypeScript / Vite, MobX, WebSoc
 
 | Dimension | Decision |
 |-----------|----------|
-| Framework | React 18 + **Vite** (not Next.js) |
-| State | **MobX 6** + `mobx-react-lite` (`makeAutoObservable` + `observer`) |
-| Data flow | Browser **only connects to own backend WS**; **never** frontend → `wss://api.hyperliquid.xyz` directly |
-| Backend | Node + TS + native `http` + `ws`; diff-only + 50–100ms batch + ring buffer + backpressure |
-| Styling | **Tailwind CSS**; prefer Tailwind for component styles, no CSS Modules unless already present |
-| Package manager | **pnpm workspace** (`frontend` + `backend`) |
+| Frontend | React 18 + **Vite 6** (not Next.js) + TypeScript 5 |
+| Frontend state | **MobX 6** + `mobx-react-lite` (`makeAutoObservable` + `observer`) — **only** the Todo list is MobX; no global store, no `StoreProvider` |
+| Frontend styling | **Tailwind CSS 4** (via `@tailwindcss/vite`); no CSS Modules |
+| Data flow | Browser → `/api/*` (Vite proxy) → whichever backend is on `:5555`. Frontend **must** use relative `/api` paths only — never hardcode `:5555`. |
+| Backend contract | `GET/POST/PATCH/DELETE /api/todos`; `GET /health` → `{"status":"ok"}`; JSON camelCase; error body `{"error": "..."}`; `DELETE` returns `204` |
+| Backend port | **`http://localhost:5555`** — shared by all three; do not run two at once |
+| Backend CORS | allow `http://localhost:5173` |
+| Database | PostgreSQL on `localhost:5432`, db `todolist` (shared by all three backends; default user/pass `postgres` / `postgres`) |
+| Package manager | **pnpm workspace** (`frontend` + `backend/nodejs`); `backend/donet/` and `backend/python/` are sibling directories, **not** workspace members — invoke them via the root `scripts/dev.sh` picker, not via `pnpm --filter` |
 
 ## Directory Structure
 
 ```
-axis-trading/
+todo-list-web-app/
 ├── CLAUDE.md                 # This file
-├── docs/
-│   └── technical-design.md    # Architecture & design decisions
-├── frontend/src/
-│   ├── app/App.tsx
-│   ├── components/           # Watchlist / Portfolio / cells / PriceTicker
-│   ├── stores/               # MobX stores
-│   │   ├── store-instances.ts
-│   │   ├── useStore.ts
-│   │   ├── StoreProvider.tsx
-│   │   ├── marketStore.ts
-│   │   ├── portfolioStore.ts
-│   │   ├── connectionStore.ts
-│   │   └── models/Asset.ts
-│   ├── ws/                   # client.ts, frameScheduler.ts
-│   ├── hooks/                # usePriceHistoryRef, useThrottledOrderBook, etc.
-│   ├── lib/
-│   │   ├── protocol.ts       # Shared WS protocol types
-│   │   ├── format.ts        # Number formatting utilities
-│   │   └── themeColors.ts
-│   └── __tests__/
-└── backend/src/              # feed / aggregator / hub / ringBuffer / server
+├── README.md
+├── frontend/
+│   └── src/
+│       ├── main.tsx          # mounts <TodoStoreContext.Provider><App/></TodoStoreContext.Provider>
+│       ├── App.tsx           # observer
+│       ├── index.css
+│       ├── components/       # AddTaskDialog · FilterBar · Header · TaskItem · TaskList · Toolbar
+│       ├── stores/
+│       │   ├── TodoStoreContext.tsx
+│       │   └── todoStore.ts
+│       └── lib/api.ts        # fetch client (uses /api base)
+├── backend/
+│   ├── nodejs/               # Fastify + Prisma + pg (workspace pkg)
+│   ├── donet/TodoApi/        # ASP.NET Core + EF Core (sibling, not workspace)
+│   └── python/               # FastAPI + SQLAlchemy 2 async (sibling, not workspace)
+├── scripts/
+│   └── dev.sh                # interactive backend picker → pnpm dev
+├── package.json              # root scripts (dev / dev:node / dev:dotnet / dev:python / test / predev)
+└── pnpm-workspace.yaml       # registers only frontend and backend/nodejs
 ```
 
-## MobX Rules (Performance Critical)
+## Frontend Rules
 
-- Store instances are centralized in `stores/store-instances.ts`; React receives them via `StoreProvider` + `useStore()`.
-- WS batch writes: **max one** `runInAction(() => marketStore.applyDiffBatch(...))` per frame (via `frameScheduler`).
-- **Never** wrap `App` or `Watchlist` list container with `observer`.
-- **Must** use row/cell-level `observer`: `PriceCell`, `ChangeCell`, `PortfolioRow` etc.
-- P&L uses `computed` derived values; never `reduce` in WS callbacks or render.
-- Number animation: `PriceTicker` writes DOM ref via RAF, **never `setState` in RAF loop**.
+- One MobX store: `todoStore` in `stores/todoStore.ts`. Wrapped in `TodoStoreContext`; consumed via `useTodoStore()`.
+- `App.tsx` is the only top-level `observer`. Components are small (one per concern); row-level `observer` is unnecessary at this scale.
+- All HTTP goes through `lib/api.ts`; never `fetch('http://localhost:5555/...')` from a component.
+- Tailwind for component styles; no inline `style={{}}` unless truly dynamic.
 
-## WebSocket Rules
+## Backend Parity Rules
 
-- Connect to own backend: `VITE_WS_URL` (default `ws://localhost:5174`).
-- First packet / reconnect: `hello { lastSeq }`; maintain local `seq`; if `fromSeq` mismatches, request snapshot.
-- Protocol fields follow `docs/technical-design.md`.
+- All three backends share `appsettings.json` / `.env` defaults: `PORT=5555`, `CORS_ORIGIN=http://localhost:5173`, Postgres `todolist` db.
+- Node.js uses Prisma migrations (`backend/nodejs/prisma/migrations/`).
+- .NET uses EF Core migrations (run with `dotnet ef database update`).
+- Python uses `Base.metadata.create_all()` at startup — **no Alembic yet**; flag this if adding schema migrations to Python.
+- When changing the contract, update **all three** in the same PR.
 
-## npm Scripts
+## npm Scripts (root)
 
 | Script | Description |
 |--------|-------------|
-| `pnpm --filter frontend dev` | Frontend dev server |
-| `pnpm --filter backend dev` | Backend dev server |
+| `pnpm dev` | Interactive picker (`scripts/dev.sh`) — pick backend, optionally start frontend |
+| `pnpm dev -- --backend=node --with-frontend` | Non-interactive picker |
+| `pnpm dev:node` | Fastify + Prisma only (port 5555) |
+| `pnpm dev:dotnet` | ASP.NET Core only (port 5555) |
+| `pnpm dev:python` | FastAPI + Uvicorn only (port 5555) |
+| `pnpm predev` | Kill anything on `:5555` / `:5173` / `:5174` |
 | `pnpm --filter frontend lint:ts` | Frontend `tsc --noEmit` |
+| `pnpm --filter frontend test` | Frontend vitest |
 | `pnpm --filter backend test` | Backend vitest |
-| `pnpm -r test` | Run all tests |
+| `pnpm test` | All workspace tests |
 
 Run `lint:ts` and `test` before completing any task.
 
-## Testing Rules
-
-- Backend: `backend/src/__tests__/**/*.test.ts` (vitest) — ring buffer, diff, backfill.
-- Frontend: `frontend/src/__tests__/**/*.test.ts(x)` — store logic, P&L, stale detection.
-- Do not write tests in `figma/`.
-
 ## Common Mistakes (Must Avoid)
 
-1. **D1**: Frontend `useWebSocket` connects directly to Hyperliquid → backend capability cannot be demonstrated.
-2. **Full-list observer**: Watchlist root component observer → frame drops on 200+ symbol ticks.
-3. **Per-WS-message store mutation**: not going through `frameScheduler` merge → MobX reaction storm.
-4. **Editing `figma/` in place**: pollutes Figma Make config; copy to `frontend/` first.
+1. **Hardcoding `:5555` in frontend code**: the whole point of the swappable backend is that the frontend stays on relative `/api` paths; otherwise switching backends breaks the UI.
+2. **Running two backends simultaneously**: they collide on `:5555`. Use `pnpm predev` to clear the port, or stop the active one first.
+3. **Adding a new dep to backend when one already exists in another backend**: if a feature is needed across stacks, all three should converge on it. Don't fork libraries.
+4. **Editing the legacy `figma/` directory** (no longer present — flag if you see references in old docs and remove them).
 
 ## Communication
 

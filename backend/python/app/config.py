@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     database_url: str = "postgresql+asyncpg://postgres:postgres@localhost:5432/todolist"
-    port: int = 3000
+    port: int = 5555
     cors_origins: list[str] = ["http://localhost:5173"]
 
 

@@ -3,7 +3,7 @@ import cors from '@fastify/cors'
 import { errorHandler } from './plugins/error.js'
 import { todosRoutes } from './routes/todos.js'
 
-const PORT = Number(process.env.PORT ?? 3000)
+const PORT = Number(process.env.PORT ?? 5555)
 const CORS_ORIGIN = process.env.CORS_ORIGIN ?? 'http://localhost:5173'
 
 export async function buildApp() {

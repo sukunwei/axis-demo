@@ -35,9 +35,9 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 
 var app = builder.Build();
 
-// Configure Kestrel to use port 3000
+// Configure Kestrel to use port 5555
 app.Urls.Clear();
-app.Urls.Add("http://localhost:3000");
+app.Urls.Add("http://localhost:5555");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

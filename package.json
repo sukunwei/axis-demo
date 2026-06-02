@@ -4,8 +4,13 @@
   "private": true,
   "scripts": {
     "postinstall": "pnpm rebuild esbuild",
-    "start": "pnpm predev && concurrently -k --kill-signal SIGKILL -n backend,frontend -c blue,green \"pnpm --filter backend dev\" \"pnpm --filter frontend dev\"",
-    "predev": "lsof -i tcp:5174 -t 2>/dev/null | xargs kill -9 2>/dev/null || true; lsof -i tcp:5173 -t 2>/dev/null | xargs kill -9 2>/dev/null || true"
+    "predev": "bash scripts/kill-ports.sh --all",
+    "dev": "bash scripts/dev.sh",
+    "dev:node": "pnpm predev && pnpm --filter backend dev",
+    "dev:dotnet": "pnpm predev && cd backend/donet/TodoApi && dotnet run",
+    "dev:python": "pnpm predev && cd backend/python && .venv/bin/python -m uvicorn app.main:app --host 0.0.0.0 --port 5555 --reload",
+    "db:start": "bash scripts/db.sh",
+    "test": "pnpm -r test"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

@@ -26,9 +26,7 @@ export default defineConfig({
     host: 'localhost',
     customLogger: silentLogger(),
     proxy: {
-      '/context': 'http://localhost:5174',
-      '/recommendations': 'http://localhost:5174',
-      '/telemetry': 'http://localhost:5174',
+      '/api': 'http://localhost:5555',
     },
   },
 });
